@@ -1,0 +1,139 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.app.ndua"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="16"
+9        android:targetSdkVersion="30" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/debug/AndroidManifest.xml:6:5-66
+14-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/debug/AndroidManifest.xml:6:22-64
+15
+16    <queries>
+16-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:43:3-64:13
+17
+18        <!-- If your app opens https URLs -->
+19        <intent>
+19-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:45:5-48:14
+20            <action android:name="android.intent.action.VIEW" />
+20-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:46:7-59
+20-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:46:15-56
+21
+22            <data android:scheme="https" />
+22-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:47:7-38
+22-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:47:13-35
+23        </intent>
+24        <!-- If your app makes calls -->
+25        <!--
+26      <intent>
+27        <action android:name="android.intent.action.DIAL" />
+28        <data android:scheme="tel" />
+29      </intent>
+30        -->
+31        <!-- If your sends SMS messages -->
+32        <!--
+33      <intent>
+34        <action android:name="android.intent.action.SENDTO" />
+35        <data android:scheme="smsto" />
+36      </intent>
+37        -->
+38        <!-- If your app sends emails -->
+39        <!--
+40      <intent>
+41        <action android:name="android.intent.action.SEND" />
+42        <data android:mimeType="*/*" />
+43      </intent>
+44        -->
+45    </queries>
+46
+47    <application
+47-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:3:3-41:17
+48        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+48-->[androidx.core:core:1.1.0] /Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/AndroidManifest.xml:24:18-86
+49        android:debuggable="true"
+50        android:icon="@mipmap/ic_launcher"
+50-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:5:5-39
+51        android:label="NDUA" >
+51-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:4:5-25
+52        <activity
+52-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:6:5-35:16
+53            android:name="com.app.ndua.MainActivity"
+53-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:7:9-37
+54            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+54-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:10:9-159
+55            android:hardwareAccelerated="true"
+55-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:11:9-43
+56            android:launchMode="singleTop"
+56-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:8:9-39
+57            android:screenOrientation="portrait"
+57-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:12:9-45
+58            android:theme="@style/LaunchTheme"
+58-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:9:9-43
+59            android:windowSoftInputMode="adjustResize" >
+59-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:13:9-51
+60
+61            <!--
+62             Specifies an Android theme to apply to this Activity as soon as
+63              the Android process has started. This theme is visible to the user
+64              while the Flutter UI initializes. After that, this theme continues
+65              to determine the Window background behind the Flutter UI.
+66            -->
+67            <meta-data
+67-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:18:9-21:13
+68                android:name="io.flutter.embedding.android.NormalTheme"
+68-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:19:11-66
+69                android:resource="@style/NormalTheme" />
+69-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:20:11-48
+70            <!--
+71             Displays an Android View that continues showing the launch screen
+72              Drawable until Flutter paints its first frame, then this splash
+73              screen fades out. A splash screen is useful to avoid any visual
+74              gap between the end of Android's launch screen and the painting of
+75              Flutter's first frame.
+76            -->
+77            <meta-data
+77-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:27:9-30:13
+78                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+78-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:28:11-75
+79                android:resource="@drawable/launch_background" />
+79-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:29:11-57
+80
+81            <intent-filter>
+81-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:31:9-34:25
+82                <action android:name="android.intent.action.MAIN" />
+82-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:32:13-64
+82-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:32:21-62
+83
+84                <category android:name="android.intent.category.LAUNCHER" />
+84-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:33:13-72
+84-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:33:23-70
+85            </intent-filter>
+86        </activity>
+87        <!--
+88         Don't delete the meta-data below.
+89          This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+90        -->
+91        <meta-data
+91-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:38:5-40:33
+92            android:name="flutterEmbedding"
+92-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:39:13-44
+93            android:value="2" />
+93-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:40:13-30
+94
+95        <activity
+95-->[:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-11:74
+96            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+96-->[:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-74
+97            android:exported="false"
+97-->[:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-37
+98            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+98-->[:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-71
+99    </application>
+100
+101</manifest>

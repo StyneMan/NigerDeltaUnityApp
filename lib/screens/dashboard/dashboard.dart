@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
+import 'package:niger_delta_unity_app/screens/account/account.dart';
 import 'package:niger_delta_unity_app/screens/home/home.dart';
 import 'package:niger_delta_unity_app/state/state_manager.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
@@ -71,7 +72,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     MaterialButton(
@@ -190,7 +191,10 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     MaterialButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        _controller.selectTab(
+                            const Account(), _controller.pageKeys[4], 4);
+                      },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,

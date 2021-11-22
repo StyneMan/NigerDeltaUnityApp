@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:niger_delta_unity_app/screens/contact/contact_us.dart';
 import 'package:niger_delta_unity_app/widgets/landing/landing_sheet.dart';
 
 class LandingPage extends StatefulWidget {
@@ -51,7 +53,9 @@ class _LandingPageState extends State<LandingPage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.to(const ContactUs());
+                              },
                               child: const Text(
                                 'Contact Us',
                                 style: TextStyle(color: Colors.white),
