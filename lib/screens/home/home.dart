@@ -287,6 +287,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ),
         centerTitle: true,
+        actions: [
+          ClipOval(
+            child: InkWell(
+              onTap: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+              child: SvgPicture.asset('assets/images/menu_icon.svg'),
+            ),
+          ),
+        ],
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(24.0),
