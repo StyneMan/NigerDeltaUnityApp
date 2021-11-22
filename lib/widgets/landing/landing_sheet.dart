@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:niger_delta_unity_app/screens/dashboard/dashboard.dart';
 import 'package:niger_delta_unity_app/screens/login/login.dart';
 import 'package:niger_delta_unity_app/screens/signup/signup.dart';
 
@@ -74,7 +75,9 @@ class LandingSheet extends StatelessWidget {
               ),
             ),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(const Dashboard());
+              },
               child: const Text(
                 'Continue as guest',
                 textAlign: TextAlign.center,

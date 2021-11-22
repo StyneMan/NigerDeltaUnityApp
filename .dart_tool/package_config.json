@@ -38,6 +38,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "country_code_picker",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/country_code_picker-2.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cupertino_icons",
       "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.4",
       "packageUri": "lib/",
@@ -182,6 +188,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "universal_platform",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/universal_platform-1.0.0+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.0",
       "packageUri": "lib/",
@@ -200,7 +212,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-11-19T14:05:32.119791Z",
+  "generated": "2021-11-21T04:10:21.774946Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

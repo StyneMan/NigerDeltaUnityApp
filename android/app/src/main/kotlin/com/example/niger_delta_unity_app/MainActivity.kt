@@ -1,4 +1,4 @@
-package com.example.niger_delta_unity_app
+package com.app.ndua
 
 import io.flutter.embedding.android.FlutterActivity
 

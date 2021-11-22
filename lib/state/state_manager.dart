@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:niger_delta_unity_app/screens/home/home.dart';
 
 class StateManager extends GetxController {
   var isAppClosed = false;
@@ -8,17 +9,22 @@ class StateManager extends GetxController {
   var accessToken = "";
   var imageCropped;
 
-  // Widget currentScreen = Dashboard(
-  //     // manager: PreferenceManager.getIstance(),
-  //     );
+  Widget currentScreen = const Home();
 
   var currentPage = "Home";
-  List<String> pageKeys = ["Home", "Search", "Notifications", "More"];
+  List<String> pageKeys = [
+    "Home",
+    "News",
+    "Projects",
+    "Directories",
+    "Account"
+  ];
   Map<String, GlobalKey<NavigatorState>> navigatorKeys = {
     "Home": GlobalKey<NavigatorState>(),
-    "Search": GlobalKey<NavigatorState>(),
-    "Notifications": GlobalKey<NavigatorState>(),
-    "More": GlobalKey<NavigatorState>(),
+    "News": GlobalKey<NavigatorState>(),
+    "Projects": GlobalKey<NavigatorState>(),
+    "Directories": GlobalKey<NavigatorState>(),
+    "Account": GlobalKey<NavigatorState>(),
   };
 
   var selectedIndex = 0.obs;
@@ -29,16 +35,16 @@ class StateManager extends GetxController {
 
   String getAccessToken() => accessToken;
 
-  // void selectTab(var currPage, String tabItem, int index) {
-  //   if (tabItem == currentPage) {
-  //     navigatorKeys[tabItem]!.currentState?.popUntil((route) => route.isFirst);
-  //     currentScreen = currPage;
-  //   } else {
-  //     currentPage = pageKeys[index];
-  //     selectedIndex.value = index;
-  //     currentScreen = currPage;
-  //   }
-  // }
+  void selectTab(var currPage, String tabItem, int index) {
+    if (tabItem == currentPage) {
+      navigatorKeys[tabItem]!.currentState?.popUntil((route) => route.isFirst);
+      currentScreen = currPage;
+    } else {
+      currentPage = pageKeys[index];
+      selectedIndex.value = index;
+      currentScreen = currPage;
+    }
+  }
 
   void setIsLoading(bool state) {
     isLoading.value = state;
