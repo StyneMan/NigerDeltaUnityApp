@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:niger_delta_unity_app/screens/dashboard/dashboard.dart';
 import 'package:niger_delta_unity_app/screens/login/login.dart';
+import 'package:niger_delta_unity_app/screens/privacypolicy/privacy_policy.dart';
 import 'package:niger_delta_unity_app/screens/signup/signup.dart';
+import 'package:niger_delta_unity_app/screens/termsofservice/terms_of_service.dart';
 
 class LandingSheet extends StatelessWidget {
   const LandingSheet({Key? key}) : super(key: key);
@@ -30,7 +32,12 @@ class LandingSheet extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                Get.to(const Login());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Login(),
+                  ),
+                );
               },
               child: const Text(
                 'Login to continue',
@@ -53,7 +60,12 @@ class LandingSheet extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                Get.to(const Signup());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Signup(),
+                  ),
+                );
               },
               child: const Text(
                 'Sign up to continue',
@@ -76,7 +88,12 @@ class LandingSheet extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                Get.to(const Dashboard());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Dashboard(),
+                  ),
+                );
               },
               child: const Text(
                 'Continue as guest',
@@ -99,26 +116,36 @@ class LandingSheet extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                    text: "Terms of Use",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                    // ..onTap = _showTermsOfService,
-                    ),
-                TextSpan(
-                    text: " Privacy Policy",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                    // ..onTap = _showTermsOfService,
-                    ),
-                TextSpan(
-                  text: " and to receive offers and updates ",
+                  text: "Terms of Use",
                   style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async => await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TermsOfService(),
+                          ),
+                        ),
+                ),
+                TextSpan(
+                  text: " Privacy Policy",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async => await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PrivacyPolicy(),
+                          ),
+                        ),
+                ),
+                const TextSpan(
+                  text: " and to receive offers and updates ",
+                  style: TextStyle(
                     color: Colors.white,
                   ),
                 ),

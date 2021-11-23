@@ -13,6 +13,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     return Drawer(
       child: Container(
         padding: const EdgeInsets.all(16.0),
+        color: Colors.blueAccent,
         child: ListView(
           children: [],
         ),

@@ -55,7 +55,7 @@ class PrivacyPolicy extends StatelessWidget {
                     child: ClipOval(
                       child: InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: SvgPicture.asset(
                           'assets/images/back_circular.svg',

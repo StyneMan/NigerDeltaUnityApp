@@ -165,7 +165,7 @@ class _NewsDetailState extends State<NewsDetail> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.transparent,
         onPressed: () {
-          Get.back();
+          Navigator.pop(context);
         },
         child: SvgPicture.asset('assets/images/back_circular.svg'),
       ),

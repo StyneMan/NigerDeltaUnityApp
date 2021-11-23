@@ -54,7 +54,12 @@ class _LandingPageState extends State<LandingPage> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                Get.to(const ContactUs());
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ContactUs(),
+                                  ),
+                                );
                               },
                               child: const Text(
                                 'Contact Us',

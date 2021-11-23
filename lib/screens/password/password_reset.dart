@@ -38,9 +38,9 @@ class _PasswordResetState extends State<PasswordReset> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.back();
+          Navigator.pop(context);
           Future.delayed(const Duration(milliseconds: 100), () {
-            Get.back();
+            Navigator.pop(context);
           });
         },
         child: const Icon(

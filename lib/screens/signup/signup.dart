@@ -39,9 +39,9 @@ class _SignupState extends State<Signup> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.back();
+          Navigator.pop(context);
           Future.delayed(const Duration(milliseconds: 100), () {
-            Get.back();
+            Navigator.pop(context);
           });
         },
         child: const Icon(

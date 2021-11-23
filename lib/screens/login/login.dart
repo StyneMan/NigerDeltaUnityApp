@@ -46,10 +46,10 @@ class _LoginState extends State<Login> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.back();
+          Navigator.pop(context);
           Future.delayed(const Duration(milliseconds: 100), () {
-            Get.back();
-            print('OBEJEAS');
+            Navigator.pop(context);
+            // print('OBEJEAS');
           });
         },
         child: const Icon(

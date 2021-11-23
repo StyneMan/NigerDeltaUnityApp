@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
 import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
 import 'package:niger_delta_unity_app/model/temp/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/news_model.dart';
+import 'package:niger_delta_unity_app/screens/account/account.dart';
+import 'package:niger_delta_unity_app/screens/news/news.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
@@ -23,6 +24,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   int _currentPage = 0;
   PageController? _pageController = PageController(initialPage: 0);
   AnimationController? _animationController;
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -62,7 +65,25 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Widget _categoryItemCard(int i) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        if (i == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Account(),
+            ),
+          );
+        }
+
+        if (i == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const News(),
+            ),
+          );
+        }
+      },
       child: Container(
         padding: const EdgeInsets.only(
           right: 10,
@@ -115,7 +136,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       width: double.infinity,
       height: 156,
       child: Card(
-        margin: const EdgeInsets.only(bottom: 16.0),
+        margin: const EdgeInsets.only(bottom: 18.0, left: 4, right: 4),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(12.0),
@@ -124,7 +145,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         child: InkWell(
           onTap: () {
             // print(newsList[index].title);
-            Get.to(NewsDetail(newsItem: newsList[index]));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NewsDetail(newsItem: newsList[index]),
+              ),
+            );
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -184,7 +210,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                       text: 'Read more',
                       fontSize: 11,
                       fontWeight: FontWeight.w400,
-                      color: Color(0xFF0871BD),
+                      color: const Color(0xFF0871BD),
                     ),
                   ],
                 ),
@@ -258,6 +284,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: Stack(
@@ -288,13 +315,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ),
         centerTitle: true,
         actions: [
-          ClipOval(
-            child: InkWell(
-              onTap: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              child: SvgPicture.asset('assets/images/menu_icon.svg'),
-            ),
+          IconButton(
+            onPressed: () {
+              if (!scaffoldKey.currentState!.isEndDrawerOpen) {
+                scaffoldKey.currentState!.openEndDrawer();
+              }
+            },
+            icon: Image.asset('assets/images/menu_icon.png'),
           ),
         ],
         shape: const RoundedRectangleBorder(

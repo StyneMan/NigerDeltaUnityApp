@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 
 class ContactUs extends StatelessWidget {
@@ -50,7 +49,7 @@ class ContactUs extends StatelessWidget {
                     child: ClipOval(
                       child: InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
                         },
                         child: SvgPicture.asset(
                           'assets/images/back_circular.svg',

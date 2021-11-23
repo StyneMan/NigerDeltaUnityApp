@@ -21,6 +21,7 @@ class _DashboardState extends State<Dashboard> {
   final PageStorageBucket _pageStorageBucket = PageStorageBucket();
   late Widget currentScreen;
   final _controller = Get.find<StateManager>();
+
   DateTime pre_backpress = DateTime.now();
 
   final timegap = DateTime.now().difference(DateTime.now());
@@ -63,7 +64,7 @@ class _DashboardState extends State<Dashboard> {
               child: Container(
                 height: 60,
                 width: double.infinity,
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(left: 8, right: 8, top: 10),
                 decoration: const BoxDecoration(
                   color: Constants.primaryColor,
                   borderRadius: BorderRadius.only(
@@ -75,150 +76,166 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    MaterialButton(
-                      onPressed: () {
-                        _controller.selectTab(
-                            const Home(), _controller.pageKeys[0], 0);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            'assets/images/home_icon.svg',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const Text(
-                            'Home',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
+                    Expanded(
+                      child: MaterialButton(
+                        onPressed: () {
+                          _controller.selectTab(
+                              Home(), _controller.pageKeys[0], 0);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SvgPicture.asset(
+                              'assets/images/home_icon.svg',
+                              width: 18,
+                              height: 18,
                             ),
-                          ),
-                          ClipOval(
-                            child: Container(
-                              width: 4,
-                              height: 4,
-                              color: Constants.accentColor,
+                            const Text(
+                              'Home',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
                             ),
-                          )
-                        ],
+                            ClipOval(
+                              child: Container(
+                                width: 4,
+                                height: 4,
+                                color: Constants.accentColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        minWidth: 40,
                       ),
                     ),
-                    MaterialButton(
-                      onPressed: () {},
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            'assets/images/news_icon.svg',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const Text(
-                            'News',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
+                    Expanded(
+                      child: MaterialButton(
+                        onPressed: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SvgPicture.asset(
+                              'assets/images/news_icon.svg',
+                              width: 18,
+                              height: 18,
                             ),
-                          ),
-                          ClipOval(
-                            child: Container(
-                              width: 4,
-                              height: 4,
-                              color: Constants.accentColor,
+                            const Text(
+                              'News',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
                             ),
-                          )
-                        ],
+                            ClipOval(
+                              child: Container(
+                                width: 4,
+                                height: 4,
+                                color: Constants.accentColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        minWidth: 40,
                       ),
                     ),
-                    MaterialButton(
-                      onPressed: () {},
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            'assets/images/projects_icon.svg',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const Text(
-                            'Projects',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
+                    Expanded(
+                      child: MaterialButton(
+                        onPressed: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SvgPicture.asset(
+                              'assets/images/projects_icon.svg',
+                              width: 18,
+                              height: 18,
                             ),
-                          ),
-                          ClipOval(
-                            child: Container(
-                              width: 4,
-                              height: 4,
-                              color: Constants.accentColor,
+                            const Text(
+                              'Projects',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
                             ),
-                          )
-                        ],
+                            ClipOval(
+                              child: Container(
+                                width: 4,
+                                height: 4,
+                                color: Constants.accentColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        minWidth: 40,
                       ),
                     ),
-                    MaterialButton(
-                      onPressed: () {},
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            'assets/images/directories_icon.svg',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const Text(
-                            'Directory',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
+                    Expanded(
+                      child: MaterialButton(
+                        onPressed: () {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SvgPicture.asset(
+                              'assets/images/directories_icon.svg',
+                              width: 18,
+                              height: 18,
                             ),
-                          ),
-                          ClipOval(
-                            child: Container(
-                              width: 4,
-                              height: 4,
-                              color: Constants.accentColor,
+                            const Text(
+                              'Directory',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
                             ),
-                          )
-                        ],
+                            ClipOval(
+                              child: Container(
+                                width: 4,
+                                height: 4,
+                                color: Constants.accentColor,
+                              ),
+                            )
+                          ],
+                        ),
+                        minWidth: 40,
                       ),
                     ),
-                    MaterialButton(
-                      onPressed: () {
-                        _controller.selectTab(
-                            const Account(), _controller.pageKeys[4], 4);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          SvgPicture.asset(
-                            'assets/images/account_icon.svg',
-                            width: 18,
-                            height: 18,
-                          ),
-                          const Text(
-                            'Account',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Colors.white,
+                    Expanded(
+                      child: MaterialButton(
+                        onPressed: () {
+                          // print('hjjh jj');
+                          _controller.selectTab(
+                              Account(), _controller.pageKeys[4], 4);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            SvgPicture.asset(
+                              'assets/images/account_icon.svg',
+                              width: 18,
+                              height: 18,
                             ),
-                          ),
-                          ClipOval(
-                            child: Container(
-                              width: 4,
-                              height: 4,
-                              color: Constants.accentColor,
+                            const Text(
+                              'Account',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.white,
+                              ),
                             ),
-                          )
-                        ],
+                            // ClipOval(
+                            //   child: Container(
+                            //     width: 4,
+                            //     height: 4,
+                            //     color: Constants.accentColor,
+                            //   ),
+                            // )
+                          ],
+                        ),
+                        minWidth: 40,
                       ),
                     ),
                   ],
