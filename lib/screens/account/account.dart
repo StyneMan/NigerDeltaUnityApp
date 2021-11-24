@@ -83,7 +83,7 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
       body: SafeArea(
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(21),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -108,7 +108,7 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
                     child: FloatingActionButton(
                       onPressed: () {},
                       mini: true,
-                      elevation: 0.0,
+                      elevation: 1.0,
                       backgroundColor: Colors.white,
                       child: const Icon(
                         Icons.camera_alt_outlined,
@@ -116,77 +116,80 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
                       ),
                     ),
                     bottom: 2,
-                    right: 6,
+                    right: -16,
                   ),
                 ],
               ),
               const SizedBox(
-                height: 16.0,
+                height: 10.0,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Container(
-                      color: _currentPage == 0
-                          ? Colors.white
-                          : const Color(0xFFF6F6F6),
-                      padding: const EdgeInsets.all(10),
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _currentPage = 0;
-                          });
-                          _pageController!.animateToPage(
-                            _currentPage,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn,
-                          );
-                        },
-                        child: TextRoboto(
-                          text: 'Personal',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: _currentPage == 0
-                              ? Constants.primaryColor
-                              : const Color(0xFFBDBDBD),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        color: _currentPage == 0
+                            ? Colors.white
+                            : const Color(0xFFF6F6F6),
+                        padding: const EdgeInsets.all(5),
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _currentPage = 0;
+                            });
+                            _pageController!.animateToPage(
+                              _currentPage,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                            );
+                          },
+                          child: TextRoboto(
+                            text: 'Personal',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: _currentPage == 0
+                                ? Constants.primaryColor
+                                : const Color(0xFFBDBDBD),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: _currentPage == 1
-                          ? Colors.white
-                          : const Color(0xFFF6F6F6),
-                      padding: const EdgeInsets.all(10),
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            _currentPage = 1;
-                          });
-                          _pageController!.animateToPage(
-                            _currentPage,
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeIn,
-                          );
-                        },
-                        child: TextRoboto(
-                          text: 'Security',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: _currentPage == 1
-                              ? Constants.primaryColor
-                              : const Color(0xFFBDBDBD),
+                    Expanded(
+                      child: Container(
+                        color: _currentPage == 1
+                            ? Colors.white
+                            : const Color(0xFFF6F6F6),
+                        padding: const EdgeInsets.all(5),
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              _currentPage = 1;
+                            });
+                            _pageController!.animateToPage(
+                              _currentPage,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn,
+                            );
+                          },
+                          child: TextRoboto(
+                            text: 'Security',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                            color: _currentPage == 1
+                                ? Constants.primaryColor
+                                : const Color(0xFFBDBDBD),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(
-                height: 16,
+                height: 10,
               ),
               Expanded(
                 child: PageView(

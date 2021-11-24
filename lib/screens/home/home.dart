@@ -6,6 +6,7 @@ import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
 import 'package:niger_delta_unity_app/model/temp/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/news_model.dart';
 import 'package:niger_delta_unity_app/screens/account/account.dart';
+import 'package:niger_delta_unity_app/screens/directories/directories.dart';
 import 'package:niger_delta_unity_app/screens/news/news.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
@@ -80,6 +81,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             context,
             MaterialPageRoute(
               builder: (context) => const News(),
+            ),
+          );
+        }
+
+        if (i == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const Directories(),
             ),
           );
         }

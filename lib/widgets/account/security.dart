@@ -40,9 +40,8 @@ class _SecurityState extends State<Security> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: ListView(
+        padding: const EdgeInsets.all(16.0),
         children: [
           TextFormField(
             decoration: InputDecoration(
@@ -132,7 +131,7 @@ class _SecurityState extends State<Security> {
             height: 21,
           ),
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(5),
             width: double.infinity,
             color: Constants.primaryColor,
             child: TextButton(
