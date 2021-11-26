@@ -6,7 +6,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 import 'package:niger_delta_unity_app/screens/account/account.dart';
+import 'package:niger_delta_unity_app/screens/directories/directories.dart';
 import 'package:niger_delta_unity_app/screens/home/home.dart';
+import 'package:niger_delta_unity_app/screens/news/news.dart';
+import 'package:niger_delta_unity_app/screens/projects/projects.dart';
 import 'package:niger_delta_unity_app/state/state_manager.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 
@@ -19,12 +22,18 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   final PageStorageBucket _pageStorageBucket = PageStorageBucket();
-  late Widget currentScreen;
+  Widget currentScreen = Home();
+  int _currentIndex = 0;
   final _controller = Get.find<StateManager>();
 
   DateTime pre_backpress = DateTime.now();
 
   final timegap = DateTime.now().difference(DateTime.now());
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +66,7 @@ class _DashboardState extends State<Dashboard> {
           isLoading: _controller.isLoading.value,
           child: Scaffold(
             body: PageStorage(
-              child: _controller.currentScreen,
+              child: currentScreen,
               bucket: _pageStorageBucket,
             ),
             bottomNavigationBar: BottomAppBar(
@@ -79,8 +88,12 @@ class _DashboardState extends State<Dashboard> {
                     Expanded(
                       child: MaterialButton(
                         onPressed: () {
-                          _controller.selectTab(
-                              Home(), _controller.pageKeys[0], 0);
+                          setState(() {
+                            currentScreen = Home();
+                            _currentIndex = 0;
+                          });
+                          // _controller.selectTab(
+                          //     Home(), _controller.pageKeys[0], 0);
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -102,7 +115,9 @@ class _DashboardState extends State<Dashboard> {
                               child: Container(
                                 width: 4,
                                 height: 4,
-                                color: Constants.accentColor,
+                                color: _currentIndex == 0
+                                    ? Constants.accentColor
+                                    : Colors.transparent,
                               ),
                             )
                           ],
@@ -112,7 +127,12 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     Expanded(
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = News();
+                            _currentIndex = 1;
+                          });
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -133,7 +153,9 @@ class _DashboardState extends State<Dashboard> {
                               child: Container(
                                 width: 4,
                                 height: 4,
-                                color: Constants.accentColor,
+                                color: _currentIndex == 1
+                                    ? Constants.accentColor
+                                    : Colors.transparent,
                               ),
                             )
                           ],
@@ -143,7 +165,12 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     Expanded(
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = Projects();
+                            _currentIndex = 2;
+                          });
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,7 +191,9 @@ class _DashboardState extends State<Dashboard> {
                               child: Container(
                                 width: 4,
                                 height: 4,
-                                color: Constants.accentColor,
+                                color: _currentIndex == 2
+                                    ? Constants.accentColor
+                                    : Colors.transparent,
                               ),
                             )
                           ],
@@ -174,7 +203,12 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     Expanded(
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            currentScreen = Directories();
+                            _currentIndex = 3;
+                          });
+                        },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -195,7 +229,9 @@ class _DashboardState extends State<Dashboard> {
                               child: Container(
                                 width: 4,
                                 height: 4,
-                                color: Constants.accentColor,
+                                color: _currentIndex == 3
+                                    ? Constants.accentColor
+                                    : Colors.transparent,
                               ),
                             )
                           ],
@@ -207,8 +243,12 @@ class _DashboardState extends State<Dashboard> {
                       child: MaterialButton(
                         onPressed: () {
                           // print('hjjh jj');
-                          _controller.selectTab(
-                              Account(), _controller.pageKeys[4], 4);
+                          // _controller.selectTab(
+                          //     Account(), _controller.pageKeys[4], 4);
+                          setState(() {
+                            currentScreen = Account();
+                            _currentIndex = 4;
+                          });
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -226,13 +266,15 @@ class _DashboardState extends State<Dashboard> {
                                 color: Colors.white,
                               ),
                             ),
-                            // ClipOval(
-                            //   child: Container(
-                            //     width: 4,
-                            //     height: 4,
-                            //     color: Constants.accentColor,
-                            //   ),
-                            // )
+                            ClipOval(
+                              child: Container(
+                                width: 4,
+                                height: 4,
+                                color: _currentIndex == 4
+                                    ? Constants.accentColor
+                                    : Colors.transparent,
+                              ),
+                            )
                           ],
                         ),
                         minWidth: 40,

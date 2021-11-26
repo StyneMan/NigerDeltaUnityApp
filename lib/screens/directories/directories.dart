@@ -178,7 +178,60 @@ class _DirectoriesState extends State<Directories> {
                   ),
                 ),
               );
-            } else if (index % 2 == 0) {
+            } else if (index % 2 != 0) {
+              return Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.24,
+                margin: const EdgeInsets.all(8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DirectoryCategory(),
+                        ),
+                      );
+                    },
+                    child: Stack(
+                      fit: StackFit.expand,
+                      clipBehavior: Clip.none,
+                      children: [
+                        FadeInImage.assetNetwork(
+                          placeholder: 'assets/images/placeholder.png',
+                          image: directoriesList[index].image,
+                          width: double.infinity,
+                          height: MediaQuery.of(context).size.height * 0.24,
+                          fit: BoxFit.cover,
+                          repeat: ImageRepeat.noRepeat,
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0x290c0c0c), Color(0x900c0c0c)],
+                              ),
+                            ),
+                            child: Text(
+                              directoriesList[index].category,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            } else {
               return Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.28,
@@ -190,42 +243,53 @@ class _DirectoriesState extends State<Directories> {
                     Expanded(
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(12)),
-                        child: Stack(
-                          fit: StackFit.expand,
-                          clipBehavior: Clip.none,
-                          children: [
-                            FadeInImage.assetNetwork(
-                              placeholder: 'assets/images/placeholder.png',
-                              image: directoriesList[index].image,
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.28,
-                              fit: BoxFit.cover,
-                              repeat: ImageRepeat.noRepeat,
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                padding: const EdgeInsets.all(10.0),
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0x290c0c0c),
-                                      Color(0x900c0c0c)
-                                    ],
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DirectoryCategory(),
+                              ),
+                            );
+                          },
+                          child: Stack(
+                            fit: StackFit.expand,
+                            clipBehavior: Clip.none,
+                            children: [
+                              FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/placeholder.png',
+                                image: directoriesList[index].image,
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.28,
+                                fit: BoxFit.cover,
+                                repeat: ImageRepeat.noRepeat,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  padding: const EdgeInsets.all(10.0),
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0x290c0c0c),
+                                        Color(0x900c0c0c)
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                child: Text(
-                                  directoriesList[index].category,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  child: Text(
+                                    directoriesList[index].category,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -235,89 +299,57 @@ class _DirectoriesState extends State<Directories> {
                     Expanded(
                       child: ClipRRect(
                         borderRadius: BorderRadius.all(Radius.circular(12)),
-                        child: Stack(
-                          fit: StackFit.expand,
-                          clipBehavior: Clip.none,
-                          children: [
-                            FadeInImage.assetNetwork(
-                              placeholder: 'assets/images/placeholder.png',
-                              image: directoriesList[index].image,
-                              width: double.infinity,
-                              height: MediaQuery.of(context).size.height * 0.24,
-                              fit: BoxFit.cover,
-                              repeat: ImageRepeat.noRepeat,
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                padding: const EdgeInsets.all(10.0),
-                                decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0x290c0c0c),
-                                      Color(0x900c0c0c)
-                                    ],
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DirectoryCategory(),
+                              ),
+                            );
+                          },
+                          child: Stack(
+                            fit: StackFit.expand,
+                            clipBehavior: Clip.none,
+                            children: [
+                              FadeInImage.assetNetwork(
+                                placeholder: 'assets/images/placeholder.png',
+                                image: directoriesList[index].image,
+                                width: double.infinity,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.24,
+                                fit: BoxFit.cover,
+                                repeat: ImageRepeat.noRepeat,
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  padding: const EdgeInsets.all(10.0),
+                                  decoration: const BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0x290c0c0c),
+                                        Color(0x900c0c0c)
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                child: Text(
-                                  directoriesList[index].category,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  child: Text(
+                                    directoriesList[index].category,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ],
-                ),
-              );
-            } else {
-              return Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.24,
-                margin: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                  child: Stack(
-                    fit: StackFit.expand,
-                    clipBehavior: Clip.none,
-                    children: [
-                      FadeInImage.assetNetwork(
-                        placeholder: 'assets/images/placeholder.png',
-                        image: directoriesList[index].image,
-                        width: double.infinity,
-                        height: MediaQuery.of(context).size.height * 0.24,
-                        fit: BoxFit.cover,
-                        repeat: ImageRepeat.noRepeat,
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Color(0x290c0c0c), Color(0x900c0c0c)],
-                            ),
-                          ),
-                          child: Text(
-                            directoriesList[index].category,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ),
               );
             }

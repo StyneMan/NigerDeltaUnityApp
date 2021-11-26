@@ -5,9 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
 import 'package:niger_delta_unity_app/model/temp/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/news_model.dart';
-import 'package:niger_delta_unity_app/screens/account/account.dart';
-import 'package:niger_delta_unity_app/screens/directories/directories.dart';
-import 'package:niger_delta_unity_app/screens/news/news.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
@@ -67,32 +64,32 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   Widget _categoryItemCard(int i) {
     return InkWell(
       onTap: () {
-        if (i == 0) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Account(),
-            ),
-          );
-        }
+        // if (i == 0) {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => const Account(),
+        //     ),
+        //   );
+        // }
 
-        if (i == 1) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const News(),
-            ),
-          );
-        }
+        // if (i == 1) {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => const News(),
+        //     ),
+        //   );
+        // }
 
-        if (i == 2) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const Directories(),
-            ),
-          );
-        }
+        // if (i == 2) {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //       builder: (context) => const Directories(),
+        //     ),
+        //   );
+        // }
       },
       child: Container(
         padding: const EdgeInsets.only(
@@ -318,7 +315,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ],
         ),
         title: const Text(
-          'Explore',
+          'Directories',
           style: TextStyle(
             color: Colors.white,
           ),

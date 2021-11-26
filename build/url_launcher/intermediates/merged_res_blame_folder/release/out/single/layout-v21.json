@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/layout-v21/notification_template_custom_big.xml"
+    }
+]

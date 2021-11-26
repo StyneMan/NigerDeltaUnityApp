@@ -157,3 +157,34 @@ class TextInter extends StatelessWidget {
     );
   }
 }
+
+class TextRaleway extends StatelessWidget {
+  late final String? text;
+  late final double? fontSize;
+  late final Color? color;
+  late final FontWeight? fontWeight;
+  late final TextAlign? align;
+
+  TextRaleway(
+      {required this.text,
+      this.color,
+      required this.fontSize,
+      this.fontWeight,
+      this.align});
+
+  final fontFamily = "Roboto";
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text!,
+      textAlign: align,
+      style: TextStyle(
+        color: color,
+        fontSize: fontSize,
+        fontFamily: fontFamily,
+        fontWeight: fontWeight,
+      ),
+    );
+  }
+}

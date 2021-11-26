@@ -14,6 +14,7 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> with TickerProviderStateMixin {
   AnimationController? _animationController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   int _currentPage = 0;
   PageController? _pageController = PageController(initialPage: 0);
@@ -40,6 +41,7 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: Stack(
@@ -62,13 +64,23 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
             ),
           ],
         ),
-        title: TextRopa(
-          text: 'Accout',
-          fontSize: 18,
-          color: Colors.white,
-          fontWeight: FontWeight.w400,
+        title: const Text(
+          'Account',
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              if (!scaffoldKey.currentState!.isEndDrawerOpen) {
+                scaffoldKey.currentState!.openEndDrawer();
+              }
+            },
+            icon: Image.asset('assets/images/menu_icon.png'),
+          ),
+        ],
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(24.0),
