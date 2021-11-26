@@ -2,7 +2,7 @@
     package="com.app.ndua">
   <application
     android:label="NDUA"
-    android:icon="@mipmap/ic_launcher">
+    android:icon="@mipmap/icon_blue">
     <activity
         android:name=".MainActivity"
         android:launchMode="singleTop"
