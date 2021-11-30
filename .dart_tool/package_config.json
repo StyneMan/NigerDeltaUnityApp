@@ -92,6 +92,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "fluttertoast",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.8",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "get",
       "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/get-4.3.8",
       "packageUri": "lib/",
@@ -148,6 +154,12 @@
     {
       "name": "path_parsing",
       "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/path_parsing-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "persistent_bottom_nav_bar",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/persistent_bottom_nav_bar-4.0.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -278,7 +290,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-11-25T15:44:13.398321Z",
+  "generated": "2021-11-30T13:44:53.568971Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

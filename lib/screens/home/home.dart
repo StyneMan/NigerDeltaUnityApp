@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
 import 'package:niger_delta_unity_app/model/temp/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/news_model.dart';
@@ -63,34 +64,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   Widget _categoryItemCard(int i) {
     return InkWell(
-      onTap: () {
-        // if (i == 0) {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => const Account(),
-        //     ),
-        //   );
-        // }
-
-        // if (i == 1) {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => const News(),
-        //     ),
-        //   );
-        // }
-
-        // if (i == 2) {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => const Directories(),
-        //     ),
-        //   );
-        // }
-      },
+      onTap: () {},
       child: Container(
         padding: const EdgeInsets.only(
           right: 10,
@@ -151,13 +125,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         ),
         child: InkWell(
           onTap: () {
-            // print(newsList[index].title);
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NewsDetail(newsItem: newsList[index]),
-              ),
-            );
+            Get.to(NewsDetail(newsItem: newsList[index]));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

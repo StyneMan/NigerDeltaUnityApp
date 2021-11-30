@@ -1,7 +1,7 @@
 # compiler: R8
 # compiler_version: 2.1.62
 # min_api: 16
-# pg_map_id: 4931d4a
+# pg_map_id: 7ce10b9
 # common_typos_disable
 androidx.activity.Cancellable -> androidx.activity.a:
 androidx.activity.ComponentActivity -> androidx.activity.b:
@@ -2497,3 +2497,38 @@ io.flutter.view.VsyncWaiter$1 -> io.flutter.view.e$a:
 io.flutter.view.VsyncWaiter$1$1 -> io.flutter.view.e$a$a:
     long val$cookie -> a
     io.flutter.view.VsyncWaiter$1 this$1 -> b
+io.github.ponnamkarthik.toast.fluttertoast.FlutterToastPlugin -> b.b.a.a.a.a:
+    io.flutter.plugin.common.MethodChannel channel -> a
+    void setupChannel(io.flutter.plugin.common.BinaryMessenger,android.content.Context) -> a
+    void teardownChannel() -> b
+    void onDetachedFromEngine(io.flutter.embedding.engine.plugins.FlutterPlugin$FlutterPluginBinding) -> d
+    void onAttachedToEngine(io.flutter.embedding.engine.plugins.FlutterPlugin$FlutterPluginBinding) -> f
+io.github.ponnamkarthik.toast.fluttertoast.MethodCallHandlerImpl -> b.b.a.a.a.b:
+    android.widget.Toast mToast -> a
+    android.content.Context context -> b
+    void onMethodCall(io.flutter.plugin.common.MethodCall,io.flutter.plugin.common.MethodChannel$Result) -> a
+    android.widget.Toast access$getMToast$p(io.github.ponnamkarthik.toast.fluttertoast.MethodCallHandlerImpl) -> b
+    void resetToast() -> c
+io.github.ponnamkarthik.toast.fluttertoast.MethodCallHandlerImpl$onMethodCall$1 -> b.b.a.a.a.b$a:
+    io.github.ponnamkarthik.toast.fluttertoast.MethodCallHandlerImpl this$0 -> a
+io.github.ponnamkarthik.toast.fluttertoast.MethodCallHandlerImpl$resetToast$2 -> b.b.a.a.a.b$b:
+    io.github.ponnamkarthik.toast.fluttertoast.MethodCallHandlerImpl this$0 -> a
+io.github.ponnamkarthik.toast.fluttertoast.R$drawable -> b.b.a.a.a.c:
+    int corner -> a
+io.github.ponnamkarthik.toast.fluttertoast.R$id -> b.b.a.a.a.d:
+    int text -> a
+io.github.ponnamkarthik.toast.fluttertoast.R$layout -> b.b.a.a.a.e:
+    int toast_custom -> a
+kotlin.KotlinNullPointerException -> c.a:
+kotlin.TypeCastException -> c.b:
+kotlin.UninitializedPropertyAccessException -> c.c:
+kotlin.jvm.internal.Intrinsics -> c.d.a.a:
+    boolean areEqual(java.lang.Object,java.lang.Object) -> a
+    void checkExpressionValueIsNotNull(java.lang.Object,java.lang.String) -> b
+    void checkParameterIsNotNull(java.lang.Object,java.lang.String) -> c
+    java.lang.Throwable sanitizeStackTrace(java.lang.Throwable) -> d
+    java.lang.Throwable sanitizeStackTrace(java.lang.Throwable,java.lang.String) -> e
+    void throwNpe() -> f
+    void throwParameterIsNullException(java.lang.String) -> g
+    void throwUninitializedProperty(java.lang.String) -> h
+    void throwUninitializedPropertyAccessException(java.lang.String) -> i

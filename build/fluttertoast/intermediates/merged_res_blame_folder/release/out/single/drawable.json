@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/res/merged/release/drawable/notification_bg_low.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/drawable/notification_bg_low.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/res/merged/release/drawable/notification_tile_bg.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/drawable/notification_tile_bg.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/res/merged/release/drawable/notification_bg.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/drawable/notification_bg.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/res/merged/release/drawable/corner.xml",
+        "source": "/Users/apple/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.8/android/src/main/res/drawable/corner.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/res/merged/release/drawable/toast_bg.xml",
+        "source": "/Users/apple/.pub-cache/hosted/pub.dartlang.org/fluttertoast-8.0.8/android/src/main/res/drawable/toast_bg.xml"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/res/merged/release/drawable/notification_icon_background.xml",
+        "source": "/Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/res/drawable/notification_icon_background.xml"
+    }
+]

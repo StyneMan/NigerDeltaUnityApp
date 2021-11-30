@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/route_manager.dart';
 import 'package:niger_delta_unity_app/model/temp/directories_model.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
@@ -134,12 +135,7 @@ class _DirectoriesState extends State<Directories> {
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DirectoryCategory(),
-                        ),
-                      );
+                      Get.to(const DirectoryCategory());
                     },
                     child: Stack(
                       fit: StackFit.expand,
@@ -184,15 +180,10 @@ class _DirectoriesState extends State<Directories> {
                 height: MediaQuery.of(context).size.height * 0.24,
                 margin: const EdgeInsets.all(8.0),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DirectoryCategory(),
-                        ),
-                      );
+                      Get.to(const DirectoryCategory());
                     },
                     child: Stack(
                       fit: StackFit.expand,
@@ -245,12 +236,7 @@ class _DirectoriesState extends State<Directories> {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DirectoryCategory(),
-                              ),
-                            );
+                            Get.to(const DirectoryCategory());
                           },
                           child: Stack(
                             fit: StackFit.expand,
@@ -301,12 +287,7 @@ class _DirectoriesState extends State<Directories> {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DirectoryCategory(),
-                              ),
-                            );
+                            Get.to(const DirectoryCategory());
                           },
                           child: Stack(
                             fit: StackFit.expand,

@@ -8,13 +8,14 @@ class TextAriel extends StatelessWidget {
   late final FontWeight? fontWeight;
   late final bool? softWrap;
 
-  TextAriel(
-      {required this.text,
-      this.color,
-      required this.fontSize,
-      this.fontWeight,
-      this.align,
-      this.softWrap});
+  TextAriel({
+    required this.text,
+    this.color,
+    required this.fontSize,
+    this.fontWeight,
+    this.align,
+    this.softWrap,
+  });
 
   final fontFamily = "Market";
 
@@ -79,7 +80,7 @@ class TextRopa extends StatelessWidget {
       this.fontWeight,
       this.align});
 
-  final fontFamily = "Roboto";
+  final fontFamily = "RopaSans";
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +142,7 @@ class TextInter extends StatelessWidget {
       this.fontWeight,
       this.align});
 
-  final fontFamily = "Roboto";
+  final fontFamily = "Inter";
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +173,7 @@ class TextRaleway extends StatelessWidget {
       this.fontWeight,
       this.align});
 
-  final fontFamily = "Roboto";
+  final fontFamily = "Raleway";
 
   @override
   Widget build(BuildContext context) {

@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/route_manager.dart';
 import 'package:niger_delta_unity_app/model/temp/directory_sub_model.dart';
 import 'package:niger_delta_unity_app/screens/filter/search_filter.dart';
+import 'package:niger_delta_unity_app/screens/vendor/vendor.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots2.dart';
@@ -158,7 +160,13 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
         width: MediaQuery.of(context).size.width * 0.6,
         padding: const EdgeInsets.only(right: 16),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Get.to(
+              Vendor(
+                model: vendorsList[index],
+              ),
+            );
+          },
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -621,12 +629,7 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
                         color: const Color(0xFFF25E22),
                         child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SearchFilter(),
-                              ),
-                            );
+                            Get.to(const SearchFilter());
                           },
                           child: SvgPicture.asset('assets/images/filter.svg'),
                         ),

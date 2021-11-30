@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/filter/filter_sheet.dart';
-import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class SearchFilter extends StatefulWidget {
@@ -13,22 +11,36 @@ class SearchFilter extends StatefulWidget {
 }
 
 class _SearchFilterState extends State<SearchFilter> {
-  bool _shouldShowSheet = true;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        Container(
-          color: Constants.primaryColor,
-          width: double.infinity,
-          height: double.infinity,
+        SlidingUpPanel(
+          maxHeight: MediaQuery.of(context).size.height * 0.86,
+          minHeight: 144,
+          parallaxEnabled: true,
+          defaultPanelState: PanelState.OPEN,
+          renderPanelSheet: true,
+          parallaxOffset: .5,
+          body: Container(
+            color: Constants.primaryColor,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          panelBuilder: (sc) => _panel(sc),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(18.0),
+            topRight: Radius.circular(18.0),
+          ),
+          onPanelSlide: (double pos) {
+            print('on panel slided...');
+          },
         ),
         Positioned(
           child: FloatingActionButton(
             elevation: 0.0,
-            backgroundColor: Constants.primaryColor,
+            backgroundColor: Colors.transparent,
             onPressed: () {
               Navigator.pop(context);
             },
@@ -41,6 +53,14 @@ class _SearchFilterState extends State<SearchFilter> {
           left: 10,
         )
       ],
+    );
+  }
+
+  Widget _panel(ScrollController sc) {
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: const FilterSheet(),
     );
   }
 }

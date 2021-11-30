@@ -32,12 +32,7 @@ class LandingSheet extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
+                Get.to(const Login());
               },
               child: const Text(
                 'Login to continue',
@@ -60,12 +55,7 @@ class LandingSheet extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Signup(),
-                  ),
-                );
+                Get.to(const Signup());
               },
               child: const Text(
                 'Sign up to continue',
@@ -88,12 +78,7 @@ class LandingSheet extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Dashboard(),
-                  ),
-                );
+                Get.to(const Dashboard());
               },
               child: const Text(
                 'Continue as guest',
@@ -122,27 +107,16 @@ class LandingSheet extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       decoration: TextDecoration.underline),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () async => await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TermsOfService(),
-                          ),
-                        ),
+                    ..onTap = () async => await Get.to(TermsOfService()),
                 ),
                 TextSpan(
-                  text: " Privacy Policy",
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () async => await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PrivacyPolicy(),
-                          ),
-                        ),
-                ),
+                    text: " Privacy Policy",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.underline),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () async => await Get.to(PrivacyPolicy())),
                 const TextSpan(
                   text: " and to receive offers and updates ",
                   style: TextStyle(

@@ -4,6 +4,7 @@ ADDED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/Androi
 INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:1:1-65:12
 INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:1:1-65:12
 INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:1:1-65:12
+MERGED from [:fluttertoast] /Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/library_manifest/release/AndroidManifest.xml:2:1-7:12
 MERGED from [:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/library_manifest/release/AndroidManifest.xml:2:1-14:12
 MERGED from [androidx.fragment:fragment:1.1.0] /Users/apple/.gradle/caches/transforms-3/f15d5b45365ad7da0ddb0b0583895c9a/transformed/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.activity:activity:1.0.0] /Users/apple/.gradle/caches/transforms-3/faa4984f012d23d715145e825dbd2c69/transformed/jetified-activity-1.0.0/AndroidManifest.xml:17:1-24:12
@@ -48,7 +49,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /Users/appl
 	android:label
 		ADDED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:4:5-25
 	android:icon
-		ADDED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:5:5-39
+		ADDED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:5:5-37
 activity#com.app.ndua.MainActivity
 ADDED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:6:5-35:16
 	android:screenOrientation
@@ -109,6 +110,8 @@ uses-sdk
 INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml
+MERGED from [:fluttertoast] /Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /Users/apple/Developer/NigerDeltaUnityApp/build/fluttertoast/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
 MERGED from [:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
 MERGED from [:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_launcher/intermediates/library_manifest/release/AndroidManifest.xml:5:5-44
 MERGED from [androidx.fragment:fragment:1.1.0] /Users/apple/.gradle/caches/transforms-3/f15d5b45365ad7da0ddb0b0583895c9a/transformed/fragment-1.1.0/AndroidManifest.xml:20:5-22:41

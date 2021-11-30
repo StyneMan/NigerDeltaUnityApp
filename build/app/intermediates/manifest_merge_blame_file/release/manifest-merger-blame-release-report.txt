@@ -51,8 +51,8 @@
 42-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:3:3-41:17
 43        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 43-->[androidx.core:core:1.1.0] /Users/apple/.gradle/caches/transforms-3/133f647d050a1815c6e01ca3eb5e1c0d/transformed/core-1.1.0/AndroidManifest.xml:24:18-86
-44        android:icon="@mipmap/ic_launcher"
-44-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:5:5-39
+44        android:icon="@mipmap/icon_blue"
+44-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:5:5-37
 45        android:label="NDUA" >
 45-->/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:4:5-25
 46        <activity

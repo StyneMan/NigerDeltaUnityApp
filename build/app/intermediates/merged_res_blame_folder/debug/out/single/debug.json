@@ -4,6 +4,10 @@
         "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-hdpi_icon_blue.png.flat",
+        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-hdpi/icon_blue.png"
+    },
+    {
         "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/drawable_launch_background.xml.flat",
         "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/drawable/launch_background.xml"
     },

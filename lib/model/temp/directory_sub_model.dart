@@ -115,3 +115,58 @@ List<FeaturedVendorsModel> vendorsList = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&usqp=CAU',
   ),
 ];
+
+List<FeaturedVendorsModel> vendorsTabbedList = [
+  FeaturedVendorsModel(
+    image:
+        'https://media.istockphoto.com/photos/large-american-style-pepperoni-and-cheese-pizza-in-cardboard-delivery-picture-id1256339158?b=1&k=20&m=1256339158&s=170667a&w=0&h=XFNxZmudE_SZqqz3-nrIM6dCvvfuxU8xrvDLYkFHFAg=',
+    title: 'Pizza',
+    address: 'Olu-Obasanjo road...',
+    rating: 4.2,
+    time: '25mins',
+    name: 'Dominos',
+    delivery: 'Free Delivery',
+    isOpen: true,
+    photo:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&usqp=CAU',
+  ),
+  FeaturedVendorsModel(
+    image:
+        'https://images.unsplash.com/photo-1606728035253-49e8a23146de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpY2tlbiUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+    title: 'Waffle',
+    address: 'Sani Abacha road by...',
+    rating: 3.8,
+    time: '55mins',
+    name: 'Dominos',
+    delivery: '',
+    isOpen: false,
+    photo:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&usqp=CAU',
+  ),
+  FeaturedVendorsModel(
+    image:
+        'https://media.istockphoto.com/photos/large-american-style-pepperoni-and-cheese-pizza-in-cardboard-delivery-picture-id1256339158?b=1&k=20&m=1256339158&s=170667a&w=0&h=XFNxZmudE_SZqqz3-nrIM6dCvvfuxU8xrvDLYkFHFAg=',
+    title: 'Pizza',
+    address: 'Olu-Obasanjo road...',
+    rating: 4.2,
+    time: '25mins',
+    name: 'Dominos',
+    delivery: 'Free Delivery',
+    isOpen: false,
+    photo:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&usqp=CAU',
+  ),
+  FeaturedVendorsModel(
+    image:
+        'https://images.unsplash.com/photo-1606728035253-49e8a23146de?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpY2tlbiUyMGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60',
+    title: 'Waffle',
+    address: 'Sani Abacha road by...',
+    rating: 3.8,
+    time: '55mins',
+    name: 'Dominos',
+    delivery: '',
+    isOpen: false,
+    photo:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&usqp=CAU',
+  ),
+];

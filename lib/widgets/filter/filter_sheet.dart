@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 
 class FilterSheet extends StatefulWidget {
@@ -233,8 +234,29 @@ class _FilterSheetState extends State<FilterSheet> {
                   ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  height: 21,
                 ),
+                Container(
+                  width: double.infinity,
+                  color: Constants.primaryColor,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: TextRoboto(
+                      text: 'Apply',
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.all(16.0),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
