@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "327501807065",
+    "project_id": "ndua-b15fc",
+    "storage_bucket": "ndua-b15fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327501807065:android:cbbd8e3fdb0b4eddb2adc8",
+        "android_client_info": {
+          "package_name": "com.app.ndua"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "327501807065-a0q3co8j5ava15npcsehni0cvo12nmpu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgF5ek4WWWHy8hgxc8uM5A2aMispwj5YA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "327501807065-a0q3co8j5ava15npcsehni0cvo12nmpu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

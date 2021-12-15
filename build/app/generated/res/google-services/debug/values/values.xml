@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">327501807065-a0q3co8j5ava15npcsehni0cvo12nmpu.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">327501807065</string>
+    <string name="google_api_key" translatable="false">AIzaSyBgF5ek4WWWHy8hgxc8uM5A2aMispwj5YA</string>
+    <string name="google_app_id" translatable="false">1:327501807065:android:cbbd8e3fdb0b4eddb2adc8</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBgF5ek4WWWHy8hgxc8uM5A2aMispwj5YA</string>
+    <string name="google_storage_bucket" translatable="false">ndua-b15fc.appspot.com</string>
+    <string name="project_id" translatable="false">ndua-b15fc</string>
+</resources>

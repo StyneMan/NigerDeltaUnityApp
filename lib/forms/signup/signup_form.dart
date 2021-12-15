@@ -1,6 +1,15 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:niger_delta_unity_app/screens/dashboard/dashboard.dart';
 import 'package:niger_delta_unity_app/screens/login/login.dart';
+import 'package:niger_delta_unity_app/state/state_manager.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -18,11 +27,72 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _isRememberChecked = false;
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
+  final _controller = Get.find<StateManager>();
 
   _togglePass() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  _signUp() async {
+    //Now signup here
+    _controller.setIsLoading(true);
+    try {
+      final response = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
+      // if (response.user != null) {
+      print('REsponse: ' + response.user.toString());
+      try {
+        final resp = await FirebaseFirestore.instance
+            // doc().
+            .collection("users")
+            .doc(response.user!.uid)
+            .set({
+          "email": _emailController.text,
+          "id": response.user!.uid,
+          "firstname": _firstnameController.text,
+          "lastname": _lastnameController.text,
+          "phone": "",
+          "userType": "public",
+          "photo": "",
+          "gender": "",
+          "isActive": false,
+          "state": "",
+          "osPlatform": Platform.operatingSystem,
+        });
+        _controller.setIsLoading(false);
+        Fluttertoast.showToast(
+            msg: 'Account created successfully',
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.grey[800],
+            textColor: Colors.white,
+            fontSize: 16.0);
+        //Now route to dashboard
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Dashboard(),
+          ),
+        );
+      } on FirebaseAuthException catch (e) {
+        _controller.setIsLoading(false);
+        print("ERR: " + e.message!);
+      }
+    } on FirebaseAuthException catch (error) {
+      _controller.setIsLoading(false);
+      Fluttertoast.showToast(
+          msg: "" + error.message!,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.grey[800],
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 
   @override
@@ -135,6 +205,9 @@ class _SignUpFormState extends State<SignUpForm> {
                   if (value == null || value.isEmpty) {
                     return 'Please type password';
                   }
+                  if (value.length < 8) {
+                    return 'Password too short. 8 chars minimum';
+                  }
                   return null;
                 },
                 obscureText: _obscureText,
@@ -158,7 +231,11 @@ class _SignUpFormState extends State<SignUpForm> {
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _signUp();
+                    }
+                  },
                   style:
                       TextButton.styleFrom(padding: const EdgeInsets.all(16.0)),
                 ),

@@ -25,49 +25,51 @@ class _NewsDetailState extends State<NewsDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        SlidingUpPanel(
-          maxHeight: MediaQuery.of(context).size.height * 0.60,
-          minHeight: 144,
-          parallaxEnabled: true,
-          defaultPanelState: PanelState.OPEN,
-          renderPanelSheet: true,
-          parallaxOffset: .5,
-          body: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: FadeInImage.assetNetwork(
-              placeholder: 'assets/images/placeholder.png',
-              image: widget.newsItem.image!,
-              fit: BoxFit.cover,
+    return Scaffold(
+      body: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          SlidingUpPanel(
+            maxHeight: MediaQuery.of(context).size.height * 0.60,
+            minHeight: 144,
+            parallaxEnabled: true,
+            defaultPanelState: PanelState.OPEN,
+            renderPanelSheet: true,
+            parallaxOffset: .5,
+            body: SizedBox(
               width: double.infinity,
-              height: MediaQuery.of(context).size.width * 0.75,
+              height: double.infinity,
+              child: FadeInImage.assetNetwork(
+                placeholder: 'assets/images/placeholder.png',
+                image: widget.newsItem.image!,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: MediaQuery.of(context).size.width * 0.75,
+              ),
             ),
-          ),
-          panelBuilder: (sc) => _panel(sc),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(18.0),
-            topRight: Radius.circular(18.0),
-          ),
-          onPanelSlide: (double pos) {
-            print('on panel kj...');
-          },
-        ),
-        Positioned(
-          child: FloatingActionButton(
-            elevation: 0.0,
-            backgroundColor: Colors.transparent,
-            onPressed: () {
-              Navigator.pop(context);
+            panelBuilder: (sc) => _panel(sc),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(18.0),
+              topRight: Radius.circular(18.0),
+            ),
+            onPanelSlide: (double pos) {
+              print('on panel kj...');
             },
-            child: SvgPicture.asset('assets/images/back_circular.svg'),
           ),
-          top: 36,
-          left: 10,
-        ),
-      ],
+          Positioned(
+            child: FloatingActionButton(
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: SvgPicture.asset('assets/images/back_circular.svg'),
+            ),
+            top: 36,
+            left: 10,
+          ),
+        ],
+      ),
     );
   }
 

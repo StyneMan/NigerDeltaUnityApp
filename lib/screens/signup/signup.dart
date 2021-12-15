@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:niger_delta_unity_app/forms/signup/signup_form.dart';
+import 'package:niger_delta_unity_app/state/state_manager.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -12,76 +16,67 @@ class Signup extends StatefulWidget {
 
 class _SignupState extends State<Signup> {
   bool _shouldShowSheet = true;
+  final _controller = Get.find<StateManager>();
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (_shouldShowSheet) {
-        showCupertinoModalBottomSheet(
-          expand: false,
-          enableDrag: false,
-          useRootNavigator: true,
-          barrierColor: Colors.transparent,
-          elevation: 0.0,
-          context: context,
-          topRadius: const Radius.circular(32),
-          backgroundColor: Colors.white,
-          builder: (context) => const SizedBox(
-            height: 420,
-            child: SignUpForm(),
-          ),
-        );
-      }
-    });
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-          Future.delayed(const Duration(milliseconds: 100), () {
-            Navigator.pop(context);
-          });
-        },
-        child: const Icon(
-          Icons.close,
-          color: Colors.white,
-        ),
-        elevation: 1000,
-        backgroundColor: Colors.transparent,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      body: SafeArea(
-        child: Container(
-          color: Constants.primaryColor,
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.asset(
-                'assets/images/pattern.png',
-                fit: BoxFit.cover,
-              ),
-              Positioned(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          SizedBox(
-                            height: 36,
-                          ),
-                        ],
-                      ),
-                      Expanded(
+    // Future.delayed(const Duration(milliseconds: 100), () {
+    //   if (_shouldShowSheet) {
+    //     showCupertinoModalBottomSheet(
+    //       expand: false,
+    //       enableDrag: false,
+    //       useRootNavigator: true,
+    //       barrierColor: Colors.transparent,
+    //       elevation: 0.0,
+    //       context: context,
+    //       topRadius: const Radius.circular(32),
+    //       backgroundColor: Colors.white,
+    //       builder: (context) => const SizedBox(
+    //         height: 420,
+    //         child: SignUpForm(),
+    //       ),
+    //     );
+    //   }
+    // });
+    return Obx(
+      () => LoadingOverlayPro(
+        isLoading: _controller.isLoading.value,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            SlidingUpPanel(
+              maxHeight: MediaQuery.of(context).size.height * 0.60,
+              minHeight: 144,
+              parallaxEnabled: true,
+              defaultPanelState: PanelState.OPEN,
+              renderPanelSheet: true,
+              parallaxOffset: .5,
+              body: Container(
+                  color: Constants.primaryColor,
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Stack(fit: StackFit.expand, children: [
+                    Image.asset(
+                      'assets/images/pattern.png',
+                      fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: Column(
-                          children: [
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
                             Expanded(
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/images/logo_white.png'),
+                                  Image.asset(
+                                    'assets/images/logo_white.png',
+                                    height: MediaQuery.of(context).size.height *
+                                        0.18,
+                                  ),
                                   const SizedBox(
                                     height: 4.0,
                                   ),
@@ -95,21 +90,53 @@ class _SignupState extends State<Signup> {
                                 ],
                               ),
                             ),
+                            const SizedBox(
+                              height: 48,
+                            ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                      top: 10,
+                      bottom: 10,
+                      left: 10,
+                      right: 10,
+                    )
+                  ])),
+              panelBuilder: (sc) => _panel(sc),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(24.0),
+                topRight: Radius.circular(24.0),
+              ),
+              // onPanelSlide: (double pos) {
+              //   print('on panel slided...');
+              // },
+            ),
+            Positioned(
+              child: FloatingActionButton(
+                elevation: 0.0,
+                backgroundColor: Colors.transparent,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Icon(
+                  Icons.close,
+                  color: Colors.white,
                 ),
-                top: 10,
-                bottom: 10,
-                left: 10,
-                right: 10,
-              )
-            ],
-          ),
+              ),
+              top: 36,
+              left: 10,
+            )
+          ],
         ),
       ),
+    );
+  }
+
+  Widget _panel(ScrollController sc) {
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: const SignUpForm(),
     );
   }
 }

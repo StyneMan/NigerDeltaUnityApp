@@ -37,6 +37,7 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    // _tabController.jumpToTab(0);
   }
 
   @override
@@ -75,7 +76,6 @@ class _DashboardState extends State<Dashboard> {
               screens: _buildScreens(),
               items: _navBarsItems(),
               confineInSafeArea: true,
-
               backgroundColor:
                   Constants.primaryColor, // Default is Colors.white.
               handleAndroidBackButtonPress: false, // Default is true.
@@ -105,7 +105,7 @@ class _DashboardState extends State<Dashboard> {
                 duration: Duration(milliseconds: 200),
               ),
               navBarStyle: NavBarStyle
-                  .style9, // Choose the nav bar style with this property.
+                  .style3, // Choose the nav bar style with this property.
             ),
             // body: PageStorage(
             //   child: currentScreen,
