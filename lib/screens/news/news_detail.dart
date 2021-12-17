@@ -8,7 +8,7 @@ import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class NewsDetail extends StatefulWidget {
-  final NewsModel newsItem;
+  final Map<String, dynamic> newsItem;
   const NewsDetail({Key? key, required this.newsItem}) : super(key: key);
 
   @override
@@ -16,8 +16,6 @@ class NewsDetail extends StatefulWidget {
 }
 
 class _NewsDetailState extends State<NewsDetail> {
-  bool _showBottomSheet = true;
-
   @override
   void initState() {
     super.initState();
@@ -25,51 +23,73 @@ class _NewsDetailState extends State<NewsDetail> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          SlidingUpPanel(
-            maxHeight: MediaQuery.of(context).size.height * 0.60,
-            minHeight: 144,
-            parallaxEnabled: true,
-            defaultPanelState: PanelState.OPEN,
-            renderPanelSheet: true,
-            parallaxOffset: .5,
-            body: SizedBox(
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        SlidingUpPanel(
+          maxHeight: MediaQuery.of(context).size.height * 0.60,
+          minHeight: 144,
+          parallaxEnabled: true,
+          defaultPanelState: PanelState.OPEN,
+          renderPanelSheet: true,
+          parallaxOffset: .5,
+          body: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: FadeInImage.assetNetwork(
+              placeholder: 'assets/images/placeholder.png',
+              image: widget.newsItem["image"],
+              fit: BoxFit.cover,
               width: double.infinity,
-              height: double.infinity,
-              child: FadeInImage.assetNetwork(
-                placeholder: 'assets/images/placeholder.png',
-                image: widget.newsItem.image!,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: MediaQuery.of(context).size.width * 0.75,
+              height: MediaQuery.of(context).size.width * 0.75,
+            ),
+          ),
+          panelBuilder: (sc) => _panel(sc),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(18.0),
+            topRight: Radius.circular(18.0),
+          ),
+          onPanelSlide: (double pos) {
+            print('on panel kj...');
+          },
+        ),
+        Positioned(
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(bottom: 256),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+              gradient: LinearGradient(
+                colors: [
+                  Colors.grey,
+                  Color(0x41034141),
+                  Colors.transparent,
+                  Colors.transparent,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                stops: [0, 0, 0.6, 1],
               ),
             ),
-            panelBuilder: (sc) => _panel(sc),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(18.0),
-              topRight: Radius.circular(18.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                FloatingActionButton(
+                  elevation: 0.0,
+                  backgroundColor: Colors.transparent,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: SvgPicture.asset('assets/images/back_circular.svg'),
+                ),
+              ],
             ),
-            onPanelSlide: (double pos) {
-              print('on panel kj...');
-            },
           ),
-          Positioned(
-            child: FloatingActionButton(
-              elevation: 0.0,
-              backgroundColor: Colors.transparent,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: SvgPicture.asset('assets/images/back_circular.svg'),
-            ),
-            top: 36,
-            left: 10,
-          ),
-        ],
-      ),
+          top: 36,
+          left: 0,
+          right: 0,
+        ),
+      ],
     );
   }
 
@@ -83,9 +103,7 @@ class _NewsDetailState extends State<NewsDetail> {
           Container(
             padding: const EdgeInsets.all(21),
             width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: ListView(
               children: [
                 const SizedBox(
                   height: 21,
@@ -98,19 +116,19 @@ class _NewsDetailState extends State<NewsDetail> {
                         vertical: 6,
                         horizontal: 16,
                       ),
-                      color: widget.newsItem.category == 'World news'
+                      color: widget.newsItem["category"].contains("ports")
                           ? const Color(0x8FFFAF66)
-                          : widget.newsItem.category == 'Sports news'
+                          : widget.newsItem["category"].contains("news")
                               ? const Color(0x330871BD)
-                              : Colors.transparent,
+                              : Colors.grey[400]!,
                       child: TextRopa(
-                        text: widget.newsItem.category,
+                        text: widget.newsItem["category"],
                         fontSize: 12,
-                        color: widget.newsItem.category == 'World news'
+                        color: widget.newsItem["category"].contains("ports")
                             ? const Color(0xFFF87900)
-                            : widget.newsItem.category == 'Sports news'
+                            : widget.newsItem["category"].contains("news")
                                 ? const Color(0xFF0871BD)
-                                : Colors.transparent,
+                                : Colors.black,
                         fontWeight: FontWeight.w400,
                         align: TextAlign.center,
                       ),
@@ -124,7 +142,7 @@ class _NewsDetailState extends State<NewsDetail> {
                   padding: const EdgeInsets.all(10),
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: TextRoboto(
-                    text: widget.newsItem.title,
+                    text: widget.newsItem["title"],
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                     color: Colors.black,
@@ -142,8 +160,7 @@ class _NewsDetailState extends State<NewsDetail> {
                         ClipOval(
                           child: FadeInImage.assetNetwork(
                             placeholder: 'assets/images/placeholder.png',
-                            image:
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&usqp=CAU',
+                            image: widget.newsItem["authorPhoto"],
                             fit: BoxFit.cover,
                             height: 24,
                             width: 24,
@@ -157,7 +174,7 @@ class _NewsDetailState extends State<NewsDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextRoboto(
-                              text: 'John Doe',
+                              text: widget.newsItem["authorName"],
                               fontSize: 9,
                               color: Colors.black,
                             ),
@@ -184,9 +201,8 @@ class _NewsDetailState extends State<NewsDetail> {
                 ),
                 const SizedBox(height: 8),
                 TextRoboto(
-                  text:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                  fontSize: 16,
+                  text: widget.newsItem["subTitle"],
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
                 ),
@@ -194,8 +210,7 @@ class _NewsDetailState extends State<NewsDetail> {
                   height: 4,
                 ),
                 TextRoboto(
-                  text:
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim et, convallis in gravida ultricies at feugiat. Lectus ullamcorper id amet scelerisque. Pharetra id pellentesque amet nibh. Porta pharetra porttitor ullamcorper venenatis nullam tellus sem. Cras nisi nullam praesent turpis adipiscing amet dui. Mattis in in orci adipiscing vitae, facilisi suspendisse. Sagittis duis lectus elementum mauris urna, mattis at sed. Sem tellus sit at orci gravida phasellus. Condimentum nisi mattis ullamcorper pulvinar nulla eget risus lacinia. Nibh in faucibus posuere arcu, leo a. In dolor arcu quisque habitasse curabitur neque. At viverra sagittis morbi sagittis ac sit aliquam.',
+                  text: widget.newsItem["body"],
                   fontSize: 11,
                   fontWeight: FontWeight.w400,
                   color: Colors.black,
@@ -203,13 +218,6 @@ class _NewsDetailState extends State<NewsDetail> {
                 const SizedBox(
                   height: 4,
                 ),
-                // TextRoboto(
-                //   text:
-                //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim et, convallis in gravida ultricies at feugiat. Lectus ullamcorper id amet scelerisque. Pharetra id pellentesque amet nibh. Porta pharetra porttitor ullamcorper venenatis nullam tellus sem. Cras nisi nullam praesent turpis adipiscing amet dui. Mattis in in orci adipiscing vitae, facilisi suspendisse. Sagittis duis lectus elementum mauris urna, mattis at sed. Sem tellus sit at orci gravida phasellus. Condimentum nisi mattis ullamcorper pulvinar nulla eget risus lacinia. Nibh in faucibus posuere arcu, leo a. In dolor arcu quisque habitasse curabitur neque. At viverra sagittis morbi sagittis ac sit aliquam.',
-                //   fontSize: 11,
-                //   fontWeight: FontWeight.w400,
-                //   color: Colors.black,
-                // ),
               ],
             ),
           ),
@@ -221,7 +229,7 @@ class _NewsDetailState extends State<NewsDetail> {
                 FloatingActionButton(
                   backgroundColor: Constants.accentColor,
                   onPressed: () {},
-                  child: Icon(
+                  child: const Icon(
                     Icons.share,
                     color: Colors.white,
                     size: 32,

@@ -62,6 +62,7 @@ class _SignUpFormState extends State<SignUpForm> {
           "state": "",
           "osPlatform": Platform.operatingSystem,
         });
+
         _controller.setIsLoading(false);
         Fluttertoast.showToast(
             msg: 'Account created successfully',

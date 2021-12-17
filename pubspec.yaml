@@ -49,6 +49,8 @@ dependencies:
   cloud_firestore: ^1.0.0
   # firebase_storage: ^7.0.0
   # firebase_crashlytics: ^0.4.0
+  shared_preferences: ^2.0.11
+  shimmer: ^2.0.0
 
 dev_dependencies:
   flutter_test:

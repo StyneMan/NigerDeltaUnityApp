@@ -9,8 +9,10 @@ import 'package:niger_delta_unity_app/model/temp/news_model.dart';
 import 'package:niger_delta_unity_app/screens/account/account.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
+import 'package:niger_delta_unity_app/widgets/home/latest_news_section.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class News extends StatefulWidget {
@@ -74,104 +76,6 @@ class _NewsState extends State<News> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _newsItemCard(int index) {
-    return SizedBox(
-      width: double.infinity,
-      height: 156,
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 18.0, left: 4, right: 4),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12.0),
-          ),
-        ),
-        child: InkWell(
-          onTap: () {
-            Get.to(NewsDetail(newsItem: newsList[index]));
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                width: MediaQuery.of(context).size.width * 0.45,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(6)),
-                        color: newsList[index].category == 'World news'
-                            ? const Color(0x8FFFAF66)
-                            : newsList[index].category == 'Sports news'
-                                ? const Color(0x330871BD)
-                                : Colors.transparent,
-                      ),
-                      child: TextRopa(
-                        fontSize: 7,
-                        text: newsList[index].category,
-                        color: newsList[index].category == 'World news'
-                            ? const Color(0xFFF87900)
-                            : newsList[index].category == 'Sports news'
-                                ? const Color(0xFF0871BD)
-                                : Colors.transparent,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    TextAriel(
-                      text: newsList[index].title,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      height: 6.0,
-                    ),
-                    TextAriel(
-                      text: newsList[index].body,
-                      softWrap: true,
-                      fontSize: 8,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    TextRopa(
-                      text: 'Read more',
-                      fontSize: 11,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF0871BD),
-                    ),
-                  ],
-                ),
-              ),
-              ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(12.0),
-                ),
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/placeholder.png',
-                  image: newsList[index].image!,
-                  height: 156,
-                  width: MediaQuery.of(context).size.width * 0.33,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          ),
-        ),
-        elevation: 4.0,
       ),
     );
   }
@@ -319,14 +223,7 @@ class _NewsState extends State<News> {
                         const SizedBox(
                           height: 6.0,
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            for (var i = 0; i < newsList.length; i++)
-                              _newsItemCard(i)
-                          ],
-                        ),
+                        LatestNewsSection(),
                         const SizedBox(
                           height: 8.0,
                         ),

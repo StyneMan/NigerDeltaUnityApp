@@ -1,15 +1,20 @@
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
+import 'package:niger_delta_unity_app/model/categories/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
 import 'package:niger_delta_unity_app/model/temp/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/news_model.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
+import 'package:niger_delta_unity_app/widgets/home/latest_news_section.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
@@ -25,6 +30,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   AnimationController? _animationController;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final Stream<QuerySnapshot> _categoriesStream =
+      FirebaseFirestore.instance.collection('categories').snapshots();
 
   @override
   void initState() {
@@ -61,200 +69,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       throw 'Could not launch $url';
     }
   }
-
-  Widget _categoryItemCard(int i) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.only(
-          right: 10,
-          bottom: 12,
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              FadeInImage.assetNetwork(
-                placeholder: 'assets/images/placeholder.png',
-                image: categoriesList[i].image!,
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.25,
-                repeat: ImageRepeat.noRepeat,
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0x290c0c0c), Color(0x900c0c0c)],
-                    ),
-                  ),
-                  child: Text(
-                    categoriesList[i].title!,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _newsItemCard(int index) {
-    return SizedBox(
-      width: double.infinity,
-      height: 156,
-      child: Card(
-        margin: const EdgeInsets.only(bottom: 18.0, left: 4, right: 4),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(12.0),
-          ),
-        ),
-        child: InkWell(
-          onTap: () {
-            Get.to(NewsDetail(newsItem: newsList[index]));
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                width: MediaQuery.of(context).size.width * 0.45,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(5.0),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(6)),
-                        color: newsList[index].category == 'World news'
-                            ? const Color(0x8FFFAF66)
-                            : newsList[index].category == 'Sports news'
-                                ? const Color(0x330871BD)
-                                : Colors.transparent,
-                      ),
-                      child: TextRopa(
-                        fontSize: 7,
-                        text: newsList[index].category,
-                        color: newsList[index].category == 'World news'
-                            ? const Color(0xFFF87900)
-                            : newsList[index].category == 'Sports news'
-                                ? const Color(0xFF0871BD)
-                                : Colors.transparent,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                    TextAriel(
-                      text: newsList[index].title,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      height: 6.0,
-                    ),
-                    TextAriel(
-                      text: newsList[index].body,
-                      softWrap: true,
-                      fontSize: 8,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black,
-                    ),
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    TextRopa(
-                      text: 'Read more',
-                      fontSize: 11,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF0871BD),
-                    ),
-                  ],
-                ),
-              ),
-              ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(12.0),
-                ),
-                child: FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/placeholder.png',
-                  image: newsList[index].image!,
-                  height: 156,
-                  width: MediaQuery.of(context).size.width * 0.33,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          ),
-        ),
-        elevation: 4.0,
-      ),
-    );
-  }
-
-  Widget _advertContainer() => Column(
-        children: [
-          SizedBox(
-            height: 128,
-            width: MediaQuery.of(context).size.width * 0.75,
-            child: PageView.builder(
-              itemBuilder: (ctx, i) => ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                  child: InkWell(
-                    onTap: () => _launchInBrowser(adsList[i].url!),
-                    child: FadeInImage.assetNetwork(
-                      placeholder: 'assets/images/placeholder.png',
-                      image: adsList[i].image!,
-                      height: 128,
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width * 0.75,
-                    ),
-                  )),
-              itemCount: adsList.length,
-              controller: _pageController,
-              scrollDirection: Axis.horizontal,
-              onPageChanged: _onPageChanged,
-            ),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              for (int i = 0; i < adsList.length; i++)
-                if (i == _currentPage)
-                  SlideDots(
-                    isActive: true,
-                  )
-                else
-                  SlideDots(
-                    isActive: false,
-                  )
-            ],
-          )
-        ],
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -352,13 +166,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.28,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.only(
-                          right: 8.0,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: categoriesList.length,
-                        itemBuilder: (context, i) => _categoryItemCard(i),
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: _categoriesStream,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Something went wrong');
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Row(children: [
+                              for (var k = 0; k < 3; k++) _categoryShimmer()
+                            ]);
+                          }
+
+                          return ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: snapshot.data!.docs
+                                .map((DocumentSnapshot document) {
+                              Map<String, dynamic> data =
+                                  document.data()! as Map<String, dynamic>;
+                              return _categoryItemCard(data);
+                            }).toList(),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(
@@ -396,35 +227,11 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         const SizedBox(
                           height: 6.0,
                         ),
-                        // ListView.builder(
-                        //   shrinkWrap: true,
-                        //   itemCount: newsList.length,
-                        //   itemBuilder: (context, i) => _newsItemCard(i),
-                        // ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            for (var i = 0; i < newsList.length; i++)
-                              _newsItemCard(i)
-                          ],
-                        ),
+                        LatestNewsSection(),
                         const SizedBox(
                           height: 8.0,
                         ),
                         _advertContainer()
-
-                        // Column(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   crossAxisAlignment: CrossAxisAlignment.stretch,
-                        //   children: [
-                        //     for (var i = 0; i < newsList.length; i++)
-                        //       InkWell(
-                        //         onTap: () {},
-                        //         child: _newsItemCard(i),
-                        //       ),
-                        //   ],
-                        // )
                       ],
                     ),
                   ],
@@ -436,4 +243,126 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
     );
   }
+
+  Widget _categoryShimmer() {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        enabled: true,
+        child: Container(
+          padding: const EdgeInsets.only(
+            right: 10,
+            bottom: 12,
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.30,
+              width: MediaQuery.of(context).size.width * 0.30,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _categoryItemCard(data) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        padding: const EdgeInsets.only(
+          right: 10,
+          bottom: 12,
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(12),
+          ),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: <Widget>[
+              FadeInImage.assetNetwork(
+                placeholder: 'assets/images/placeholder.png',
+                image: data["url"],
+                fit: BoxFit.cover,
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.height * 0.25,
+                repeat: ImageRepeat.noRepeat,
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [Color(0x290c0c0c), Color(0x900c0c0c)],
+                    ),
+                  ),
+                  child: Text(
+                    data["title"]!,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _advertContainer() => Column(
+        children: [
+          SizedBox(
+            height: 128,
+            width: MediaQuery.of(context).size.width * 0.75,
+            child: PageView.builder(
+              itemBuilder: (ctx, i) => ClipRRect(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(12),
+                  ),
+                  child: InkWell(
+                    onTap: () => _launchInBrowser(adsList[i].url!),
+                    child: FadeInImage.assetNetwork(
+                      placeholder: 'assets/images/placeholder.png',
+                      image: adsList[i].image!,
+                      height: 128,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width * 0.75,
+                    ),
+                  )),
+              itemCount: adsList.length,
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              onPageChanged: _onPageChanged,
+            ),
+          ),
+          const SizedBox(
+            height: 6,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              for (int i = 0; i < adsList.length; i++)
+                if (i == _currentPage)
+                  SlideDots(
+                    isActive: true,
+                  )
+                else
+                  SlideDots(
+                    isActive: false,
+                  )
+            ],
+          )
+        ],
+      );
 }
