@@ -1,20 +1,12 @@
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:get/route_manager.dart';
-import 'package:niger_delta_unity_app/model/categories/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
-import 'package:niger_delta_unity_app/model/temp/categories.dart';
-import 'package:niger_delta_unity_app/model/temp/news_model.dart';
-import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
-import 'package:niger_delta_unity_app/widgets/home/latest_news_section.dart';
+import 'package:niger_delta_unity_app/widgets/news/latest_news_section.dart';
+import 'package:niger_delta_unity_app/widgets/news/news_category_section.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
-import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
@@ -30,9 +22,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   AnimationController? _animationController;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final Stream<QuerySnapshot> _categoriesStream =
-      FirebaseFirestore.instance.collection('categories').snapshots();
 
   @override
   void initState() {
@@ -166,31 +155,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.28,
-                      child: StreamBuilder<QuerySnapshot>(
-                        stream: _categoriesStream,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Something went wrong');
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Row(children: [
-                              for (var k = 0; k < 3; k++) _categoryShimmer()
-                            ]);
-                          }
-
-                          return ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: snapshot.data!.docs
-                                .map((DocumentSnapshot document) {
-                              Map<String, dynamic> data =
-                                  document.data()! as Map<String, dynamic>;
-                              return _categoryItemCard(data);
-                            }).toList(),
-                          );
-                        },
-                      ),
+                      child: NewsCategorySection(),
                     ),
                     const SizedBox(
                       height: 12,
@@ -237,82 +202,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   ],
                 ),
               )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _categoryShimmer() {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      child: Shimmer.fromColors(
-        baseColor: Colors.grey[300]!,
-        highlightColor: Colors.grey[100]!,
-        enabled: true,
-        child: Container(
-          padding: const EdgeInsets.only(
-            right: 10,
-            bottom: 12,
-          ),
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(12),
-            ),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.30,
-              width: MediaQuery.of(context).size.width * 0.30,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _categoryItemCard(data) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.only(
-          right: 10,
-          bottom: 12,
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              FadeInImage.assetNetwork(
-                placeholder: 'assets/images/placeholder.png',
-                image: data["url"],
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.25,
-                repeat: ImageRepeat.noRepeat,
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0x290c0c0c), Color(0x900c0c0c)],
-                    ),
-                  ),
-                  child: Text(
-                    data["title"]!,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

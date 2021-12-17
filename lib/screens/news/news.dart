@@ -9,7 +9,7 @@ import 'package:niger_delta_unity_app/model/temp/news_model.dart';
 import 'package:niger_delta_unity_app/screens/account/account.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
-import 'package:niger_delta_unity_app/widgets/home/latest_news_section.dart';
+import 'package:niger_delta_unity_app/widgets/news/latest_news_section.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
