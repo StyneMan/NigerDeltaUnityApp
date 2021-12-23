@@ -103,14 +103,22 @@ class LandingSheet extends StatelessWidget {
                 TextSpan(
                   text: "Terms of Use",
                   style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    decoration: TextDecoration.underline,
+                  ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () async => await Get.to(TermsOfService()),
                 ),
+                const TextSpan(
+                  text: " and ",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 TextSpan(
-                    text: " Privacy Policy",
+                    text: "Privacy Policy",
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,

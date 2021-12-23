@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shimmer/shimmer.dart';
@@ -16,6 +17,7 @@ class NewsByCategory extends StatefulWidget {
 
 class _NewsByCategoryState extends State<NewsByCategory> {
   Stream<QuerySnapshot>? _newsStream;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -28,24 +30,111 @@ class _NewsByCategoryState extends State<NewsByCategory> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _newsStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Column(children: [for (var k = 0; k < 3; k++) _newsShimmer()]);
-        }
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+          ),
+        ),
+        title: Text(
+          widget.category + ' News',
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        // centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              if (!scaffoldKey.currentState!.isEndDrawerOpen) {
+                scaffoldKey.currentState!.openEndDrawer();
+              }
+            },
+            icon: Image.asset('assets/images/menu_icon.png'),
+          ),
+        ],
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(24.0),
+            bottomRight: Radius.circular(24.0),
+          ),
+        ),
+      ),
+      endDrawer: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: const CustomDrawer(),
+      ),
+      body: SafeArea(
+        child: StreamBuilder<QuerySnapshot>(
+          stream: _newsStream,
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) {
+              return Text('Something went wrong');
+            }
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
+                  children: [for (var k = 0; k < 3; k++) _newsShimmer()]);
+            }
+            if (snapshot.data!.docs.length < 1) {
+              return Container(
+                height: double.infinity,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.wifi_off_outlined,
+                      size: 48,
+                    ),
+                    TextRoboto(
+                      text: 'No data found',
+                      fontSize: 16,
+                    )
+                  ],
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      top: 16,
+                    ),
+                    child: TextRopa(
+                      text: widget.category,
+                      fontSize: 21,
+                      align: TextAlign.left,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView(
+                      padding: const EdgeInsets.all(10),
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data = document.data()!;
+                        return _newsItemCard(data);
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              );
+            }
 
-        return Column(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            return _newsItemCard(data);
-          }).toList(),
-        );
-      },
+            return const SizedBox();
+          },
+        ),
+      ),
     );
   }
 
@@ -264,6 +353,14 @@ class _NewsByCategoryState extends State<NewsByCategory> {
                   placeholder: 'assets/images/placeholder.png',
                   image: data["image"],
                   height: 156,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/placeholder.png',
+                      height: 156,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width * 0.33,
+                    );
+                  },
                   width: MediaQuery.of(context).size.width * 0.33,
                   fit: BoxFit.cover,
                 ),

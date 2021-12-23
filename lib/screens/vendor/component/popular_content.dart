@@ -1,17 +1,93 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:niger_delta_unity_app/model/temp/directory_sub_model.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PopularContent extends StatefulWidget {
-  const PopularContent({Key? key}) : super(key: key);
+  final int vendorId;
+  const PopularContent({Key? key, required this.vendorId}) : super(key: key);
 
   @override
   _PopularContentState createState() => _PopularContentState();
 }
 
 class _PopularContentState extends State<PopularContent> {
-  Widget _cardItem(int index) => Card(
+  late Stream<QuerySnapshot> _productStream;
+  bool _hasCallSupport = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _productStream = FirebaseFirestore.instance
+        .collection('products')
+        .where("vendorID", isEqualTo: widget.vendorId)
+        .snapshots();
+
+    // Check for phone call support.
+    canLaunch('tel:123').then((bool result) {
+      setState(() {
+        _hasCallSupport = result;
+      });
+    });
+  }
+
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber,
+    );
+    await launch(launchUri.toString());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _productStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Center(child: Text('Something went wrong'));
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return _shimmer();
+        }
+        if (snapshot.data!.docs.isEmpty) {
+          return const Expanded(child: Center(child: Text('No data found')));
+        }
+
+        return ListView(
+          padding: const EdgeInsets.all(8.0),
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data = document.data()!;
+            return _cardItem(data);
+          }).toList(),
+        );
+      },
+    );
+  }
+
+  Widget _shimmer() => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var k = 0; k < 2; k++)
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              margin: const EdgeInsets.symmetric(vertical: 8.0),
+              height: 128,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12.0),
+                ),
+              ),
+            ),
+        ],
+      );
+
+  Widget _cardItem(data) => Card(
         margin: const EdgeInsets.all(8.0),
         elevation: 2.0,
         child: InkWell(
@@ -21,12 +97,17 @@ class _PopularContentState extends State<PopularContent> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                FadeInImage.assetNetwork(
-                  placeholder: 'assets/images/placeholder.png',
-                  image: vendorsTabbedList[index].image,
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  height: MediaQuery.of(context).size.width * 0.25,
+                ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                  child: FadeInImage.assetNetwork(
+                    placeholder: 'assets/images/placeholder.png',
+                    image: data["image"],
+                    fit: BoxFit.cover,
+                    imageErrorBuilder: (context, error, stackTrace) =>
+                        Image.asset('assets/images/placeholder.png'),
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    height: MediaQuery.of(context).size.width * 0.25,
+                  ),
                 ),
                 const SizedBox(width: 4),
                 Expanded(
@@ -39,7 +120,7 @@ class _PopularContentState extends State<PopularContent> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextRaleway(
-                            text: vendorsTabbedList[index].title,
+                            text: data["name"],
                             fontSize: 15,
                             color: Colors.black,
                             fontWeight: FontWeight.w700,
@@ -53,7 +134,7 @@ class _PopularContentState extends State<PopularContent> {
                               ),
                               const SizedBox(width: 2),
                               TextRaleway(
-                                text: vendorsTabbedList[index].name,
+                                text: data["vendorName"],
                                 fontSize: 11,
                                 color: const Color(0xFF979797),
                                 fontWeight: FontWeight.w600,
@@ -69,7 +150,10 @@ class _PopularContentState extends State<PopularContent> {
                               ),
                               const SizedBox(width: 2),
                               TextRaleway(
-                                text: vendorsTabbedList[index].address,
+                                text: data["vendorAddress"].length > 21
+                                    ? data["vendorAddress"].substring(0, 18) +
+                                        "..."
+                                    : data["vendorAddress"],
                                 fontSize: 11,
                                 color: const Color(0xFF979797),
                                 fontWeight: FontWeight.w600,
@@ -98,8 +182,7 @@ class _PopularContentState extends State<PopularContent> {
                                       color: Colors.white,
                                     ),
                                     TextRaleway(
-                                      text:
-                                          '${vendorsTabbedList[index].rating}',
+                                      text: '${4.2}',
                                       color: Colors.white,
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
@@ -114,7 +197,7 @@ class _PopularContentState extends State<PopularContent> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   TextRaleway(
-                                    text: vendorsTabbedList[index].time,
+                                    text: data["vendorPhone"],
                                     fontSize: 9,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500,
@@ -128,7 +211,7 @@ class _PopularContentState extends State<PopularContent> {
                                   ),
                                   const SizedBox(width: 2),
                                   TextRaleway(
-                                    text: vendorsTabbedList[index].delivery,
+                                    text: data["delivery"],
                                     fontSize: 9,
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500,
@@ -154,7 +237,11 @@ class _PopularContentState extends State<PopularContent> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              if (_hasCallSupport) {
+                                _makePhoneCall(data["vendorPhone"]);
+                              }
+                            },
                             child: Container(
                               color: const Color(0x6B08B3CB),
                               padding: const EdgeInsets.symmetric(
@@ -162,7 +249,7 @@ class _PopularContentState extends State<PopularContent> {
                                 vertical: 6,
                               ),
                               child: TextRaleway(
-                                text: 'Add to cart',
+                                text: 'Contact',
                                 fontSize: 10,
                                 align: TextAlign.center,
                                 color: Colors.black,
@@ -181,13 +268,4 @@ class _PopularContentState extends State<PopularContent> {
           ),
         ),
       );
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.all(8.0),
-      itemCount: vendorsTabbedList.length,
-      itemBuilder: (context, i) => _cardItem(i),
-    );
-  }
 }

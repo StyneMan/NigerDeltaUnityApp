@@ -1,9 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:niger_delta_unity_app/model/temp/directory_sub_model.dart';
 import 'package:niger_delta_unity_app/screens/vendor/component/popular_content.dart';
-import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -11,18 +7,14 @@ import 'component/fastfood_content.dart';
 import 'component/pickup_content.dart';
 
 class Vendor extends StatefulWidget {
-  final FeaturedVendorsModel model;
-  const Vendor({Key? key, required this.model}) : super(key: key);
+  final Map<String, dynamic> data;
+  const Vendor({Key? key, required this.data}) : super(key: key);
 
   @override
   _VendorState createState() => _VendorState();
 }
 
 class _VendorState extends State<Vendor> with TickerProviderStateMixin {
-  bool _isPopular = true;
-  bool _isPickup = false;
-  bool _isFastFood = false;
-
   int _currentPage = 0;
   PageController? _pageController = PageController(initialPage: 0);
 
@@ -54,9 +46,11 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
             height: double.infinity,
             child: FadeInImage.assetNetwork(
               placeholder: 'assets/images/placeholder.png',
-              image: widget.model.image,
+              image: widget.data["image"],
               fit: BoxFit.cover,
               width: double.infinity,
+              imageErrorBuilder: (context, error, stackTrace) =>
+                  Image.asset('assets/images/placeholder.png'),
               height: MediaQuery.of(context).size.width * 0.75,
             ),
           ),
@@ -66,7 +60,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
             topRight: Radius.circular(18.0),
           ),
           onPanelSlide: (double pos) {
-            print('on panel slided...');
+            // print('on panel slided...');
           },
         ),
         Positioned(
@@ -87,7 +81,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
         Positioned(
           child: Center(
             child: TextRaleway(
-              text: widget.model.title,
+              text: widget.data["name"],
               fontSize: 20,
               fontWeight: FontWeight.w900,
               color: Colors.white,
@@ -126,17 +120,21 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _isPopular = true;
-                          _isPickup = false;
-                          _isFastFood = false;
+                          _currentPage = 0;
                         });
+
+                        _pageController!.animateToPage(
+                          _currentPage,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ClipOval(
-                            child: _isPopular
+                            child: _currentPage == 0
                                 ? Container(
                                     padding: const EdgeInsets.all(3),
                                     color: const Color(0xFF037585))
@@ -156,7 +154,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                           vertical: 0.0,
                           horizontal: 16,
                         ),
-                        primary: _isPopular
+                        primary: _currentPage == 0
                             ? const Color(0x6B08B3CB)
                             : const Color(0xFFF2F2F2),
                         shape: const RoundedRectangleBorder(
@@ -169,17 +167,20 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _isPickup = true;
-                          _isPopular = false;
-                          _isFastFood = false;
+                          _currentPage = 1;
                         });
+                        _pageController!.animateToPage(
+                          _currentPage,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ClipOval(
-                            child: _isPickup
+                            child: _currentPage == 1
                                 ? Container(
                                     padding: const EdgeInsets.all(3),
                                     color: const Color(0xFF037585),
@@ -200,7 +201,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                           vertical: 0.0,
                           horizontal: 16,
                         ),
-                        primary: _isPickup
+                        primary: _currentPage == 1
                             ? const Color(0x6B08B3CB)
                             : const Color(0xFFF2F2F2),
                         shape: const RoundedRectangleBorder(
@@ -213,17 +214,21 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                     ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          _isFastFood = true;
-                          _isPickup = false;
-                          _isPopular = false;
+                          _currentPage = 2;
                         });
+
+                        _pageController!.animateToPage(
+                          _currentPage,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           ClipOval(
-                            child: _isFastFood
+                            child: _currentPage == 2
                                 ? Container(
                                     padding: const EdgeInsets.all(3),
                                     color: const Color(0xFF037585),
@@ -232,7 +237,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                           ),
                           const SizedBox(width: 4),
                           TextRaleway(
-                            text: 'Fast food',
+                            text: 'Free delivery',
                             fontSize: 11,
                             color: const Color(0xFF037585),
                             fontWeight: FontWeight.w600,
@@ -244,7 +249,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                           vertical: 0.0,
                           horizontal: 16,
                         ),
-                        primary: _isFastFood
+                        primary: _currentPage == 2
                             ? const Color(0x6B08B3CB)
                             : const Color(0xFFF2F2F2),
                         shape: const RoundedRectangleBorder(
@@ -261,10 +266,18 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                   child: PageView.builder(
                     itemBuilder: (ctx, i) => Container(
                       child: _currentPage == 0
-                          ? const PopularContent()
+                          ? PopularContent(
+                              vendorId: widget.data["id"],
+                            )
                           : _currentPage == 1
-                              ? const PickupContent()
-                              : const FastfoodContent(),
+                              ? PickupContent(
+                                  vendorId: widget.data["id"],
+                                  delivery: "Pick up",
+                                )
+                              : FastfoodContent(
+                                  vendorId: widget.data["id"],
+                                  delivery: "Free delivery",
+                                ),
                     ),
                     itemCount: 3,
                     controller: _pageController,
@@ -287,10 +300,12 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
                         placeholder: 'assets/images/placeholder.png',
-                        image: widget.model.photo,
+                        image: widget.data["logo"],
                         fit: BoxFit.cover,
-                        width: 112,
-                        height: 112,
+                        imageErrorBuilder: (context, error, stackTrace) =>
+                            Image.asset('assets/images/placeholder.png'),
+                        width: MediaQuery.of(context).size.width * 0.275,
+                        height: MediaQuery.of(context).size.width * 0.275,
                       ),
                     ),
                   ),
@@ -312,9 +327,9 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                TextRaleway(
-                                  text: widget.model.time,
-                                  fontSize: 11,
+                                TextRoboto(
+                                  text: widget.data["phone"],
+                                  fontSize: 14,
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -325,14 +340,14 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                                     color: Colors.white,
                                   ),
                                 ),
-                                const SizedBox(width: 4),
-                                TextRaleway(
-                                  text: widget.model.delivery,
-                                  fontSize: 11,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
                               ],
+                            ),
+                            const SizedBox(width: 4),
+                            TextRoboto(
+                              text: widget.data["website"],
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
                             ),
                             const SizedBox(height: 2),
                             Row(
@@ -342,45 +357,22 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                                 const Icon(
                                   Icons.location_on_outlined,
                                   color: Colors.white,
-                                  size: 12,
+                                  size: 13,
                                 ),
                                 const SizedBox(width: 2),
-                                const SizedBox(width: 4),
-                                TextRaleway(
-                                  text: widget.model.address,
-                                  fontSize: 11,
+                                TextRoboto(
+                                  text: widget.data["address"].length > 32
+                                      ? widget.data["address"]
+                                              .substring(0, 30) +
+                                          "..."
+                                      : widget.data["address"],
+                                  fontSize: 14,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ],
                             ),
                           ],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(2),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(3),
-                            ),
-                            color: Color(0xFFF25E22),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                size: 16,
-                                color: Colors.white,
-                              ),
-                              TextRaleway(
-                                text: '${widget.model.rating}',
-                                color: Colors.white,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ],
-                          ),
                         ),
                       ],
                     ),
@@ -389,7 +381,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
               ],
             ),
             top: -64,
-            right: 24,
+            right: 1,
             left: 24,
           )
         ],

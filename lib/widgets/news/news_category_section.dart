@@ -90,7 +90,12 @@ class NewsCategorySection extends StatelessWidget {
                 image: data["url"],
                 fit: BoxFit.cover,
                 imageErrorBuilder: (context, error, stackTrace) {
-                  return Image.asset('assets/images/placeholder.png');
+                  return Image.asset(
+                    'assets/images/placeholder.png',
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    fit: BoxFit.cover,
+                  );
                 },
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.25,

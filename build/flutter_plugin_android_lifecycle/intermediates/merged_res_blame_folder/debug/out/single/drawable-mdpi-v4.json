@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/drawable-mdpi-v4/notify_panel_notification_icon_bg.png",
+        "source": "/Users/apple/.gradle/caches/transforms-3/d62b6350a24e4197d5f2e4d6250bd94f/transformed/core-1.1.0/res/drawable-mdpi-v4/notify_panel_notification_icon_bg.png"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/drawable-mdpi-v4/notification_bg_normal_pressed.9.png",
+        "source": "/Users/apple/.gradle/caches/transforms-3/d62b6350a24e4197d5f2e4d6250bd94f/transformed/core-1.1.0/res/drawable-mdpi-v4/notification_bg_normal_pressed.9.png"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/drawable-mdpi-v4/notification_bg_low_normal.9.png",
+        "source": "/Users/apple/.gradle/caches/transforms-3/d62b6350a24e4197d5f2e4d6250bd94f/transformed/core-1.1.0/res/drawable-mdpi-v4/notification_bg_low_normal.9.png"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/drawable-mdpi-v4/notification_bg_normal.9.png",
+        "source": "/Users/apple/.gradle/caches/transforms-3/d62b6350a24e4197d5f2e4d6250bd94f/transformed/core-1.1.0/res/drawable-mdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/drawable-mdpi-v4/notification_bg_low_pressed.9.png",
+        "source": "/Users/apple/.gradle/caches/transforms-3/d62b6350a24e4197d5f2e4d6250bd94f/transformed/core-1.1.0/res/drawable-mdpi-v4/notification_bg_low_pressed.9.png"
+    }
+]

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:loading_overlay_pro/loading_overlay_pro.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/account/personal.dart';
 import 'package:niger_delta_unity_app/widgets/account/security.dart';
@@ -16,14 +20,75 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
   AnimationController? _animationController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final ImagePicker _picker = ImagePicker();
+  bool _inProcess = false;
+  List<XFile>? _imageFileList;
+  String? _retrieveDataError;
+
   int _currentPage = 0;
   PageController? _pageController = PageController(initialPage: 0);
+
+  set _imageFile(XFile? value) {
+    _imageFileList = value == null ? null : [value];
+  }
 
   @override
   void initState() {
     super.initState();
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+  }
+
+  _onImageButtonPressed(ImageSource source, {BuildContext? context}) async {
+    setState(() {
+      _inProcess = true;
+    });
+    try {
+      // final pickedFile = await _picker.pickImage(source: source);
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+
+      if (pickedFile != null) {
+        print("IMAGE PICKED");
+        // XFile? _croppedFile = (await ImageCropper.cropImage(
+        //     sourcePath: pickedFile.path,
+        //     aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        //     compressQuality: 100,
+        //     compressFormat: ImageCompressFormat.png,
+        //     androidUiSettings: const AndroidUiSettings(
+        //         toolbarColor: Constants.primaryColor))) as XFile?;
+
+        // setState(() {
+        //   _imageFile = _croppedFile;
+        //   _inProcess = false;
+        // });
+      } else {
+        setState(() {
+          _inProcess = false;
+        });
+      }
+    } catch (e) {
+      print("Image err: " + e.toString());
+      // setState(() {
+      //   _pickImageError = e;
+      // });
+    }
+  }
+
+  Future<void> retrieveLostData() async {
+    final LostDataResponse response = await _picker.retrieveLostData();
+    if (response.isEmpty) {
+      return;
+    }
+    if (response.file != null) {
+      if (response.type == RetrieveType.image) {
+        setState(() {
+          _imageFile = response.file;
+          // _imageFileList = response.files;
+        });
+      }
+    } else {
+      _retrieveDataError = response.exception!.code;
+    }
   }
 
   @override
@@ -40,6 +105,11 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    if (_inProcess) {
+      return LoadingOverlayPro(
+          isLoading: _inProcess,
+          child: const Center(child: CircularProgressIndicator()));
+    }
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -118,7 +188,57 @@ class _AccountState extends State<Account> with TickerProviderStateMixin {
                   ),
                   Positioned(
                     child: FloatingActionButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showBarModalBottomSheet(
+                          expand: false,
+                          context: context,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) => Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.camera_alt_outlined),
+                                title: const Text(
+                                  'Camera',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  _onImageButtonPressed(
+                                    ImageSource.camera,
+                                    context: context,
+                                  );
+                                },
+                              ),
+                              const Divider(
+                                thickness: 1.0,
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.image),
+                                title: const Text(
+                                  'Gallery',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  _onImageButtonPressed(
+                                    ImageSource.gallery,
+                                    context: context,
+                                  );
+                                },
+                              ),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                       mini: true,
                       elevation: 1.0,
                       backgroundColor: Colors.white,

@@ -196,7 +196,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                         const SizedBox(
                           height: 8.0,
                         ),
-                        _advertContainer()
+                        // _advertContainer()
                       ],
                     ),
                   ],

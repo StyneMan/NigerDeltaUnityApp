@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:niger_delta_unity_app/model/others/states.dart';
 import 'package:niger_delta_unity_app/model/temp/projects_model.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'components/project_card.dart';
 
@@ -14,8 +16,9 @@ class Projects extends StatefulWidget {
 
 class _ProjectsState extends State<Projects> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
   String? _statesName;
+  final Stream<QuerySnapshot> _projectsStream =
+      FirebaseFirestore.instance.collection('projects').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -109,19 +112,75 @@ class _ProjectsState extends State<Projects> {
               ),
               const SizedBox(height: 16.0),
               Expanded(
-                child: GridView.builder(
-                  padding: const EdgeInsets.all(8.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                    crossAxisCount: 3,
-                  ),
-                  itemCount: projectsList.length,
-                  itemBuilder: (context, i) =>
-                      ProjectCard(list: projectsList, index: i),
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: _projectsStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Column(children: [
+                        for (var k = 0; k < 3; k++) _projectShimmer()
+                      ]);
+                    }
+
+                    return GridView.builder(
+                        padding: const EdgeInsets.all(8.0),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisSpacing: 5,
+                          mainAxisSpacing: 5,
+                          crossAxisCount: 3,
+                        ),
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, i) {
+                          return ProjectCard(
+                            index: i,
+                            data: snapshot.data!.docs,
+                          );
+                        });
+
+                    // Column(
+                    //   children:
+                    //       snapshot.data!.docs.map((DocumentSnapshot document) {
+                    //     Map<String, dynamic> data =
+                    //         document.data()! as Map<String, dynamic>;
+                    //     return ProjectCard(data: data);
+                    //   }).toList(),
+                    // );
+                  },
                 ),
-              )
+              ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _projectShimmer() {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width * 0.25,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        enabled: true,
+        child: Container(
+          padding: const EdgeInsets.only(
+            right: 10,
+            bottom: 12,
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width * 0.25,
+            ),
           ),
         ),
       ),

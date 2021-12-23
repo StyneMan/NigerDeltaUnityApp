@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
@@ -18,6 +19,12 @@ class _SecurityState extends State<Security> {
   bool _obscureOldText = true;
   bool _obscureNewText = true;
   bool _obscureRepeatText = true;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAuth.instance.currentUser!.updatePassword("newPassword");
+  }
 
   _toggleOldPass() {
     setState(() {

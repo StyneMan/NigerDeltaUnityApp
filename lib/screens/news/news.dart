@@ -10,6 +10,7 @@ import 'package:niger_delta_unity_app/screens/account/account.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/news/latest_news_section.dart';
+import 'package:niger_delta_unity_app/widgets/news/news_category_section.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -147,14 +148,15 @@ class _NewsState extends State<News> {
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.28,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.only(
-                          right: 8.0,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                        itemCount: categoriesList.length,
-                        itemBuilder: (context, i) => _categoryItemCard(i),
-                      ),
+                      child: NewsCategorySection(),
+                      // child: ListView.builder(
+                      //   padding: const EdgeInsets.only(
+                      //     right: 8.0,
+                      //   ),
+                      //   scrollDirection: Axis.horizontal,
+                      //   itemCount: categoriesList.length,
+                      //   itemBuilder: (context, i) => _categoryItemCard(i),
+                      // ),
                     ),
                     const SizedBox(
                       height: 16,

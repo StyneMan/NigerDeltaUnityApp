@@ -256,7 +256,12 @@ class _LatestNewsSectionState extends State<LatestNewsSection> {
                   height: 156,
                   width: MediaQuery.of(context).size.width * 0.33,
                   imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset('assets/images/placeholder.png');
+                    return Image.asset(
+                      'assets/images/placeholder.png',
+                      width: MediaQuery.of(context).size.width * 0.36,
+                      height: 156,
+                      fit: BoxFit.cover,
+                    );
                   },
                   fit: BoxFit.cover,
                 ),

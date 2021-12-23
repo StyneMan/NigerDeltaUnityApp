@@ -45,8 +45,7 @@ class _SignUpFormState extends State<SignUpForm> {
       // if (response.user != null) {
       print('REsponse: ' + response.user.toString());
       try {
-        final resp = await FirebaseFirestore.instance
-            // doc().
+        await FirebaseFirestore.instance
             .collection("users")
             .doc(response.user!.uid)
             .set({
@@ -61,6 +60,7 @@ class _SignUpFormState extends State<SignUpForm> {
           "isActive": false,
           "state": "",
           "osPlatform": Platform.operatingSystem,
+          "password": _passwordController.text,
         });
 
         _controller.setIsLoading(false);

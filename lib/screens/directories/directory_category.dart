@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
@@ -7,13 +8,16 @@ import 'package:niger_delta_unity_app/model/temp/directory_sub_model.dart';
 import 'package:niger_delta_unity_app/screens/filter/search_filter.dart';
 import 'package:niger_delta_unity_app/screens/vendor/vendor.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
+import 'package:niger_delta_unity_app/widgets/directories/featured_vendors.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots2.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DirectoryCategory extends StatefulWidget {
-  const DirectoryCategory({Key? key}) : super(key: key);
+  final String category;
+  const DirectoryCategory({Key? key, required this.category}) : super(key: key);
 
   @override
   _DirectoryCategoryState createState() => _DirectoryCategoryState();
@@ -28,10 +32,18 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
   AnimationController? _animationController;
 
   bool _isLiked = false;
+  late Stream<QuerySnapshot> _vendorsStream;
 
   @override
   void initState() {
     super.initState();
+
+    _vendorsStream = FirebaseFirestore.instance
+        .collection('directories-vendors')
+        .where('category', isEqualTo: widget.category)
+        .limit(3)
+        .snapshots();
+
     Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       if (_currentPage < 3) {
         _currentPage++;
@@ -154,196 +166,6 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
             ),
           ),
         ],
-      );
-
-  Widget _featuredVendors(int index) => Container(
-        width: MediaQuery.of(context).size.width * 0.6,
-        padding: const EdgeInsets.only(right: 16),
-        child: InkWell(
-          onTap: () {
-            Get.to(
-              Vendor(
-                model: vendorsList[index],
-              ),
-            );
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ClipOval(
-                        child: SizedBox(
-                          width: 36,
-                          height: 36,
-                          child: FadeInImage.assetNetwork(
-                            placeholder: 'assets/images/placeholder.png',
-                            image: vendorsList[index].photo,
-                            fit: BoxFit.cover,
-                            width: 36,
-                            height: 36,
-                          ),
-                        ),
-                      ),
-                      TextRaleway(
-                        text: vendorsList[index].name,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.more_vert_outlined,
-                      color: Colors.black87,
-                      size: 18,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/images/placeholder.png',
-                    image: vendorsList[index].image,
-                    fit: BoxFit.cover,
-                    height: MediaQuery.of(context).size.height * 0.225,
-                    width: MediaQuery.of(context).size.width * 0.6,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextRaleway(
-                    text: vendorsList[index].title,
-                    fontSize: 16,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextRaleway(
-                        text: vendorsList[index].address,
-                        fontSize: 12,
-                        color: const Color(0xFF828282),
-                        fontWeight: FontWeight.w600,
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            vendorsList[index].isOpen
-                                ? Icons.lock_open_sharp
-                                : Icons.lock,
-                            color: const Color(0xFFF25E22),
-                          ),
-                          TextRaleway(
-                            text: vendorsList[index].isOpen ? 'OPEN' : 'CLOSED',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: const Color(0xFFF25E22),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(3),
-                          ),
-                          color: Color(0xFFF25E22),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              size: 16,
-                              color: Colors.white,
-                            ),
-                            TextRaleway(
-                              text: '${vendorsList[index].rating}',
-                              color: Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      TextRaleway(
-                        text: vendorsList[index].time,
-                        fontSize: 11,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      ClipOval(
-                        child: Container(
-                          color: Colors.black,
-                          padding: const EdgeInsets.all(2),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      TextRaleway(
-                        text: vendorsList[index].delivery,
-                        fontSize: 11,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
       );
 
   Widget _bestPick() => Card(
@@ -519,29 +341,17 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
       key: scaffoldKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: Stack(
-          children: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.notifications,
-              ),
-            ),
-            Positioned(
-              child: ClipOval(
-                child: Container(
-                  padding: const EdgeInsets.all(4.0),
-                  color: Colors.red,
-                ),
-              ),
-              right: 18,
-              top: 10,
-            ),
-          ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+          ),
         ),
-        title: const Text(
-          'Directories',
-          style: TextStyle(
+        title: Text(
+          "" + widget.category,
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -722,11 +532,34 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.33 + 96,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: vendorsList.length,
-                        itemBuilder: (context, i) => _featuredVendors(i),
-                      ),
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: _vendorsStream,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Something went wrong');
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Column(children: [
+                                for (var k = 0; k < 3; k++) _vendorsShimmer()
+                              ]);
+                            }
+
+                            return ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: snapshot.data!.docs
+                                  .map((DocumentSnapshot document) {
+                                Map<String, dynamic> data = document.data()!;
+                                return FeaturedVendors(data: data);
+                              }).toList(),
+                            );
+                          }),
+                      // child: ListView.builder(
+                      //   scrollDirection: Axis.horizontal,
+                      //   itemCount: vendorsList.length,
+                      //   itemBuilder: (context, i) => _featuredVendors(i),
+                      // ),
                     ),
                     const SizedBox(
                       height: 16,
@@ -778,6 +611,34 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
                 ),
               )
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _vendorsShimmer() {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      height: MediaQuery.of(context).size.height * 0.25,
+      width: MediaQuery.of(context).size.width * 0.25,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey[300]!,
+        highlightColor: Colors.grey[100]!,
+        enabled: true,
+        child: Container(
+          padding: const EdgeInsets.only(
+            right: 10,
+            bottom: 12,
+          ),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(12),
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              width: MediaQuery.of(context).size.width * 0.25,
+            ),
           ),
         ),
       ),

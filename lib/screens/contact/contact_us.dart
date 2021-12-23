@@ -1,25 +1,43 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 
-class ContactUs extends StatelessWidget {
+class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
+
+  @override
+  State<ContactUs> createState() => _ContactUsState();
+}
+
+class _ContactUsState extends State<ContactUs> {
+  String? _phoneNumber;
+  String? _emailAddress;
+  String? _facebookPage;
+  String? _instagramHandle;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection('others')
+        .doc("contact-us")
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          _phoneNumber = documentSnapshot.get("phone");
+          _emailAddress = documentSnapshot.get("email");
+          _facebookPage = documentSnapshot.get("facebook");
+          _instagramHandle = documentSnapshot.get("instagram");
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   toolbarHeight: MediaQuery.of(context).size.height * 0.33,
-      //   elevation: 0,
-
-      //   automaticallyImplyLeading: false,
-      //   shape: const RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.only(
-      //       bottomLeft: Radius.circular(24.0),
-      //       bottomRight: Radius.circular(24.0),
-      //     ),
-      //   ),
-      // ),
       body: Column(
         children: [
           SizedBox(
@@ -58,8 +76,8 @@ class ContactUs extends StatelessWidget {
                         ),
                       ),
                     ),
-                    top: 48,
-                    left: 24,
+                    top: 36,
+                    left: 21,
                   ),
                   Center(
                     child: Container(
@@ -98,7 +116,7 @@ class ContactUs extends StatelessWidget {
                           width: 16.0,
                         ),
                         TextRoboto(
-                          text: '+234 816 2680 095',
+                          text: _phoneNumber ?? "",
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                         ),
@@ -119,7 +137,7 @@ class ContactUs extends StatelessWidget {
                           width: 16.0,
                         ),
                         TextRoboto(
-                          text: 'info@ndua.com',
+                          text: _emailAddress ?? "",
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                         ),
@@ -140,7 +158,7 @@ class ContactUs extends StatelessWidget {
                           width: 16.0,
                         ),
                         TextRoboto(
-                          text: 'www.facebook.com/ndua',
+                          text: _facebookPage ?? "",
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                         ),
@@ -161,7 +179,7 @@ class ContactUs extends StatelessWidget {
                           width: 16.0,
                         ),
                         TextRoboto(
-                          text: 'www.instagram.com/ndua',
+                          text: _instagramHandle ?? "",
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
                         ),
