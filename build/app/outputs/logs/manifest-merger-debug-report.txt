@@ -7,6 +7,7 @@ INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/And
 MERGED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:1:1-79:12
 MERGED from [:shared_preferences_android] /Users/apple/Developer/NigerDeltaUnityApp/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
+MERGED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
 MERGED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
 MERGED from [:firebase_core] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-15:12
 MERGED from [:image_picker] /Users/apple/Developer/NigerDeltaUnityApp/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-19:12
@@ -16,6 +17,7 @@ MERGED from [:url_launcher] /Users/apple/Developer/NigerDeltaUnityApp/build/url_
 MERGED from [:image_cropper] /Users/apple/Developer/NigerDeltaUnityApp/build/image_cropper/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/caches/transforms-3/618761a34d1b2c39c314bd5861d757b2/transformed/jetified-firebase-auth-21.0.1/AndroidManifest.xml:17:1-83:12
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:15:1-39:12
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/apple/.gradle/caches/transforms-3/472f4a7fabfbd14f15b13f2f92588553/transformed/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/apple/.gradle/caches/transforms-3/56af856c90e01d3c921a4572dec7503d/transformed/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:15:1-26:12
 MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/apple/.gradle/caches/transforms-3/22b1e2a78689cf32af3da9ee0ecd0006/transformed/jetified-firebase-common-20.0.0/AndroidManifest.xml:15:1-40:12
@@ -89,6 +91,8 @@ MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/cach
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/caches/transforms-3/618761a34d1b2c39c314bd5861d757b2/transformed/jetified-firebase-auth-21.0.1/AndroidManifest.xml:23:5-67
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:14:5-67
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:14:5-67
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:27:5-67
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:27:5-67
 	android:name
 		ADDED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:4:20-62
 uses-permission#android.permission.ACCESS_NETWORK_STATE
@@ -97,6 +101,8 @@ MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/cach
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/caches/transforms-3/618761a34d1b2c39c314bd5861d757b2/transformed/jetified-firebase-auth-21.0.1/AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:13:5-79
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:13:5-79
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:26:5-79
 MERGED from [io.grpc:grpc-android:1.41.0] /Users/apple/.gradle/caches/transforms-3/23544278d3e1aa89d159792d25351329/transformed/jetified-grpc-android-1.41.0/AndroidManifest.xml:11:5-79
 MERGED from [io.grpc:grpc-android:1.41.0] /Users/apple/.gradle/caches/transforms-3/23544278d3e1aa89d159792d25351329/transformed/jetified-grpc-android-1.41.0/AndroidManifest.xml:11:5-79
 	android:name
@@ -117,6 +123,8 @@ application
 ADDED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/AndroidManifest.xml:10:3-55:17
 MERGED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
 MERGED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
 MERGED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
 MERGED from [:firebase_core] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-13:19
@@ -129,6 +137,8 @@ MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/cach
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/caches/transforms-3/618761a34d1b2c39c314bd5861d757b2/transformed/jetified-firebase-auth-21.0.1/AndroidManifest.xml:26:5-81:19
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:16:5-24:19
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:16:5-24:19
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:29:5-37:19
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:29:5-37:19
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/apple/.gradle/caches/transforms-3/472f4a7fabfbd14f15b13f2f92588553/transformed/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/apple/.gradle/caches/transforms-3/472f4a7fabfbd14f15b13f2f92588553/transformed/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:7:5-8:19
 MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/apple/.gradle/caches/transforms-3/56af856c90e01d3c921a4572dec7503d/transformed/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:24:5-20
@@ -233,6 +243,8 @@ MERGED from [:shared_preferences_android] /Users/apple/Developer/NigerDeltaUnity
 MERGED from [:shared_preferences_android] /Users/apple/Developer/NigerDeltaUnityApp/build/shared_preferences_android/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
 MERGED from [:firebase_core] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
@@ -251,6 +263,8 @@ MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/cach
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/caches/transforms-3/618761a34d1b2c39c314bd5861d757b2/transformed/jetified-firebase-auth-21.0.1/AndroidManifest.xml:21:5-44
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/apple/.gradle/caches/transforms-3/472f4a7fabfbd14f15b13f2f92588553/transformed/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] /Users/apple/.gradle/caches/transforms-3/472f4a7fabfbd14f15b13f2f92588553/transformed/jetified-firebase-auth-interop-20.0.0/AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-appcheck-interop:16.0.0-beta02] /Users/apple/.gradle/caches/transforms-3/56af856c90e01d3c921a4572dec7503d/transformed/jetified-firebase-appcheck-interop-16.0.0-beta02/AndroidManifest.xml:19:5-21:41
@@ -357,6 +371,8 @@ INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/debug/An
 		INJECTED from /Users/apple/Developer/NigerDeltaUnityApp/android/app/src/debug/AndroidManifest.xml
 service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
 MERGED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
 MERGED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
 MERGED from [:firebase_core] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_core/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:19
@@ -365,6 +381,8 @@ MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/cach
 MERGED from [com.google.firebase:firebase-auth:21.0.1] /Users/apple/.gradle/caches/transforms-3/618761a34d1b2c39c314bd5861d757b2/transformed/jetified-firebase-auth-21.0.1/AndroidManifest.xml:74:9-80:19
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:17:9-23:19
 MERGED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:17:9-23:19
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:30:9-36:19
+MERGED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:30:9-36:19
 MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/apple/.gradle/caches/transforms-3/22b1e2a78689cf32af3da9ee0ecd0006/transformed/jetified-firebase-common-20.0.0/AndroidManifest.xml:33:9-37:35
 MERGED from [com.google.firebase:firebase-common:20.0.0] /Users/apple/.gradle/caches/transforms-3/22b1e2a78689cf32af3da9ee0ecd0006/transformed/jetified-firebase-common-20.0.0/AndroidManifest.xml:33:9-37:35
 	android:exported
@@ -381,6 +399,12 @@ ADDED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/fire
 		ADDED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
 	android:name
 		ADDED from [:firebase_auth] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_auth/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-124
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar
+ADDED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_storage] /Users/apple/Developer/NigerDeltaUnityApp/build/firebase_storage/intermediates/library_manifest/debug/AndroidManifest.xml:10:17-126
 meta-data#com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar
 ADDED from [:cloud_firestore] /Users/apple/Developer/NigerDeltaUnityApp/build/cloud_firestore/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-11:85
 	android:value
@@ -479,6 +503,12 @@ ADDED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/
 		ADDED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:22:17-82
 	android:name
 		ADDED from [com.google.firebase:firebase-firestore:24.0.0] /Users/apple/.gradle/caches/transforms-3/153bcffed01342e9e2175249b2e2cfb5/transformed/jetified-firebase-firestore-24.0.0/AndroidManifest.xml:21:17-111
+meta-data#com.google.firebase.components:com.google.firebase.storage.StorageRegistrar
+ADDED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:33:13-35:85
+	android:value
+		ADDED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:35:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-storage:20.0.0] /Users/apple/.gradle/caches/transforms-3/4f6b82976ac5bdb57f86c7b5d717d912/transformed/jetified-firebase-storage-20.0.0/AndroidManifest.xml:34:17-107
 provider#com.google.firebase.provider.FirebaseInitProvider
 ADDED from [com.google.firebase:firebase-common:20.0.0] /Users/apple/.gradle/caches/transforms-3/22b1e2a78689cf32af3da9ee0ecd0006/transformed/jetified-firebase-common-20.0.0/AndroidManifest.xml:26:9-31:39
 	android:authorities

@@ -6,9 +6,23 @@ import 'package:niger_delta_unity_app/screens/login/login.dart';
 import 'package:niger_delta_unity_app/screens/privacypolicy/privacy_policy.dart';
 import 'package:niger_delta_unity_app/screens/signup/signup.dart';
 import 'package:niger_delta_unity_app/screens/termsofservice/terms_of_service.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 
-class LandingSheet extends StatelessWidget {
+class LandingSheet extends StatefulWidget {
   const LandingSheet({Key? key}) : super(key: key);
+
+  @override
+  State<LandingSheet> createState() => _LandingSheetState();
+}
+
+class _LandingSheetState extends State<LandingSheet> {
+  PreferenceManager? _prefManager;
+
+  @override
+  void initState() {
+    super.initState();
+    _prefManager = PreferenceManager(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +92,9 @@ class LandingSheet extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                Get.to(const Dashboard());
+                Get.to(Dashboard(
+                  prefManager: _prefManager!,
+                ));
               },
               child: const Text(
                 'Continue as guest',

@@ -47,7 +47,7 @@ dependencies:
   # firebase_analytics: ^7.0.1
   firebase_auth: ^1.0.0
   cloud_firestore: ^1.0.0
-  # firebase_storage: ^7.0.0
+  firebase_storage: ^10.2.4
   # firebase_crashlytics: ^0.4.0
   shared_preferences: ^2.0.11
   shimmer: ^2.0.0

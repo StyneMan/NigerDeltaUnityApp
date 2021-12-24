@@ -117,13 +117,31 @@
     },
     {
       "name": "firebase_core_platform_interface",
-      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.2",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/firebase_core_platform_interface-4.2.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.5.2",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/firebase_core_web-1.5.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "firebase_storage",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/firebase_storage-10.2.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "firebase_storage_platform_interface",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/firebase_storage_platform_interface-4.0.11",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "firebase_storage_web",
+      "rootUri": "file:///Users/apple/.pub-cache/hosted/pub.dartlang.org/firebase_storage_web-3.2.5",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -506,7 +524,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-23T23:32:23.855028Z",
+  "generated": "2021-12-24T01:41:14.961150Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

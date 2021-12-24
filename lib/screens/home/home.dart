@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/news/latest_news_section.dart';
 import 'package:niger_delta_unity_app/widgets/news/news_category_section.dart';
@@ -10,7 +11,8 @@ import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final PreferenceManager? prefManager;
+  const Home({Key? key, this.prefManager}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -20,12 +22,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   int _currentPage = 0;
   PageController? _pageController = PageController(initialPage: 0);
   AnimationController? _animationController;
+  PreferenceManager? _manager;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    _manager = PreferenceManager(context);
     Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       if (_currentPage < 3) {
         _currentPage++;
@@ -61,6 +65,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print((widget.prefManager ?? _manager)!.getUser().firstname);
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -111,7 +116,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       ),
       endDrawer: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: const CustomDrawer(),
+        child: CustomDrawer(
+          prefManager: widget.prefManager ?? _manager,
+        ),
       ),
       body: SafeArea(
         child: Container(

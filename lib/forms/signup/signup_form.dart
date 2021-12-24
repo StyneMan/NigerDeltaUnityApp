@@ -11,6 +11,7 @@ import 'package:niger_delta_unity_app/screens/dashboard/dashboard.dart';
 import 'package:niger_delta_unity_app/screens/login/login.dart';
 import 'package:niger_delta_unity_app/state/state_manager.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({Key? key}) : super(key: key);
@@ -28,11 +29,18 @@ class _SignUpFormState extends State<SignUpForm> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final _controller = Get.find<StateManager>();
+  PreferenceManager? _prefManager;
 
   _togglePass() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _prefManager = PreferenceManager(context);
   }
 
   _signUp() async {
@@ -63,22 +71,39 @@ class _SignUpFormState extends State<SignUpForm> {
           "password": _passwordController.text,
         });
 
-        _controller.setIsLoading(false);
-        Fluttertoast.showToast(
-            msg: 'Account created successfully',
-            toastLength: Toast.LENGTH_LONG,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 3,
-            backgroundColor: Colors.grey[800],
-            textColor: Colors.white,
-            fontSize: 16.0);
-        //Now route to dashboard
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Dashboard(),
-          ),
-        );
+        Future.delayed(const Duration(seconds: 2), () {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(response.user!.uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              // Now save to shared preference
+              _prefManager!.setIsLoggedIn(true);
+              _prefManager!.setUserData(documentSnapshot.data().toString());
+
+              _controller.setIsLoading(false);
+              Fluttertoast.showToast(
+                msg: 'Account created successfully',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.grey[800],
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+              //Now route to dashboard
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Dashboard(
+                    prefManager: _prefManager!,
+                  ),
+                ),
+              );
+            }
+          });
+        });
       } on FirebaseAuthException catch (e) {
         _controller.setIsLoading(false);
         print("ERR: " + e.message!);
@@ -94,11 +119,6 @@ class _SignUpFormState extends State<SignUpForm> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override

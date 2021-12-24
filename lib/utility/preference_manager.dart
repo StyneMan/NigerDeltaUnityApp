@@ -29,7 +29,7 @@ class PreferenceManager {
   String getAccessToken() =>
       prefs != null ? prefs!.getString('accessToken') : '';
 
-  void setUserDat(String rawJson) {
+  void setUserData(String rawJson) {
     prefs!.setString('user', rawJson);
   }
 

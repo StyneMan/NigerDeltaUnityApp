@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/route_manager.dart';
 import 'package:niger_delta_unity_app/model/temp/directories_model.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -11,7 +12,8 @@ import 'package:shimmer/shimmer.dart';
 import 'directory_category.dart';
 
 class Directories extends StatefulWidget {
-  const Directories({Key? key}) : super(key: key);
+  final PreferenceManager prefManager;
+  const Directories({Key? key, required this.prefManager}) : super(key: key);
 
   @override
   _DirectoriesState createState() => _DirectoriesState();
@@ -103,7 +105,9 @@ class _DirectoriesState extends State<Directories> {
       ),
       endDrawer: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: const CustomDrawer(),
+        child: CustomDrawer(
+          prefManager: widget.prefManager,
+        ),
       ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(

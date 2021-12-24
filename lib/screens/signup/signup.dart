@@ -15,29 +15,10 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  bool _shouldShowSheet = true;
   final _controller = Get.find<StateManager>();
 
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(const Duration(milliseconds: 100), () {
-    //   if (_shouldShowSheet) {
-    //     showCupertinoModalBottomSheet(
-    //       expand: false,
-    //       enableDrag: false,
-    //       useRootNavigator: true,
-    //       barrierColor: Colors.transparent,
-    //       elevation: 0.0,
-    //       context: context,
-    //       topRadius: const Radius.circular(32),
-    //       backgroundColor: Colors.white,
-    //       builder: (context) => const SizedBox(
-    //         height: 420,
-    //         child: SignUpForm(),
-    //       ),
-    //     );
-    //   }
-    // });
     return Obx(
       () => LoadingOverlayPro(
         isLoading: _controller.isLoading.value,

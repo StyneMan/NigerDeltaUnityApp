@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:niger_delta_unity_app/screens/dashboard/dashboard.dart';
+import 'package:niger_delta_unity_app/screens/others/account_suspended.dart';
 import 'package:niger_delta_unity_app/screens/password/password_reset.dart';
+import 'package:niger_delta_unity_app/state/state_manager.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -16,6 +23,8 @@ class _LoginFormState extends State<LoginForm> {
   bool _isRememberChecked = false;
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
+  final _controller = Get.find<StateManager>();
+  PreferenceManager? _prefManager;
 
   _togglePass() {
     setState(() {
@@ -26,6 +35,85 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
+    _prefManager = PreferenceManager(context);
+  }
+
+  _login() async {
+    _controller.setIsLoading(true);
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
+      //Now retrieve user data and check if user is blocked
+      if (userCredential.user != null) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .get()
+            .then((DocumentSnapshot documentSnapshot) {
+          if (documentSnapshot.exists) {
+            // Now save to shared preference
+            if (documentSnapshot.get("isBlocked") == true) {
+              //user is blocked by super admin
+              _controller.setIsLoading(false);
+              Fluttertoast.showToast(
+                msg: 'Account is suspended',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 4,
+                backgroundColor: Colors.grey[800],
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AccountSuspended(),
+                ),
+              );
+            } else {
+              _prefManager!.setIsLoggedIn(true);
+              _prefManager!.setUserData(documentSnapshot.data().toString());
+
+              _controller.setIsLoading(false);
+              Fluttertoast.showToast(
+                msg: 'Logged in successfully',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.grey[800],
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
+              //Now route to dashboard
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Dashboard(
+                    prefManager: _prefManager!,
+                  ),
+                ),
+              );
+            }
+          }
+        });
+      }
+    } on FirebaseAuthException catch (e) {
+      _controller.setIsLoading(false);
+      Fluttertoast.showToast(
+          msg: "" + e.message!,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 3,
+          backgroundColor: Colors.grey[800],
+          textColor: Colors.white,
+          fontSize: 16.0);
+      // if (e.code == 'user-not-found') {
+      //   print('No user found for that email.');
+      // } else if (e.code == 'wrong-password') {
+      //   print('Wrong password provided for that user.');
+      // }
+    }
   }
 
   @override

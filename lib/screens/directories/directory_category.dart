@@ -373,10 +373,10 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
           ),
         ),
       ),
-      endDrawer: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: const CustomDrawer(),
-      ),
+      // endDrawer: SizedBox(
+      //   height: MediaQuery.of(context).size.height,
+      //   child: const CustomDrawer(),
+      // ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(16.0),

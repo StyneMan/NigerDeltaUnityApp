@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 
@@ -19,11 +21,24 @@ class _SecurityState extends State<Security> {
   bool _obscureOldText = true;
   bool _obscureNewText = true;
   bool _obscureRepeatText = true;
+  String _currentPassword = "";
+  var userId = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.currentUser!.updatePassword("newPassword");
+
+    FirebaseFirestore.instance
+        .collection('others')
+        .doc(userId)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          _currentPassword = documentSnapshot.get("password");
+        });
+      }
+    });
   }
 
   _toggleOldPass() {
@@ -42,6 +57,46 @@ class _SecurityState extends State<Security> {
     setState(() {
       _obscureRepeatText = !_obscureRepeatText;
     });
+  }
+
+  Future<void> _updatePassword() async {
+    if (_oldPassController.text == _currentPassword) {
+      try {
+        final response = await FirebaseAuth.instance.currentUser!
+            .updatePassword(_newPassController.text);
+
+        CollectionReference users =
+            FirebaseFirestore.instance.collection('users');
+
+        users
+            .doc(userId)
+            .update({'password': _newPassController.text})
+            .then(
+              (value) => Fluttertoast.showToast(
+                msg: 'Password updated successfully',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.grey[800],
+                textColor: Colors.white,
+                fontSize: 16.0,
+              ),
+            )
+            .catchError(
+              (error) => Fluttertoast.showToast(
+                msg: 'Failed to update password $error',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 3,
+                backgroundColor: Colors.grey[800],
+                textColor: Colors.white,
+                fontSize: 16.0,
+              ),
+            );
+      } catch (error) {
+        print("ERRORLIS: " + error.toString());
+      }
+    }
   }
 
   @override

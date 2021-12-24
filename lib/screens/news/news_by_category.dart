@@ -66,10 +66,10 @@ class _NewsByCategoryState extends State<NewsByCategory> {
           ),
         ),
       ),
-      endDrawer: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: const CustomDrawer(),
-      ),
+      // endDrawer: SizedBox(
+      //   height: MediaQuery.of(context).size.height,
+      //   child: const CustomDrawer(),
+      // ),
       body: SafeArea(
         child: StreamBuilder<QuerySnapshot>(
           stream: _newsStream,

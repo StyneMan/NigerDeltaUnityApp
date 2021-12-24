@@ -2,13 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:niger_delta_unity_app/model/others/states.dart';
 import 'package:niger_delta_unity_app/model/temp/projects_model.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'components/project_card.dart';
 
 class Projects extends StatefulWidget {
-  const Projects({Key? key}) : super(key: key);
+  final PreferenceManager prefManager;
+  const Projects({Key? key, required this.prefManager}) : super(key: key);
 
   @override
   _ProjectsState createState() => _ProjectsState();
@@ -72,7 +74,9 @@ class _ProjectsState extends State<Projects> {
       ),
       endDrawer: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: const CustomDrawer(),
+        child: CustomDrawer(
+          prefManager: widget.prefManager,
+        ),
       ),
       body: SafeArea(
         child: Container(

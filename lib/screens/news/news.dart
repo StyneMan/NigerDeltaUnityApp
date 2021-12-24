@@ -8,6 +8,7 @@ import 'package:niger_delta_unity_app/model/temp/categories.dart';
 import 'package:niger_delta_unity_app/model/temp/news_model.dart';
 import 'package:niger_delta_unity_app/screens/account/account.dart';
 import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/news/latest_news_section.dart';
 import 'package:niger_delta_unity_app/widgets/news/news_category_section.dart';
@@ -17,7 +18,8 @@ import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class News extends StatefulWidget {
-  const News({Key? key}) : super(key: key);
+  final PreferenceManager prefManager;
+  const News({Key? key, required this.prefManager}) : super(key: key);
 
   @override
   _NewsState createState() => _NewsState();
@@ -133,7 +135,9 @@ class _NewsState extends State<News> {
       ),
       endDrawer: SizedBox(
         height: MediaQuery.of(context).size.height,
-        child: const CustomDrawer(),
+        child: CustomDrawer(
+          prefManager: widget.prefManager,
+        ),
       ),
       body: SafeArea(
         child: Container(

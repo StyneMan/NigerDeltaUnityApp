@@ -8,11 +8,13 @@ import 'package:niger_delta_unity_app/screens/history/history.dart';
 import 'package:niger_delta_unity_app/screens/home/home.dart';
 import 'package:niger_delta_unity_app/screens/news/news.dart';
 import 'package:niger_delta_unity_app/screens/projects/projects.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class CustomDrawer extends StatefulWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+  final PreferenceManager? prefManager;
+  const CustomDrawer({Key? key, required this.prefManager}) : super(key: key);
 
   @override
   _CustomDrawerState createState() => _CustomDrawerState();
@@ -105,12 +107,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: const News(),
+                          screen: News(
+                            prefManager: widget.prefManager!,
+                          ),
                           withNavBar: true, // OPTIONAL VALUE. True by default.
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,
                         );
-                        // Get.to(const News());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -132,12 +135,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: const Projects(),
+                          screen: Projects(
+                            prefManager: widget.prefManager!,
+                          ),
                           withNavBar: true, // OPTIONAL VALUE. True by default.
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,
                         );
-                        // Get.to(const Projects());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -159,7 +163,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: const Directories(),
+                          screen: Directories(
+                            prefManager: widget.prefManager!,
+                          ),
                           withNavBar: true, // OPTIONAL VALUE. True by default.
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,
@@ -236,7 +242,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: const Account(),
+                          screen: Account(
+                            prefManager: widget.prefManager!,
+                          ),
                           withNavBar: true, // OPTIONAL VALUE. True by default.
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,
