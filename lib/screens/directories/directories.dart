@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/route_manager.dart';
-import 'package:niger_delta_unity_app/model/temp/directories_model.dart';
 import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
-import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -124,6 +122,7 @@ class _DirectoriesState extends State<Directories> {
 
             return StaggeredGridView.countBuilder(
               crossAxisCount: 2,
+              
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (BuildContext context, int index) => Container(
                 // width: double.infinity,
@@ -182,6 +181,7 @@ class _DirectoriesState extends State<Directories> {
                   new StaggeredTile.count(2, index.isEven ? 2 : 1),
               mainAxisSpacing: 4.0,
               crossAxisSpacing: 4.0,
+              padding: const EdgeInsets.symmetric(vertical: 21),
             );
             // return Column(
             //   children: snapshot.data!.docs.map((DocumentSnapshot document) {

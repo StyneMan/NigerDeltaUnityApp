@@ -190,7 +190,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       onPressed: () {
                         pushNewScreen(
                           context,
-                          screen: const History(),
+                          screen: History(manager: widget.prefManager!),
                           withNavBar: true, // OPTIONAL VALUE. True by default.
                           pageTransitionAnimation:
                               PageTransitionAnimation.cupertino,

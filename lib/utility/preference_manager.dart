@@ -20,6 +20,20 @@ class PreferenceManager {
     prefs.setString('accessToken', token);
   }
 
+  void setRememberMe(String email, String password, bool value) {
+    prefs.setString('email', email);
+    prefs.setString('password', password);
+    prefs.setBool('remember', value);
+  }
+
+  String getEmail() =>
+      prefs != null ? prefs!.getString('email') : '';
+
+  String getPassword() =>
+      prefs != null ? prefs!.getString('password') : '';
+
+  bool shouldRemember() => prefs!.getBool('remember') ?? false;
+
   void setIsLoggedIn(bool loggenIn) {
     prefs.setBool('loggedIn', loggenIn);
   }
@@ -40,6 +54,8 @@ class PreferenceManager {
   }
 
   void clearProfile() {
-    prefs!.clear();
+    prefs!.remove("accessToken");
+    prefs!.remove("loggedIn");
+    prefs!.remove("user");
   }
 }

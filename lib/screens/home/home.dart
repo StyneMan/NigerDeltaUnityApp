@@ -8,7 +8,9 @@ import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/news/latest_news_section.dart';
 import 'package:niger_delta_unity_app/widgets/news/news_category_section.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
+import 'package:niger_delta_unity_app/state/state_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   final PreferenceManager? prefManager;
@@ -23,6 +25,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   PageController? _pageController = PageController(initialPage: 0);
   AnimationController? _animationController;
   PreferenceManager? _manager;
+  final _controller = Get.find<StateManager>();
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -43,7 +46,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       );
     });
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 450));
+        vsync: this, duration: const Duration(milliseconds: 450),
+      );
   }
 
   _onPageChanged(int index) {
@@ -91,7 +95,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ],
         ),
         title: const Text(
-          'Directories',
+          'Home',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -127,42 +131,13 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1.0,
-                        style: BorderStyle.solid,
-                      ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text('Search here...'),
-                        SvgPicture.asset('assets/images/search_icon.svg'),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
                   children: [
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.28,
-                      child: NewsCategorySection(),
+                      child: NewsCategorySection(manager: widget.prefManager!),
                     ),
                     const SizedBox(
                       height: 12,
@@ -184,7 +159,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                _controller.jumpTo(1);
+                              },
                               child: const Text(
                                 'View All',
                                 style: TextStyle(
@@ -197,9 +174,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                           ],
                         ),
                         const SizedBox(
-                          height: 6.0,
+                          height: 10.0,
                         ),
-                        LatestNewsSection(),
+                        LatestNewsSection(manager: widget.prefManager!),
                         const SizedBox(
                           height: 8.0,
                         ),

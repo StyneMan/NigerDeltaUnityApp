@@ -40,6 +40,7 @@ class TextRoboto extends StatelessWidget {
   late final double? fontSize;
   late final Color? color;
   late final FontWeight? fontWeight;
+  late final FontStyle? fontStyle;
   late final TextAlign? align;
 
   TextRoboto(
@@ -47,6 +48,7 @@ class TextRoboto extends StatelessWidget {
       this.color,
       required this.fontSize,
       this.fontWeight,
+      this.fontStyle,
       this.align});
 
   final fontFamily = "Roboto";
@@ -61,6 +63,7 @@ class TextRoboto extends StatelessWidget {
         fontSize: fontSize,
         fontFamily: fontFamily,
         fontWeight: fontWeight,
+        fontStyle: fontStyle,
       ),
     );
   }

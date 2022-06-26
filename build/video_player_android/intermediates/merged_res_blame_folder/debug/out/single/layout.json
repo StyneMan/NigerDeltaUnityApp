@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/video_player_android/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/00b9ccf8b027e2043db7dc38ccfbd29a/transformed/core-1.7.0/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/video_player_android/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/00b9ccf8b027e2043db7dc38ccfbd29a/transformed/core-1.7.0/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/video_player_android/intermediates/res/merged/debug/layout/notification_action_tombstone.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/00b9ccf8b027e2043db7dc38ccfbd29a/transformed/core-1.7.0/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/video_player_android/intermediates/res/merged/debug/layout/custom_dialog.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/00b9ccf8b027e2043db7dc38ccfbd29a/transformed/core-1.7.0/res/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/video_player_android/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/00b9ccf8b027e2043db7dc38ccfbd29a/transformed/core-1.7.0/res/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/video_player_android/intermediates/res/merged/debug/layout/notification_action.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/00b9ccf8b027e2043db7dc38ccfbd29a/transformed/core-1.7.0/res/layout/notification_action.xml"
+    }
+]

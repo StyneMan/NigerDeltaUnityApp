@@ -33,26 +33,46 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  flutter_svg: ^0.23.0+1
+  # flutter_svg: ^1.0.0
+  flutter_svg: ^0.22.0
   loading_overlay_pro: ^2.1.1
   get: ^4.3.8
   modal_bottom_sheet: ^2.0.0
   country_code_picker: ^2.0.2
-  url_launcher: ^6.0.5
+  url_launcher: ^6.0.10
   flutter_staggered_grid_view: ^0.4.1
   sliding_up_panel: ^2.0.0+1
   persistent_bottom_nav_bar: ^4.0.2
   fluttertoast: ^8.0.8
-  firebase_core: ^1.0.0
-  # firebase_analytics: ^7.0.1
-  firebase_auth: ^1.0.0
-  cloud_firestore: ^1.0.0
-  firebase_storage: ^10.2.4
+  # firebase_core: ^1.0.0
+  # # firebase_analytics: ^7.0.1
+  # firebase_auth: ^1.0.0
+  # cloud_firestore: ^1.0.0
+  # firebase_storage: ^10.2.4
   # firebase_crashlytics: ^0.4.0
+
+  firebase_core: ^1.11.0
+  firebase_auth: ^3.3.7
+  cloud_firestore: ^3.1.8
+  firebase_crashlytics: ^2.5.2
+  cloud_functions: ^3.2.8
+  firebase_storage: ^10.2.8
+  firebase_messaging: ^11.2.6
+  firebase_analytics: ^9.1.0
+  # flutterfire_ui: ^0.3.4
+  flutterfire_ui: ^0.2.0+2
+  paginate_firestore: ^1.0.3
+  money_formatter: ^0.0.3
+
   shared_preferences: ^2.0.11
   shimmer: ^2.0.0
-  image_picker: ^0.8.4
+  # image_picker: ^0.8.5+1
   image_cropper: ^1.4.1
+  share_plus: ^3.0.0
+  flutter_html: ^2.2.1
+  flutter_quill: ^4.2.3
+  maps_launcher: ^2.0.1
+  encrypt: ^5.0.1
 
 dev_dependencies:
   flutter_test:

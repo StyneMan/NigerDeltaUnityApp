@@ -1,58 +1,58 @@
 [
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/drawable-v21_logo_white.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/drawable-v21/logo_white.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-hdpi_icon_blue.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-hdpi/icon_blue.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xhdpi_app_logo.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xhdpi/app_logo.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/drawable-v21_pattern.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/drawable-v21/pattern.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/drawable-v21_logo_white.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/drawable-v21/logo_white.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/drawable-v21_pattern.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/drawable-v21/pattern.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_app_logo.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxxhdpi/app_logo.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/drawable-v21_launch_background.xml.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/drawable-v21/launch_background.xml"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxxhdpi_app_logo.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxxhdpi/app_logo.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_app_logo.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxhdpi/app_logo.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-mdpi_app_logo.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-mdpi/app_logo.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xhdpi_app_logo.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xhdpi/app_logo.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-mdpi_app_logo.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-mdpi/app_logo.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xxhdpi_app_logo.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xxhdpi/app_logo.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/drawable-v21_launch_background.xml.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/drawable-v21/launch_background.xml"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-hdpi_icon_blue.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-hdpi/icon_blue.png"
     },
     {
-        "merged": "/Users/apple/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-hdpi_app_logo.png.flat",
-        "source": "/Users/apple/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-hdpi/app_logo.png"
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/app/intermediates/res/merged/debug/mipmap-hdpi_app_logo.png.flat",
+        "source": "/Users/macintosh/Developer/NigerDeltaUnityApp/android/app/src/main/res/mipmap-hdpi/app_logo.png"
     }
 ]

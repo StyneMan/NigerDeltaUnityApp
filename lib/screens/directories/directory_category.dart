@@ -4,16 +4,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/route_manager.dart';
-import 'package:niger_delta_unity_app/model/temp/directory_sub_model.dart';
+import 'package:niger_delta_unity_app/model/ads/ads_model.dart';
+// import 'package:niger_delta_unity_app/model/temp/directory_sub_model.dart';
+import 'package:niger_delta_unity_app/model/vendor/vendor_model.dart';
 import 'package:niger_delta_unity_app/screens/filter/search_filter.dart';
 import 'package:niger_delta_unity_app/screens/vendor/vendor.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';
+import 'package:niger_delta_unity_app/widgets/banner/banner_slide.dart';
 import 'package:niger_delta_unity_app/widgets/directories/featured_vendors.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots2.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import './components/category_vendors.dart';
 
 class DirectoryCategory extends StatefulWidget {
   final String category;
@@ -32,7 +37,8 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
   AnimationController? _animationController;
 
   bool _isLiked = false;
-  late Stream<QuerySnapshot> _vendorsStream;
+  var _vendorsStream;
+  var _adStream;
 
   @override
   void initState() {
@@ -41,8 +47,20 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
     _vendorsStream = FirebaseFirestore.instance
         .collection('directories-vendors')
         .where('category', isEqualTo: widget.category)
-        .limit(3)
-        .snapshots();
+        .where('blocked', isEqualTo: false)
+        .limit(10)
+        .withConverter(
+          fromFirestore: (snapshot, _) => VendorModel.fromJson(snapshot.data()!), 
+          toFirestore: (VendorModel prod, _) => prod.toJson());
+
+    _adStream = FirebaseFirestore.instance
+        .collection('ads')
+        .where("status", isEqualTo: "Pending")
+        .where("placement", isEqualTo: "Directories")
+        .limit(5)
+        .withConverter(
+          fromFirestore: (snapshot, _) => AdsModel.fromJson(snapshot.data()!), 
+          toFirestore: (AdsModel prod, _) => prod.toJson());
 
     Timer.periodic(const Duration(seconds: 5), (Timer timer) {
       if (_currentPage < 3) {
@@ -66,6 +84,13 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
     });
   }
 
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    _pageController?.dispose();
+    super.dispose();
+  }
+
   Future<void> _launchInBrowser(String url) async {
     if (!await launch(
       url,
@@ -77,266 +102,13 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
     }
   }
 
-  Widget _bannerSlide(int index) => Stack(
-        clipBehavior: Clip.none,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 200,
-            padding: const EdgeInsets.all(10),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(12),
-              ),
-              child: FadeInImage.assetNetwork(
-                placeholder: 'assets/images/placeholder.png',
-                image: directoryBannerList[index].image,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 10,
-            right: 10,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextRaleway(
-                    fontSize: 16,
-                    text: directoryBannerList[index].title,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                  TextRaleway(
-                    fontSize: 8,
-                    text: directoryBannerList[index].address,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(3),
-                          ),
-                          color: Color(0xFFF25E22),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              size: 16,
-                              color: Colors.white,
-                            ),
-                            TextRaleway(
-                              text: '${directoryBannerList[index].rating}',
-                              color: Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      TextRaleway(
-                        text: directoryBannerList[index].time,
-                        fontSize: 11,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-
-  Widget _bestPick() => Card(
-        elevation: 2.0,
-        margin: const EdgeInsets.all(4),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 21),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ClipOval(
-                child: Card(
-                  elevation: 1.0,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/images/placeholder.png',
-                    image:
-                        'https://media.istockphoto.com/photos/hamburger-with-fries-picture-id617364554?b=1&k=20&m=617364554&s=170667a&w=0&h=joRNTh0DPeZUsd9DQT2Gf_00EIqtOV00MZ5FFx4Ctig=',
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width * 0.21,
-                    height: MediaQuery.of(context).size.width * 0.21,
-                  ),
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextRaleway(
-                    text: 'Decker Hamburger',
-                    fontSize: 14,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.account_circle_outlined,
-                        color: Color(0xFF979797),
-                        size: 14,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      TextRaleway(text: 'Buns & Barter', fontSize: 11)
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on_outlined,
-                        color: Color(0xFF979797),
-                        size: 14,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      TextRaleway(text: 'GRA Phase 2', fontSize: 11),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(2),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(3),
-                          ),
-                          color: Color(0xFFF25E22),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.star,
-                              size: 16,
-                              color: Colors.white,
-                            ),
-                            TextRaleway(
-                              text: '${vendorsList[0].rating}',
-                              color: Colors.white,
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      TextRaleway(
-                        text: vendorsList[0].time,
-                        fontSize: 11,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      ClipOval(
-                        child: Container(
-                          color: Colors.black,
-                          padding: const EdgeInsets.all(2),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      TextRaleway(
-                        text: vendorsList[0].delivery,
-                        fontSize: 11,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: TextRaleway(
-                        text: 'Add to cart',
-                        color: Colors.black,
-                        fontSize: 11,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(8.0),
-                        primary: const Color(0x7000BCEB),
-                        onPrimary: Colors.black,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(4)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: -30,
-                    right: 8,
-                    child: FloatingActionButton(
-                      mini: true,
-                      elevation: 0,
-                      backgroundColor:
-                          _isLiked ? const Color(0xFFF25E22) : Colors.white,
-                      onPressed: () {
-                        setState(() {
-                          _isLiked = !_isLiked;
-                        });
-                      },
-                      child: Icon(
-                        Icons.favorite_outline,
-                        color:
-                            _isLiked ? Colors.white : const Color(0xFFF25E22),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      );
-
   @override
   Widget build(BuildContext context) {
+
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 18) / 2.5;
+    final double itemWidth = size.width / 2;
+
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -378,94 +150,111 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
       //   child: const CustomDrawer(),
       // ),
       body: SafeArea(
-        child: Container(
+        child: ListView(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          border: Border.all(
-                            color: Colors.grey,
-                            width: 1.0,
-                            style: BorderStyle.solid,
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                          style: BorderStyle.solid,
                         ),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            hintText: 'Search here...',
-                            enabledBorder: InputBorder.none,
-                            focusedBorder: InputBorder.none,
-                            border: InputBorder.none,
-                            labelStyle: const TextStyle(
-                              color: Constants.primaryColor,
-                            ),
-                            suffix: InkWell(
-                              onTap: () {
-                                print('hj olkij');
-                              },
-                              child: SvgPicture.asset(
-                                'assets/images/search_icon.svg',
-                                color: Colors.grey,
-                              ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          filled: true,
+                          hintText: 'Search here...',
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          border: InputBorder.none,
+                          labelStyle: const TextStyle(
+                            color: Constants.primaryColor,
+                          ),
+                          suffix: InkWell(
+                            onTap: () {
+                              print('hj olkij');
+                            },
+                            child: SvgPicture.asset(
+                              'assets/images/search_icon.svg',
+                              color: Colors.grey,
                             ),
                           ),
-                          keyboardType: TextInputType.text,
-                          controller: _searchController,
                         ),
+                        keyboardType: TextInputType.text,
+                        controller: _searchController,
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
                     ),
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(8),
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      color: const Color(0xFFF25E22),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(const SearchFilter());
+                        },
+                        child: SvgPicture.asset('assets/images/filter.svg'),
                       ),
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        color: const Color(0xFFF25E22),
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(const SearchFilter());
-                          },
-                          child: SvgPicture.asset('assets/images/filter.svg'),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-              Expanded(
-                child: ListView(
-                  shrinkWrap: true,
-                  children: [
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    SizedBox(
-                      height: 200,
+            ),
+            ListView(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                const SizedBox(
+                  height: 12,
+                ),
+                StreamBuilder<QuerySnapshot<AdsModel>>(
+                  stream: _adStream.snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Column(children: [for (var k = 0; k < 1; k++) const Text('Loading please wait...')]);
+                    } 
+                    
+                    if (snapshot.data!.docs.length < 1) {
+                      return SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: Image.asset("assets/images/placeholder.png", fit: BoxFit.cover,),
+                      );
+                    }
+
+                    final adsData = snapshot.requireData;
+                    
+                    return SizedBox(
+                      height: 210,
                       child: Stack(
                         clipBehavior: Clip.none,
                         children: [
                           PageView.builder(
-                            itemCount: directoryBannerList.length,
+                            itemCount: adsData.size,
                             controller: _pageController,
                             scrollDirection: Axis.horizontal,
                             onPageChanged: _onPageChanged,
-                            itemBuilder: (context, i) => _bannerSlide(i),
+                            itemBuilder: (context, i) => BannerSlide(model: adsData.docs[i].data()),
                           ),
                           Positioned(
                             right: 16,
@@ -473,7 +262,7 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
                             child: Row(
                               children: <Widget>[
                                 for (int i = 0;
-                                    i < directoryBannerList.length;
+                                    i < adsData.size;
                                     i++)
                                   if (i == _currentPage)
                                     const SlideDots2(
@@ -488,130 +277,96 @@ class _DirectoryCategoryState extends State<DirectoryCategory>
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          TextRaleway(
-                            text: 'Featured Vendors',
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextRaleway(
-                                  text: 'View all',
-                                  fontSize: 14,
-                                  color: const Color(0xFFF94B14),
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Color(0xFFF94B14),
-                                  size: 16,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.33 + 96,
-                      child: StreamBuilder<QuerySnapshot>(
-                          stream: _vendorsStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.hasError) {
-                              return Text('Something went wrong');
-                            }
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return Column(children: [
-                                for (var k = 0; k < 3; k++) _vendorsShimmer()
-                              ]);
-                            }
-
-                            return ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: snapshot.data!.docs
-                                  .map((DocumentSnapshot document) {
-                                Map<String, dynamic> data = document.data()!;
-                                return FeaturedVendors(data: data);
-                              }).toList(),
-                            );
-                          }),
-                      // child: ListView.builder(
-                      //   scrollDirection: Axis.horizontal,
-                      //   itemCount: vendorsList.length,
-                      //   itemBuilder: (context, i) => _featuredVendors(i),
-                      // ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          TextRaleway(
-                            text: 'Best pick',
-                            fontSize: 16,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          InkWell(
-                            onTap: () {},
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextRaleway(
-                                  text: 'View all',
-                                  fontSize: 14,
-                                  color: const Color(0xFFF94B14),
-                                  fontWeight: FontWeight.w700,
-                                ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                                const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Color(0xFFF94B14),
-                                  size: 16,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(1),
-                      child: _bestPick(),
-                    )
-                  ],
+                    );
+                  }
                 ),
-              )
-            ],
-          ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      TextRaleway(
+                        text: 'Featured ${widget.category}',
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.to(CategoryVendors(category: widget.category));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            TextRaleway(
+                              text: 'View all',
+                              fontSize: 14,
+                              color: const Color(0xFFF94B14),
+                              fontWeight: FontWeight.w700,
+                            ),
+                            const SizedBox(
+                              width: 2,
+                            ),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color(0xFFF94B14),
+                              size: 16,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.33 + 96,
+                  child: StreamBuilder<QuerySnapshot<VendorModel>>(
+                    stream: _vendorsStream.snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text('Something went wrong');
+                      }
+
+                      if (snapshot.connectionState ==
+                          ConnectionState.waiting) {
+                        return Column(children: [
+                          for (var k = 0; k < 2; k++) _vendorsShimmer()
+                        ]);
+                      }
+
+                      final data = snapshot.requireData;
+
+                      return GridView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 8.0,
+                          crossAxisSpacing: 10.0,
+                          childAspectRatio: (itemWidth / itemHeight),
+                        ),
+                        // controller: ,
+                        itemCount: data.size,
+                        itemBuilder: (BuildContext context, int index) {
+                          return FeaturedVendors(vendor: data.docs[index].data());
+                        }
+                      );
+                      
+                    }),
+                  // child: ListView.builder(
+                  //   scrollDirection: Axis.horizontal,
+                  //   itemCount: vendorsList.length,
+                  //   itemBuilder: (context, i) => _featuredVendors(i),
+                  // ),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

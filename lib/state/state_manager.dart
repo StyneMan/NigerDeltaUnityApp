@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:niger_delta_unity_app/screens/home/home.dart';
+import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class StateManager extends GetxController {
   var isAppClosed = false;
@@ -8,6 +10,8 @@ class StateManager extends GetxController {
   var shouldShowBottomSheet = false.obs;
   var accessToken = "";
   var imageCropped;
+  var adsData = [].obs;
+  final _tabController = PersistentTabController(initialIndex: 0);
 
   Widget currentScreen = const Home();
 
@@ -27,10 +31,34 @@ class StateManager extends GetxController {
     "Account": GlobalKey<NavigatorState>(),
   };
 
+  Stream<List<Map>> getAds() {
+    // print("TUWEKU AREMIX:: $uID");
+    var ref = FirebaseFirestore.instance.collection('ads').where("status", isEqualTo: "Pending");
+
+    return ref.snapshots().map((list) {
+      return list.docs.map((e) {
+        print("ADSLIST:: ${e.data()}");
+        return e.data();
+      }).toList();
+    });
+  }
+
+  @override
+  void onInit() async {
+    super.onInit();
+    getAds();
+  }
+
   var selectedIndex = 0.obs;
 
   void setAccessToken(String token) {
     accessToken = token;
+  }
+
+  dynamic get tabController => _tabController;
+
+  void jumpTo(int pos) {
+    tabController.jumpToTab(pos);
   }
 
   String getAccessToken() => accessToken;

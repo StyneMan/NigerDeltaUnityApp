@@ -1,21 +1,22 @@
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
-import 'package:niger_delta_unity_app/model/temp/adverts_model.dart';
-import 'package:niger_delta_unity_app/model/temp/categories.dart';
-import 'package:niger_delta_unity_app/model/temp/news_model.dart';
-import 'package:niger_delta_unity_app/screens/account/account.dart';
-import 'package:niger_delta_unity_app/screens/news/news_detail.dart';
+import 'package:niger_delta_unity_app/model/ads/ads_model.dart';
+import 'package:niger_delta_unity_app/model/news/news_model.dart';
 import 'package:niger_delta_unity_app/utility/preference_manager.dart';
+import 'package:niger_delta_unity_app/widgets/banner/banner_slide.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
-import 'package:niger_delta_unity_app/widgets/news/latest_news_section.dart';
-import 'package:niger_delta_unity_app/widgets/news/news_category_section.dart';
-import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots.dart';
+import 'package:niger_delta_unity_app/widgets/slide_dot/slide_dots2.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shimmer/shimmer.dart';
+
+import 'components/news_card.dart';
 
 class News extends StatefulWidget {
   final PreferenceManager prefManager;
@@ -27,60 +28,25 @@ class News extends StatefulWidget {
 
 class _NewsState extends State<News> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final _searchController = TextEditingController();
+
+  var _newsStream;
 
   @override
   void initState() {
     super.initState();
+    _newsStream = FirebaseFirestore.instance
+        .collection('news')
+        .limit(10)
+        .withConverter(
+          fromFirestore: (snapshot, _) => NewsModel.fromJson(snapshot.data()!), 
+          toFirestore: (NewsModel prod, _) => prod.toJson());
+     
   }
 
-  Widget _categoryItemCard(int i) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        padding: const EdgeInsets.only(
-          right: 10,
-          bottom: 12,
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              FadeInImage.assetNetwork(
-                placeholder: 'assets/images/placeholder.png',
-                image: categoriesList[i].image!,
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.25,
-                repeat: ImageRepeat.noRepeat,
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0x290c0c0c), Color(0x900c0c0c)],
-                    ),
-                  ),
-                  child: Text(
-                    categoriesList[i].title!,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -100,7 +66,7 @@ class _NewsState extends State<News> {
             Positioned(
               child: ClipOval(
                 child: Container(
-                  padding: const EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(3.0),
                   color: Colors.red,
                 ),
               ),
@@ -150,28 +116,16 @@ class _NewsState extends State<News> {
                 child: ListView(
                   shrinkWrap: true,
                   children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.28,
-                      child: NewsCategorySection(),
-                      // child: ListView.builder(
-                      //   padding: const EdgeInsets.only(
-                      //     right: 8.0,
-                      //   ),
-                      //   scrollDirection: Axis.horizontal,
-                      //   itemCount: categoriesList.length,
-                      //   itemBuilder: (context, i) => _categoryItemCard(i),
-                      // ),
-                    ),
                     const SizedBox(
-                      height: 16,
+                      height: 8.0,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 4.0),
                       child: InkWell(
                         onTap: () {},
                         child: Container(
                           width: double.infinity,
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(4.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[200],
                             border: Border.all(
@@ -183,13 +137,19 @@ class _NewsState extends State<News> {
                               Radius.circular(10.0),
                             ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text('Search here...'),
-                              SvgPicture.asset('assets/images/search_icon.svg'),
-                            ],
+                          child: TextField(
+                            controller: _searchController,
+                            // focusNode: fieldFocusNode,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              hintText: "Search",
+                              focusColor:  Color(0xA3BEBDBD),
+                              fillColor: Colors.transparent,
+                              floatingLabelBehavior: FloatingLabelBehavior.never,
+                              suffixIcon: Icon(Icons.search),
+                            )
                           ),
                         ),
                       ),
@@ -201,35 +161,51 @@ class _NewsState extends State<News> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            const Text(
-                              'Latest News',
-                              style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {},
-                              child: const Text(
-                                'View All',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: Color(0xFFF94B14),
-                                  fontWeight: FontWeight.w400,
+                        StreamBuilder<QuerySnapshot<NewsModel>>(
+                          stream: _newsStream.snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Text('Something went wrong');
+                            }
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return Column(children: [for (var k = 0; k < 3; k++) _newsShimmer()]);
+                            }
+
+                            if (snapshot.data!.docs.length < 1) {
+                              return SizedBox(
+                                height: double.infinity,
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.wifi_off_outlined,
+                                      size: 48,
+                                    ),
+                                    TextRoboto(
+                                      text: 'No data found',
+                                      fontSize: 16,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ),
-                          ],
+                              );
+                            }
+
+                            final data = snapshot.requireData;
+
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(0.0),
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: data.size,
+                              itemBuilder: (context, i) {
+                                
+                                return NewsCard(manager: widget.prefManager, news: data.docs[i].data(),);
+                              }
+                            );
+                          },
                         ),
-                        const SizedBox(
-                          height: 6.0,
-                        ),
-                        LatestNewsSection(),
                         const SizedBox(
                           height: 8.0,
                         ),
@@ -244,4 +220,122 @@ class _NewsState extends State<News> {
       ),
     );
   }
+
+  Widget _newsShimmer() {
+    return SizedBox(
+      width: double.infinity,
+      height: 156,
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(
+            Radius.circular(12.0),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8.0),
+              width: MediaQuery.of(context).size.width * 0.45,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    enabled: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      height: 24,
+                      width: 56,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    enabled: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      height: 18,
+                      width: 108,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6.0,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    enabled: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      height: 18,
+                      width: 108,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2.0,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    enabled: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      height: 18,
+                      width: 108,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 2.0,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    enabled: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      height: 18,
+                      width: 108,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  Shimmer.fromColors(
+                    baseColor: Colors.grey[300]!,
+                    highlightColor: Colors.grey[100]!,
+                    enabled: true,
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      height: 16,
+                      width: 72,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ClipRRect(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(12.0),
+              ),
+              child: Shimmer.fromColors(
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
+                enabled: true,
+                child: SizedBox(
+                  height: 156,
+                  width: MediaQuery.of(context).size.width * 0.33,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

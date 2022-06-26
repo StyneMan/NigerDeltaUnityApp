@@ -20,73 +20,71 @@ class _PasswordResetFormState extends State<PasswordResetForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: Text(
-                  'Reset password',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Constants.primaryColor,
-                    fontSize: 21,
-                  ),
-                ),
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  filled: true,
-                  labelText: 'Email',
-                  hintText: 'Email',
-                  labelStyle: TextStyle(
-                    color: Constants.primaryColor,
-                  ),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
-                      .hasMatch(value)) {
-                    return 'Please enter a valid email';
-                  }
-                  return null;
-                },
-                keyboardType: TextInputType.emailAddress,
-                controller: _emailController,
-              ),
-              const SizedBox(
-                height: 16.0,
-              ),
-              Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
+    return Form(
+      key: _formKey,
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.only(bottom: 16.0),
+              child: Text(
+                'Reset password',
+                textAlign: TextAlign.center,
+                style: TextStyle(
                   color: Constants.primaryColor,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(12.0),
-                  ),
-                ),
-                child: TextButton(
-                  child: const Text(
-                    'Reset password',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {},
-                  style:
-                      TextButton.styleFrom(padding: const EdgeInsets.all(16.0)),
+                  fontSize: 21,
                 ),
               ),
-              const SizedBox(
-                height: 10.0,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(
+                filled: true,
+                labelText: 'Email',
+                hintText: 'Email',
+                labelStyle: TextStyle(
+                  color: Constants.primaryColor,
+                ),
               ),
-            ],
-          ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                if (!RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]')
+                    .hasMatch(value)) {
+                  return 'Please enter a valid email';
+                }
+                return null;
+              },
+              keyboardType: TextInputType.emailAddress,
+              controller: _emailController,
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Constants.primaryColor,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(12.0),
+                ),
+              ),
+              child: TextButton(
+                child: const Text(
+                  'Reset password',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {},
+                style:
+                    TextButton.styleFrom(padding: const EdgeInsets.all(16.0)),
+              ),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+          ],
         ),
       ),
     );

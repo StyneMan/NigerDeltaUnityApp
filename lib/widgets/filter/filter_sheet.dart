@@ -11,13 +11,13 @@ class FilterSheet extends StatefulWidget {
 
 class _FilterSheetState extends State<FilterSheet> {
   bool _isNearest = false;
-  bool _isCostHigh = false;
-  bool _isCostLow = false;
+  // bool _isCostHigh = false;
+  // bool _isCostLow = false;
   bool _isMostPopular = false;
 
   bool _isOpenNow = true;
-  bool _isFreeDelivery = false;
-  bool _isPayOnDelivery = false;
+  // bool _isFreeDelivery = false;
+  // bool _isPayOnDelivery = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,52 +69,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 const SizedBox(
                   height: 5,
                 ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _isCostHigh = !_isCostHigh;
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextRoboto(
-                        text: 'Cost high to low',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                      _isCostHigh ? const Icon(Icons.check) : const SizedBox(),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _isCostLow = !_isCostLow;
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextRoboto(
-                        text: 'Cost low to high',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                      _isCostLow ? const Icon(Icons.check) : const SizedBox(),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
+                
                 TextButton(
                   onPressed: () {
                     setState(() {
@@ -180,56 +135,6 @@ class _FilterSheetState extends State<FilterSheet> {
                         color: Colors.black,
                       ),
                       _isOpenNow ? const Icon(Icons.check) : const SizedBox(),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _isFreeDelivery = !_isFreeDelivery;
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextRoboto(
-                        text: 'Free delivery',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                      _isFreeDelivery
-                          ? const Icon(Icons.check)
-                          : const SizedBox(),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      _isPayOnDelivery = !_isPayOnDelivery;
-                    });
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextRoboto(
-                        text: 'Pay on delivery',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                      _isPayOnDelivery
-                          ? const Icon(Icons.check)
-                          : const SizedBox(),
                     ],
                   ),
                 ),

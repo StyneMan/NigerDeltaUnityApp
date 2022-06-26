@@ -74,7 +74,7 @@ class _DashboardState extends State<Dashboard> {
           child: Scaffold(
             body: PersistentTabView(
               context,
-              controller: _tabController,
+              controller: _controller.tabController,
               screens: _buildScreens(),
               items: _navBarsItems(),
               confineInSafeArea: true,

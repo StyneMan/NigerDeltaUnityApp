@@ -13,46 +13,46 @@ class SearchFilter extends StatefulWidget {
 class _SearchFilterState extends State<SearchFilter> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        SlidingUpPanel(
-          maxHeight: MediaQuery.of(context).size.height * 0.86,
-          minHeight: 144,
-          parallaxEnabled: true,
-          defaultPanelState: PanelState.OPEN,
-          renderPanelSheet: true,
-          parallaxOffset: .5,
-          body: Container(
-            color: Constants.primaryColor,
-            width: double.infinity,
-            height: double.infinity,
-          ),
-          panelBuilder: (sc) => _panel(sc),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(18.0),
-            topRight: Radius.circular(18.0),
-          ),
-          onPanelSlide: (double pos) {
-            print('on panel slided...');
-          },
-        ),
-        Positioned(
-          child: FloatingActionButton(
-            elevation: 0.0,
-            backgroundColor: Colors.transparent,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Icon(
-              Icons.close,
-              color: Colors.white,
+    return Scaffold(
+      body: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          SlidingUpPanel(
+            maxHeight: MediaQuery.of(context).size.height * 0.64,
+            minHeight: MediaQuery.of(context).size.height * 0.64,
+            parallaxEnabled: true,
+            defaultPanelState: PanelState.OPEN,
+            renderPanelSheet: true,
+            parallaxOffset: .5,
+            body: Container(
+              color: Constants.primaryColor,
+              width: double.infinity,
+              height: double.infinity,
             ),
+            panelBuilder: (sc) => _panel(sc),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(18.0),
+              topRight: Radius.circular(18.0),
+            ),
+            
           ),
-          top: 36,
-          left: 10,
-        )
-      ],
+          Positioned(
+            child: FloatingActionButton(
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+            ),
+            top: 36,
+            left: 10,
+          )
+        ],
+      ),
     );
   }
 
@@ -65,12 +65,3 @@ class _SearchFilterState extends State<SearchFilter> {
   }
 }
 
-// SlidingUpPanel(
-//           backdropColor: Colors.transparent,
-//           borderRadius: const BorderRadius.only(
-//             topLeft: Radius.circular(24),
-//             topRight: Radius.circular(24),
-//           ),
-//           parallaxEnabled: true,
-//           body: const FilterSheet(),
-//         ),

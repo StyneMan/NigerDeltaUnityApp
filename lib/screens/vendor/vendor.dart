@@ -1,14 +1,16 @@
+
 import 'package:flutter/material.dart';
-import 'package:niger_delta_unity_app/screens/vendor/component/popular_content.dart';
+import 'package:niger_delta_unity_app/model/vendor/vendor_model.dart';
+import 'package:niger_delta_unity_app/model/vendor/catalog_model.dart';
+import 'package:niger_delta_unity_app/utility/constants.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-import 'component/fastfood_content.dart';
-import 'component/pickup_content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import "component/catalog_card.dart";
 
 class Vendor extends StatefulWidget {
-  final Map<String, dynamic> data;
-  const Vendor({Key? key, required this.data}) : super(key: key);
+  final VendorModel vendor;
+  const Vendor({Key? key, required this.vendor}) : super(key: key);
 
   @override
   _VendorState createState() => _VendorState();
@@ -17,10 +19,17 @@ class Vendor extends StatefulWidget {
 class _VendorState extends State<Vendor> with TickerProviderStateMixin {
   int _currentPage = 0;
   PageController? _pageController = PageController(initialPage: 0);
+  var _catalogStream;
 
   @override
   void initState() {
     super.initState();
+    _catalogStream = FirebaseFirestore.instance
+        .collection('catalogs')
+        .where('vendorID', isEqualTo: widget.vendor.id)
+        .withConverter(
+          fromFirestore: (snapshot, _) => CatalogModel.fromJson(snapshot.data()!), 
+          toFirestore: (CatalogModel prod, _) => prod.toJson());
   }
 
   _onPageChanged(int index) {
@@ -36,7 +45,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
       children: [
         SlidingUpPanel(
           maxHeight: MediaQuery.of(context).size.height * 0.70,
-          minHeight: 144,
+          minHeight: MediaQuery.of(context).size.height * 0.70,
           parallaxEnabled: true,
           defaultPanelState: PanelState.OPEN,
           renderPanelSheet: true,
@@ -46,7 +55,7 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
             height: double.infinity,
             child: FadeInImage.assetNetwork(
               placeholder: 'assets/images/placeholder.png',
-              image: widget.data["image"],
+              image:"${widget.vendor.image ?? ""}",
               fit: BoxFit.cover,
               width: double.infinity,
               imageErrorBuilder: (context, error, stackTrace) =>
@@ -64,6 +73,39 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
           },
         ),
         Positioned(
+          child: Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                colors: [
+                  Colors.transparent,
+                  Color(0x180C0C0C),
+                  Color(0x7A0C0C0C),
+                ],
+                stops: [
+                  0.2,
+                  0.5,
+                  1,
+                ],
+              ),
+            ),
+            padding: const EdgeInsets.only(top: 48, bottom: 36, left: 8.0, right: 8.0),
+            child: Center(
+              child: TextRoboto(
+                text: "${widget.vendor.name ?? ""}",
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                align: TextAlign.center,
+              ),
+            ),
+          ),
+          right: 0,
+          top: 1,
+          left: 0,
+        ),
+        Positioned(
           child: FloatingActionButton(
             elevation: 0.0,
             backgroundColor: Colors.transparent,
@@ -75,23 +117,9 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
               color: Colors.white,
             ),
           ),
-          top: 36,
-          left: 10,
+          top: 33,
+          left: 8.0,
         ),
-        Positioned(
-          child: Center(
-            child: TextRaleway(
-              text: widget.data["name"],
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-              color: Colors.white,
-              align: TextAlign.center,
-            ),
-          ),
-          top: 56,
-          left: 24,
-          right: 24,
-        )
       ],
     );
   }
@@ -106,186 +134,136 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
           Container(
             padding: const EdgeInsets.all(10),
             width: double.infinity,
-            child: Column(
+            child: widget.vendor.catalog != null ? Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(
                   height: 48,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _currentPage = 0;
-                        });
+                StreamBuilder<QuerySnapshot<CatalogModel>>(
+                  stream: _catalogStream.snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return const Text('Something went wrong');
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Column(children: [for (var k = 0; k < 1; k++) const Text('Loading please wait...')]);
+                    } 
+                    
+                    if (snapshot.data!.docs.length < 1) {
+                      return SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: Image.asset("assets/images/placeholder.png", fit: BoxFit.cover,),
+                      );
+                    }
 
-                        _pageController!.animateToPage(
-                          _currentPage,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipOval(
-                            child: _currentPage == 0
-                                ? Container(
-                                    padding: const EdgeInsets.all(3),
-                                    color: const Color(0xFF037585))
-                                : const SizedBox(),
-                          ),
-                          const SizedBox(width: 4),
-                          TextRaleway(
-                            text: 'Popular',
-                            fontSize: 11,
-                            color: const Color(0xFF037585),
-                            fontWeight: FontWeight.w600,
-                          )
-                        ],
+                    final data = snapshot.requireData;
+                    
+                    return Expanded(
+                      child: ListView.separated(
+                        itemCount: data.size,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Divider();
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          return CatalogCard(catalog: data.docs[index].data());
+                        },
                       ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 0.0,
-                          horizontal: 16,
-                        ),
-                        primary: _currentPage == 0
-                            ? const Color(0x6B08B3CB)
-                            : const Color(0xFFF2F2F2),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _currentPage = 1;
-                        });
-                        _pageController!.animateToPage(
-                          _currentPage,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipOval(
-                            child: _currentPage == 1
-                                ? Container(
-                                    padding: const EdgeInsets.all(3),
-                                    color: const Color(0xFF037585),
-                                  )
-                                : const SizedBox(),
-                          ),
-                          const SizedBox(width: 4),
-                          TextRaleway(
-                            text: 'Pick up',
-                            fontSize: 11,
-                            color: const Color(0xFF037585),
-                            fontWeight: FontWeight.w600,
-                          )
-                        ],
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 0.0,
-                          horizontal: 16,
-                        ),
-                        primary: _currentPage == 1
-                            ? const Color(0x6B08B3CB)
-                            : const Color(0xFFF2F2F2),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _currentPage = 2;
-                        });
-
-                        _pageController!.animateToPage(
-                          _currentPage,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeIn,
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipOval(
-                            child: _currentPage == 2
-                                ? Container(
-                                    padding: const EdgeInsets.all(3),
-                                    color: const Color(0xFF037585),
-                                  )
-                                : const SizedBox(),
-                          ),
-                          const SizedBox(width: 4),
-                          TextRaleway(
-                            text: 'Free delivery',
-                            fontSize: 11,
-                            color: const Color(0xFF037585),
-                            fontWeight: FontWeight.w600,
-                          )
-                        ],
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 0.0,
-                          horizontal: 16,
-                        ),
-                        primary: _currentPage == 2
-                            ? const Color(0x6B08B3CB)
-                            : const Color(0xFFF2F2F2),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(4.0),
-                          ),
-                        ),
-                      ),
-                    ),
+                    );
+                  }
+                ),
+              ],
+            ) : Center(
+              child: Text("No Catalog Found"),
+            ),
+          ),
+          Positioned(
+            right: 0,
+            top: -24,
+            left: 0,
+            child: Container(
+              padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.225 + 32),
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Color(0x180C0C0C),
+                    Color(0x7A0C0C0C),
+                    Colors.transparent,
+                  ],
+                  stops: [
+                    0.2,
+                    0.5,
+                    1,
                   ],
                 ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: PageView.builder(
-                    itemBuilder: (ctx, i) => Container(
-                      child: _currentPage == 0
-                          ? PopularContent(
-                              vendorId: widget.data["id"],
-                            )
-                          : _currentPage == 1
-                              ? PickupContent(
-                                  vendorId: widget.data["id"],
-                                  delivery: "Pick up",
-                                )
-                              : FastfoodContent(
-                                  vendorId: widget.data["id"],
-                                  delivery: "Free delivery",
-                                ),
-                    ),
-                    itemCount: 3,
-                    controller: _pageController,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: _onPageChanged,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Constants.makePhoneCall("tel: ${widget.vendor.phone}");
+                        },
+                        child: TextRoboto(
+                          text: "${widget.vendor.phone}",
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
-                )
-              ],
+                  const SizedBox(width: 4),
+                  InkWell(
+                    onTap: () {
+                      Constants.launchInBrowser("${widget.vendor.website}");
+                    },
+                    child: TextRoboto(
+                      text: "${widget.vendor.website}",
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                        color: Colors.white,
+                        size: 13,
+                      ),
+                      const SizedBox(width: 2),
+                      InkWell(
+                        onTap: () {
+                          // Constants.launchMap("${widget.vendor.address}");
+                        },
+                        child: TextRoboto(
+                          text: "${widget.vendor.address}".length > 32
+                              ? "${widget.vendor.address}"
+                                      .substring(0, 32) +
+                                  "..."
+                              : "${widget.vendor.address}",
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -300,90 +278,21 @@ class _VendorState extends State<Vendor> with TickerProviderStateMixin {
                     child: ClipOval(
                       child: FadeInImage.assetNetwork(
                         placeholder: 'assets/images/placeholder.png',
-                        image: widget.data["logo"],
+                        image: "${widget.vendor.logo}",
                         fit: BoxFit.cover,
                         imageErrorBuilder: (context, error, stackTrace) =>
                             Image.asset('assets/images/placeholder.png'),
-                        width: MediaQuery.of(context).size.width * 0.275,
-                        height: MediaQuery.of(context).size.width * 0.275,
+                        width: MediaQuery.of(context).size.width * 0.225,
+                        height: MediaQuery.of(context).size.width * 0.225,
                       ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    margin: const EdgeInsets.only(bottom: 21),
-                    color: const Color(0x29000000),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                TextRoboto(
-                                  text: widget.data["phone"],
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                const SizedBox(width: 4),
-                                ClipOval(
-                                  child: Container(
-                                    padding: const EdgeInsets.all(3),
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 4),
-                            TextRoboto(
-                              text: widget.data["website"],
-                              fontSize: 14,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            const SizedBox(height: 2),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.location_on_outlined,
-                                  color: Colors.white,
-                                  size: 13,
-                                ),
-                                const SizedBox(width: 2),
-                                TextRoboto(
-                                  text: widget.data["address"].length > 32
-                                      ? widget.data["address"]
-                                              .substring(0, 30) +
-                                          "..."
-                                      : widget.data["address"],
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
                     ),
                   ),
                 ),
               ],
             ),
-            top: -64,
-            right: 1,
-            left: 24,
-          )
+            top: -42,
+            left: 18,
+          ),
         ],
       ),
     );

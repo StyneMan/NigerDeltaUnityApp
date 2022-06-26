@@ -1,24 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/route_manager.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:niger_delta_unity_app/model/temp/news_model.dart';
-import 'package:niger_delta_unity_app/utility/constants.dart';
+import 'package:niger_delta_unity_app/model/news/news_model.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class NewsDetail extends StatefulWidget {
-  final Map<String, dynamic> newsItem;
-  const NewsDetail({Key? key, required this.newsItem}) : super(key: key);
+  PreferenceManager manager;
+  NewsModel? newsItem;
+  var data;
+  NewsDetail({Key? key, this.newsItem, this.data, required this.manager,}) : super(key: key);
 
   @override
   _NewsDetailState createState() => _NewsDetailState();
 }
 
 class _NewsDetailState extends State<NewsDetail> {
+
+  // QuillController _controller = QuillController(
+  //   document: Document.fromDelta(delta)
+  // );
+
   @override
   void initState() {
     super.initState();
+  }
+
+  void _onShare(BuildContext context) async {
+    await Share.share(
+      'News feed',
+      subject: "ACCESSPRO Access Code",
+    );
   }
 
   @override
@@ -27,8 +43,8 @@ class _NewsDetailState extends State<NewsDetail> {
       clipBehavior: Clip.none,
       children: [
         SlidingUpPanel(
-          maxHeight: MediaQuery.of(context).size.height * 0.60,
-          minHeight: 144,
+          maxHeight: MediaQuery.of(context).size.height * 0.61,
+          minHeight: MediaQuery.of(context).size.height * 0.61,
           parallaxEnabled: true,
           defaultPanelState: PanelState.OPEN,
           renderPanelSheet: true,
@@ -38,7 +54,7 @@ class _NewsDetailState extends State<NewsDetail> {
             height: double.infinity,
             child: FadeInImage.assetNetwork(
               placeholder: 'assets/images/placeholder.png',
-              image: widget.newsItem["image"],
+              image: '${widget.newsItem?.image ?? widget.data['image']}',
               fit: BoxFit.cover,
               width: double.infinity,
               height: MediaQuery.of(context).size.width * 0.75,
@@ -49,9 +65,6 @@ class _NewsDetailState extends State<NewsDetail> {
             topLeft: Radius.circular(18.0),
             topRight: Radius.circular(18.0),
           ),
-          onPanelSlide: (double pos) {
-            print('on panel kj...');
-          },
         ),
         Positioned(
           child: Container(
@@ -72,15 +85,35 @@ class _NewsDetailState extends State<NewsDetail> {
               ),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                FloatingActionButton(
+                FloatingActionButton.small(
                   elevation: 0.0,
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: Color(0x46707070),
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: SvgPicture.asset('assets/images/back_circular.svg'),
+                  child: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                ),
+                FloatingActionButton.small(
+                  onPressed: () {
+                    _onShare(context);
+                  },
+                  backgroundColor: Color(0x46707070),
+                  child:  ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(4),),
+                    child: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                      size: 18,
+                    ),
+                  ),
+                  elevation: 0.0,
                 ),
               ],
             ),
@@ -98,7 +131,6 @@ class _NewsDetailState extends State<NewsDetail> {
       context: context,
       removeTop: true,
       child: Stack(
-        clipBehavior: Clip.none,
         children: [
           Container(
             padding: const EdgeInsets.all(21),
@@ -106,7 +138,7 @@ class _NewsDetailState extends State<NewsDetail> {
             child: ListView(
               children: [
                 const SizedBox(
-                  height: 21,
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -116,17 +148,17 @@ class _NewsDetailState extends State<NewsDetail> {
                         vertical: 6,
                         horizontal: 16,
                       ),
-                      color: widget.newsItem["category"].contains("ports")
+                      color: '${widget.newsItem?.category ?? widget.data['category']}'.contains("ports")
                           ? const Color(0x8FFFAF66)
-                          : widget.newsItem["category"].contains("news")
+                          : '${widget.newsItem?.category ?? widget.data['category']}'.contains("news")
                               ? const Color(0x330871BD)
                               : Colors.grey[400]!,
                       child: TextRopa(
-                        text: widget.newsItem["category"],
-                        fontSize: 12,
-                        color: widget.newsItem["category"].contains("ports")
+                        text: '${widget.newsItem?.category ?? widget.data['category']}',
+                        fontSize: 13,
+                        color: '${widget.newsItem?.category ?? widget.data['category']}'.contains("ports")
                             ? const Color(0xFFF87900)
-                            : widget.newsItem["category"].contains("news")
+                            : '${widget.newsItem?.category ?? widget.data['category']}'.contains("news")
                                 ? const Color(0xFF0871BD)
                                 : Colors.black,
                         fontWeight: FontWeight.w400,
@@ -136,14 +168,14 @@ class _NewsDetailState extends State<NewsDetail> {
                   ],
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 8.0,
                 ),
                 Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: TextRoboto(
-                    text: widget.newsItem["title"],
-                    fontSize: 12,
+                    text: '${widget.newsItem?.title ?? widget.data['title']}',
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: Colors.black,
                   ),
@@ -160,8 +192,16 @@ class _NewsDetailState extends State<NewsDetail> {
                         ClipOval(
                           child: FadeInImage.assetNetwork(
                             placeholder: 'assets/images/placeholder.png',
-                            image: widget.newsItem["authorPhoto"],
+                            image: '${widget.newsItem?.authorPhoto ?? widget.data['authorPhoto']}',
                             fit: BoxFit.cover,
+                            imageErrorBuilder: (context, stack, err) {
+                              return Image.asset(
+                                "assets/images/placeholder.png",
+                                fit: BoxFit.cover,
+                                height: 24,
+                                width: 24,
+                              );
+                            }, 
                             height: 24,
                             width: 24,
                           ),
@@ -174,15 +214,15 @@ class _NewsDetailState extends State<NewsDetail> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextRoboto(
-                              text: widget.newsItem["authorName"],
+                              text: '${widget.newsItem?.authorName ?? widget.data['authorName']}',
                               fontSize: 9,
                               color: Colors.black,
                             ),
-                            TextRoboto(
-                              text: '1hr ago  30 shares',
-                              fontSize: 8,
-                              color: const Color(0xFFB6B6B6),
-                            ),
+                            // TextRoboto(
+                            //   text: '1hr ago  30 shares',
+                            //   fontSize: 8,
+                            //   color: const Color(0xFFB6B6B6),
+                            // ),
                           ],
                         )
                       ],
@@ -199,210 +239,36 @@ class _NewsDetailState extends State<NewsDetail> {
                 const Divider(
                   thickness: 1.0,
                 ),
-                const SizedBox(height: 8),
-                TextRoboto(
-                  text: widget.newsItem["subTitle"],
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                ),
                 const SizedBox(
-                  height: 4,
+                  height: 8.0,
                 ),
-                TextRoboto(
-                  text: widget.newsItem["body"],
-                  fontSize: 11,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black,
-                ),
+                Html(
+                  data: "${widget.newsItem?.body ?? widget.data['body']}"),
                 const SizedBox(
                   height: 4,
                 ),
               ],
             ),
           ),
-          Positioned(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FloatingActionButton(
-                  backgroundColor: Constants.accentColor,
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.share,
-                    color: Colors.white,
-                    size: 32,
-                  ),
-                )
-              ],
-            ),
-            top: -24,
-            right: 32,
-            left: 32,
-          )
+          // Positioned(
+          //   child: Container(
+          //     child: ElevatedButton(
+          //       onPressed: (){
+          //         print("JKJD");
+          //       },
+          //       child: const Icon(
+          //         Icons.share,
+          //         color: Colors.white,
+          //         size: 32,
+          //       ),
+          //     ),
+          //   ),
+          //   top: -24,
+          //   right: 16,
+          // )
         ],
       ),
     );
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   Future.delayed(const Duration(milliseconds: 100), () {
-  //     if (_showBottomSheet) {
-  //       showCupertinoModalBottomSheet(
-  //         expand: false,
-  //         enableDrag: false,
-  //         useRootNavigator: true,
-  //         barrierColor: Colors.transparent,
-  //         elevation: 0.0,
-  //         context: context,
-  //         topRadius: const Radius.circular(32),
-  //         backgroundColor: Colors.white,
-  //         builder: (context) => Container(
-  //           height: 256,
-  //           padding: const EdgeInsets.all(10),
-  //           decoration: const BoxDecoration(
-  //             borderRadius: BorderRadius.only(
-  //               topLeft: Radius.circular(24),
-  //               topRight: Radius.circular(24),
-  //             ),
-  //           ),
-  //           child: Scaffold(
-  //             body: Stack(
-  //               clipBehavior: Clip.none,
-  //               children: [
-  //                 Column(
-  //                   mainAxisAlignment: MainAxisAlignment.start,
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   children: [
-  //                     Container(
-  //                       padding: const EdgeInsets.all(10),
-  //                       color: widget.newsItem.category == 'World news'
-  //                           ? const Color(0x8FFFAF66)
-  //                           : widget.newsItem.category == 'Sports news'
-  //                               ? const Color(0x330871BD)
-  //                               : Colors.transparent,
-  //                       child: TextRopa(
-  //                         fontSize: 12,
-  //                         text: widget.newsItem.category,
-  //                         color: widget.newsItem.category == 'World news'
-  //                             ? const Color(0xFFF87900)
-  //                             : widget.newsItem.category == 'Sports news'
-  //                                 ? const Color(0xFF0871BD)
-  //                                 : Colors.transparent,
-  //                       ),
-  //                     ),
-  //                     Container(
-  //                       padding: const EdgeInsets.all(10),
-  //                       width: MediaQuery.of(context).size.width * 0.6,
-  //                       child: TextRoboto(
-  //                         text: widget.newsItem.title,
-  //                         fontSize: 12,
-  //                         fontWeight: FontWeight.w700,
-  //                         color: Colors.black,
-  //                       ),
-  //                     ),
-  //                     const SizedBox(
-  //                       height: 10,
-  //                     ),
-  //                     Row(
-  //                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                       crossAxisAlignment: CrossAxisAlignment.center,
-  //                       children: [
-  //                         Row(
-  //                           children: [
-  //                             ClipOval(
-  //                               child: FadeInImage.assetNetwork(
-  //                                 placeholder: 'assets/images/placeholder.png',
-  //                                 image:
-  //                                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&usqp=CAU',
-  //                                 fit: BoxFit.cover,
-  //                                 height: 24,
-  //                                 width: 24,
-  //                               ),
-  //                             ),
-  //                             const SizedBox(
-  //                               width: 16.0,
-  //                             ),
-  //                             Column(
-  //                               mainAxisAlignment: MainAxisAlignment.start,
-  //                               crossAxisAlignment: CrossAxisAlignment.start,
-  //                               children: [
-  //                                 TextRoboto(
-  //                                   text: 'John Doe',
-  //                                   fontSize: 8,
-  //                                   color: Colors.black,
-  //                                 ),
-  //                                 TextRoboto(
-  //                                   text: '1hr ago  30 shares',
-  //                                   fontSize: 7,
-  //                                   color: const Color(0xFFB6B6B6),
-  //                                 ),
-  //                               ],
-  //                             )
-  //                           ],
-  //                         ),
-  //                         IconButton(
-  //                           onPressed: () {},
-  //                           icon: const Icon(
-  //                             Icons.bookmark_outline,
-  //                             color: Colors.black,
-  //                           ),
-  //                         )
-  //                       ],
-  //                     ),
-  //                     const SizedBox(
-  //                       height: 10,
-  //                     ),
-  //                     const Divider(
-  //                       thickness: 1.0,
-  //                     )
-  //                   ],
-  //                 ),
-  //                 Positioned(
-  //                   child: FloatingActionButton(
-  //                     backgroundColor: const Color(0xFF0094FF),
-  //                     onPressed: () {},
-  //                     child: const Icon(
-  //                       Icons.share,
-  //                       color: Colors.white,
-  //                       size: 24,
-  //                     ),
-  //                   ),
-  //                   bottom: -50,
-  //                   top: -50,
-  //                   right: 10,
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       );
-  //       // Get.bottomSheet(
-
-  //       //     barrierColor: Colors.transparent,
-  //       //     enableDrag: false,
-  //       //     isDismissible: false);
-  //     }
-  //   });
-  //   return Scaffold(
-  //     floatingActionButton: FloatingActionButton(
-  //       backgroundColor: Colors.transparent,
-  //       onPressed: () {
-  //         Navigator.pop(context);
-  //       },
-  //       child: SvgPicture.asset('assets/images/back_circular.svg'),
-  //     ),
-  //     floatingActionButtonLocation: FloatingActionButtonLocation.miniStartTop,
-  //     body: SizedBox(
-  //       height: MediaQuery.of(context).size.height * 0.75,
-  //       width: double.infinity,
-  //       child: FadeInImage.assetNetwork(
-  //         placeholder: 'assets/images/placeholder.png',
-  //         image: widget.newsItem.image!,
-  //       ),
-  //     ),
-  //   );
-  // }
 }

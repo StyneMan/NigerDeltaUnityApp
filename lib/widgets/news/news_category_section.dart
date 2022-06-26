@@ -1,20 +1,30 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:niger_delta_unity_app/model/categories/categories.dart';
 import 'package:niger_delta_unity_app/screens/news/news_by_category.dart';
+import 'package:niger_delta_unity_app/utility/preference_manager.dart';
+import 'package:niger_delta_unity_app/widgets/news/components/category_item.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shimmer/shimmer.dart';
 
 class NewsCategorySection extends StatelessWidget {
-  NewsCategorySection({Key? key}) : super(key: key);
+  final PreferenceManager manager;
+  NewsCategorySection({Key? key, required this.manager,}) : super(key: key);
 
-  final Stream<QuerySnapshot> _categoriesStream =
-      FirebaseFirestore.instance.collection('categories').snapshots();
+  // final Stream<QuerySnapshot> _categoriesStream =
+  //     FirebaseFirestore.instance.collection('categories').snapshots();
+
+  final categoryQuery =
+      FirebaseFirestore.instance.collection('categories')
+      .withConverter(
+        fromFirestore: (snapshot, _) => CategoriesModel.fromJson(snapshot.data()!) , 
+        toFirestore: (CategoriesModel mod, _) => mod.toJson());
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _categoriesStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return StreamBuilder<QuerySnapshot<CategoriesModel>>(
+      stream: categoryQuery.snapshots(),
+      builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
@@ -24,14 +34,35 @@ class NewsCategorySection extends StatelessWidget {
             children: [for (var k = 0; k < 3; k++) _categoryShimmer(context)],
           );
         }
-        return ListView(
+        if (!snapshot.hasData) {
+          return const SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Center(
+              child: Text("No Data Found..."),
+            ),
+          );
+        }
+        final data = snapshot.requireData;
+
+        return ListView.builder(
           scrollDirection: Axis.horizontal,
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data = document.data()!;
-            return _categoryItemCard(context, data);
-          }).toList(),
+          itemCount: data.size,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () {
+                pushNewScreen(
+                  context,
+                  screen: NewsByCategory(
+                    category: "${data.docs[index].data().title}",
+                    manager: manager,
+                  ),
+                );
+              },
+              child: CategoryItem(model: data.docs[index].data()));
+          }
         );
-      },
+      }
     );
   }
 
@@ -63,68 +94,4 @@ class NewsCategorySection extends StatelessWidget {
     );
   }
 
-  Widget _categoryItemCard(BuildContext context, data) {
-    return InkWell(
-      onTap: () {
-        pushNewScreen(
-          context,
-          screen: NewsByCategory(
-            category: data["title"],
-          ),
-        );
-      },
-      child: Container(
-        padding: const EdgeInsets.only(
-          right: 10,
-          bottom: 12,
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.all(
-            Radius.circular(12),
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: <Widget>[
-              FadeInImage.assetNetwork(
-                placeholder: 'assets/images/placeholder.png',
-                image: data["url"],
-                fit: BoxFit.cover,
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/images/placeholder.png',
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.height * 0.25,
-                    fit: BoxFit.cover,
-                  );
-                },
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.height * 0.25,
-                repeat: ImageRepeat.noRepeat,
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0x290c0c0c), Color(0x900c0c0c)],
-                    ),
-                  ),
-                  child: Text(
-                    data["title"]!,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

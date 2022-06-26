@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/apple/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/incremental/mergeDebugResources/merged.dir/values-tl/values-tl.xml",
+            "outputFile": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/incremental/mergeDebugResources/merged.dir/values-tl/values-tl.xml",
             "map": [
                 {
-                    "source": "/Users/apple/.gradle/caches/transforms-3/d62b6350a24e4197d5f2e4d6250bd94f/transformed/core-1.1.0/res/values-tl/values-tl.xml",
+                    "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/values-tl/values-tl.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "/Users/apple/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/values-tl/values-tl.xml",
+            "outputFile": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/values-tl/values-tl.xml",
             "map": [
                 {
-                    "source": "/Users/apple/.gradle/caches/transforms-3/d62b6350a24e4197d5f2e4d6250bd94f/transformed/core-1.1.0/res/values-tl/values-tl.xml",
+                    "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/values-tl/values-tl.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

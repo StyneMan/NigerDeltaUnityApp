@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:niger_delta_unity_app/model/vendor/vendor_model.dart';
 import 'package:niger_delta_unity_app/screens/vendor/vendor.dart';
 import 'package:niger_delta_unity_app/widgets/text/text_widgets.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class FeaturedVendors extends StatefulWidget {
-  final Map<String, dynamic> data;
-  const FeaturedVendors({Key? key, required this.data}) : super(key: key);
+  final VendorModel vendor;
+  const FeaturedVendors({Key? key, required this.vendor}) : super(key: key);
 
   @override
   _FeaturedVendorsState createState() => _FeaturedVendorsState();
@@ -15,14 +16,14 @@ class _FeaturedVendorsState extends State<FeaturedVendors> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.6,
-      padding: const EdgeInsets.only(right: 16),
+      // width: MediaQuery.of(context).size.width * 0.6,
+      padding: const EdgeInsets.only(right: 10),
       child: InkWell(
         onTap: () {
           pushNewScreen(
             context,
             screen: Vendor(
-              data: widget.data,
+              vendor: widget.vendor,
             ),
           );
           // Get.to(
@@ -46,28 +47,33 @@ class _FeaturedVendorsState extends State<FeaturedVendors> {
                   children: [
                     ClipOval(
                       child: SizedBox(
-                        width: 36,
-                        height: 36,
+                        width: 24,
+                        height: 24,
                         child: FadeInImage.assetNetwork(
                           placeholder: 'assets/images/placeholder.png',
-                          image: widget.data["logo"],
+                          image: "${widget.vendor.logo ?? ""}",
                           fit: BoxFit.cover,
-                          width: 36,
-                          height: 36,
+                          width: 24,
+                          height: 24,
                         ),
                       ),
                     ),
-                    TextRaleway(
-                      text: widget.data["name"],
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
+                    const SizedBox(width: 2.0),
+                    Text(
+                      "${widget.vendor.name}".length > 24 ? "${widget.vendor.name}".substring(0, 23) + "..." : "${widget.vendor.name}",
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black
+                      ),
+
                     ),
                   ],
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
+                InkWell(
+                  onTap: () {},
+                  child: const Icon(
                     Icons.more_vert_outlined,
                     color: Colors.black87,
                     size: 18,
@@ -76,7 +82,7 @@ class _FeaturedVendorsState extends State<FeaturedVendors> {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 6,
             ),
             SizedBox(
               width: double.infinity,
@@ -86,7 +92,7 @@ class _FeaturedVendorsState extends State<FeaturedVendors> {
                 ),
                 child: FadeInImage.assetNetwork(
                   placeholder: 'assets/images/placeholder.png',
-                  image: widget.data["image"],
+                  image: "${widget.vendor.image}",
                   fit: BoxFit.cover,
                   height: MediaQuery.of(context).size.height * 0.225,
                   width: MediaQuery.of(context).size.width * 0.6,
@@ -94,51 +100,52 @@ class _FeaturedVendorsState extends State<FeaturedVendors> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 8,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextRaleway(
-                  text: widget.data["description"].length > 24
-                      ? widget.data["description"].substring(0, 23) + "..."
-                      : widget.data["description"],
-                  fontSize: 16,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w700,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
+                // TextRaleway(
+                //   text: "${widget.vendor.description}".length > 24
+                //       ? "${widget.vendor.description}".substring(0, 23) + "..."
+                //       : "${widget.vendor.description}",
+                //   fontSize: 16,
+                //   color: Colors.black,
+                //   fontWeight: FontWeight.w700,
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     TextRaleway(
-                      text: widget.data["address"].length > 21
-                          ? widget.data["address"].substring(0, 18) + "..."
-                          : widget.data["address"],
+                      text: "${widget.vendor.address}".length > 21
+                          ? "${widget.vendor.address}".substring(0, 18) + "..."
+                          : "${widget.vendor.address}",
                       fontSize: 12,
                       color: const Color(0xFF828282),
                       fontWeight: FontWeight.w600,
                     ),
                     const SizedBox(
-                      width: 16,
+                      width: 8.0,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Icon(
-                          widget.data["is24Hours"]
+                          widget.vendor.is24Hours
                               ? Icons.lock_open_sharp
                               : Icons.lock,
                           color: const Color(0xFFF25E22),
+                          size: 16,
                         ),
                         TextRaleway(
-                          text: widget.data["is24Hours"] ? 'OPEN' : 'CLOSED',
-                          fontSize: 14,
+                          text: widget.vendor.is24Hours ? 'OPEN' : 'CLOSED',
+                          fontSize: 10,
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFFF25E22),
                         ),

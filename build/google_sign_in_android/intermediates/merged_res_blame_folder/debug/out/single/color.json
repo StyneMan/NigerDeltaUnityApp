@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/google_sign_in_android/intermediates/res/merged/debug/color/common_google_signin_btn_tint.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/89500af93ccd73cc2cdb1e133dded479/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/google_sign_in_android/intermediates/res/merged/debug/color/common_google_signin_btn_text_dark.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/89500af93ccd73cc2cdb1e133dded479/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/google_sign_in_android/intermediates/res/merged/debug/color/common_google_signin_btn_text_light.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/89500af93ccd73cc2cdb1e133dded479/transformed/jetified-play-services-base-18.0.1/res/color/common_google_signin_btn_text_light.xml"
+    }
+]

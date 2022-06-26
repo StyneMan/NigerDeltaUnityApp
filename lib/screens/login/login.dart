@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:loading_overlay_pro/loading_overlay_pro.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:niger_delta_unity_app/forms/login/login_form.dart';
@@ -24,93 +26,85 @@ class _LoginState extends State<Login> {
     return Obx(
       () => LoadingOverlayPro(
         isLoading: _controller.isLoading.value,
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            SlidingUpPanel(
-              maxHeight: MediaQuery.of(context).size.height * 0.60,
-              minHeight: 144,
-              parallaxEnabled: true,
-              defaultPanelState: PanelState.OPEN,
-              renderPanelSheet: true,
-              parallaxOffset: .5,
-              body: Container(
-                color: Constants.primaryColor,
-                width: double.infinity,
-                height: double.infinity,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Image.asset(
-                      'assets/images/pattern.png',
-                      fit: BoxFit.cover,
-                    ),
-                    Positioned(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    'assets/images/logo_white.png',
-                                    height: MediaQuery.of(context).size.height *
-                                        0.18,
-                                  ),
-                                  const SizedBox(
-                                    height: 4.0,
-                                  ),
-                                  const Text(
-                                    'Niger Delta Unity App',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 48,
-                            ),
-                          ],
-                        ),
+        progressIndicator: Platform.isAndroid ? const CircularProgressIndicator(color: Colors.white,) : const CupertinoActivityIndicator(animating: true,),
+        backgroundColor: Colors.black54,
+        child: Scaffold(
+          body: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              SlidingUpPanel(
+                maxHeight: MediaQuery.of(context).size.height * 0.60,
+                minHeight: MediaQuery.of(context).size.height * 0.60,
+                parallaxEnabled: true,
+                defaultPanelState: PanelState.OPEN,
+                renderPanelSheet: true,
+                parallaxOffset: .5,
+                body: Container(
+                  color: Constants.primaryColor,
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        'assets/images/pattern.png',
+                        fit: BoxFit.cover,
                       ),
-                      top: 10,
-                      bottom: 10,
-                      left: 10,
-                      right: 10,
-                    )
-                  ],
+                      Positioned(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/logo_white.png',
+                                      height: MediaQuery.of(context).size.height *
+                                          0.16,
+                                    ),
+                                    const SizedBox(
+                                      height: 4.0,
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: const Text(
+                                        'Niger Delta Unity App',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 48,
+                              ),
+                            ],
+                          ),
+                        ),
+                        top: 20,
+                        left: 10,
+                        right: 10,
+                        bottom: MediaQuery.of(context).size.height * 0.60,
+                      ),
+                    ],
+                  ),
+                ),
+                panelBuilder: (sc) => _panel(sc),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(24.0),
+                  topRight: Radius.circular(24.0),
                 ),
               ),
-              panelBuilder: (sc) => _panel(sc),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(24.0),
-                topRight: Radius.circular(24.0),
-              ),
-            ),
-            Positioned(
-              child: FloatingActionButton(
-                elevation: 0.0,
-                backgroundColor: Colors.transparent,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.close,
-                  color: Colors.white,
-                ),
-              ),
-              top: 36,
-              left: 10,
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -120,7 +114,103 @@ class _LoginState extends State<Login> {
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: const LoginForm(),
+      child: const ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(18),
+          topRight: Radius.circular(18),
+        ),
+        child: LoginForm(),
+      ),
     );
   }
+
 }
+
+// child: Stack(
+//   clipBehavior: Clip.none,
+//   children: [
+//     SlidingUpPanel(
+//       maxHeight: MediaQuery.of(context).size.height * 0.61,
+//       minHeight: MediaQuery.of(context).size.height * 0.60,
+//       parallaxEnabled: true,
+//       defaultPanelState: PanelState.OPEN,
+//       renderPanelSheet: true,
+//       parallaxOffset: .5,
+//       body: Container(
+//         color: Constants.primaryColor,
+//         width: double.infinity,
+//         height: double.infinity,
+//         child: Stack(
+//           fit: StackFit.expand,
+//           children: [
+//             Image.asset(
+//               'assets/images/pattern.png',
+//               fit: BoxFit.cover,
+//             ),
+//             Positioned(
+//               child: Padding(
+//                 padding: const EdgeInsets.all(8.0),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.start,
+//                   crossAxisAlignment: CrossAxisAlignment.center,
+//                   children: <Widget>[
+//                     Expanded(
+//                       child: Column(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         crossAxisAlignment: CrossAxisAlignment.center,
+//                         children: [
+//                           Image.asset(
+//                             'assets/images/logo_white.png',
+//                             height: MediaQuery.of(context).size.height *
+//                                 0.18,
+//                           ),
+//                           const SizedBox(
+//                             height: 4.0,
+//                           ),
+//                           const Text(
+//                             'Niger Delta Unity App',
+//                             style: TextStyle(
+//                               color: Colors.white,
+//                               fontSize: 18,
+//                             ),
+//                           )
+//                         ],
+//                       ),
+//                     ),
+//                     const SizedBox(
+//                       height: 48,
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               top: 10,
+//               bottom: 10,
+//               left: 10,
+//               right: 10,
+//             )
+//           ],
+//         ),
+//       ),
+//       panelBuilder: (sc) => _panel(sc),
+//       borderRadius: const BorderRadius.only(
+//         topLeft: Radius.circular(24.0),
+//         topRight: Radius.circular(24.0),
+//       ),
+//     ),
+//     Positioned(
+//       child: FloatingActionButton(
+//         elevation: 0.0,
+//         backgroundColor: Colors.transparent,
+//         onPressed: () {
+//           Navigator.pop(context);
+//         },
+//         child: const Icon(
+//           Icons.close,
+//           color: Colors.white,
+//         ),
+//       ),
+//       top: 36,
+//       left: 10,
+//     )
+//   ],
+// ),

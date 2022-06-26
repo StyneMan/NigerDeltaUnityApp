@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/url_launcher_android/intermediates/res/merged/debug/layout/notification_action.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/layout/notification_action.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/url_launcher_android/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/url_launcher_android/intermediates/res/merged/debug/layout/custom_dialog.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/layout/custom_dialog.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/url_launcher_android/intermediates/res/merged/debug/layout/notification_action_tombstone.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/url_launcher_android/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/macintosh/Developer/NigerDeltaUnityApp/build/url_launcher_android/intermediates/res/merged/debug/layout/notification_template_icon_group.xml",
+        "source": "/private/var/root/.gradle/caches/transforms-3/e1692087fb43a8714dc3d89bbea9822a/transformed/core-1.6.0/res/layout/notification_template_icon_group.xml"
+    }
+]

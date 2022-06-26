@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>327501807065-l9p8sfeeenmbc9jcr3s03dlga5kr13qc.apps.googleusercontent.com</string>
+	<string>479086665205-59s1vevdhfn8mhggm3mtq4i1f0v57rb9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.327501807065-l9p8sfeeenmbc9jcr3s03dlga5kr13qc</string>
+	<string>com.googleusercontent.apps.479086665205-59s1vevdhfn8mhggm3mtq4i1f0v57rb9</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBZQETpV6GegHuNX6Dp0P9kDuVzAQNNzKY</string>
+	<string>AIzaSyA3BAHGg2-CpGR78LBs59NAueliecsCVZM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>327501807065</string>
+	<string>479086665205</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.app.ndua</string>
 	<key>PROJECT_ID</key>
-	<string>ndua-b15fc</string>
+	<string>ndua-f0c12</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ndua-b15fc.appspot.com</string>
+	<string>ndua-f0c12.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:327501807065:ios:569c9715b077999ab2adc8</string>
+	<string>1:479086665205:ios:34165f425961f8a7d214bc</string>
 </dict>
 </plist>

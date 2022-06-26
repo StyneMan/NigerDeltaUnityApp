@@ -1,4 +1,3 @@
-import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:niger_delta_unity_app/utility/constants.dart';

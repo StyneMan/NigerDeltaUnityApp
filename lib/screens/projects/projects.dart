@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:niger_delta_unity_app/model/others/states.dart';
-import 'package:niger_delta_unity_app/model/temp/projects_model.dart';
 import 'package:niger_delta_unity_app/utility/preference_manager.dart';
 import 'package:niger_delta_unity_app/widgets/drawer/custom_drawer.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'components/project_card.dart';
+import 'components/state_card.dart';
 
 class Projects extends StatefulWidget {
   final PreferenceManager prefManager;
@@ -20,7 +18,7 @@ class _ProjectsState extends State<Projects> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String? _statesName;
   final Stream<QuerySnapshot> _projectsStream =
-      FirebaseFirestore.instance.collection('projects').snapshots();
+      FirebaseFirestore.instance.collection('states').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -85,35 +83,6 @@ class _ProjectsState extends State<Projects> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                ),
-                child: DropdownButton(
-                  hint: Text(
-                    _statesName ?? 'Select project state',
-                  ),
-                  // disabledHint: ,
-                  items: nigerDeltaStates.map((e) {
-                    return DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
-                    );
-                  }).toList(),
-                  value: _statesName,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _statesName = newValue as String?;
-                    });
-                  },
-                  icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                  iconSize: 34,
-                  isExpanded: true,
-                  underline: const SizedBox(),
-                ),
-              ),
               const SizedBox(height: 16.0),
               Expanded(
                 child: StreamBuilder<QuerySnapshot>(
@@ -130,29 +99,22 @@ class _ProjectsState extends State<Projects> {
                     }
 
                     return GridView.builder(
-                        padding: const EdgeInsets.all(8.0),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisSpacing: 5,
-                          mainAxisSpacing: 5,
-                          crossAxisCount: 3,
-                        ),
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, i) {
-                          return ProjectCard(
-                            index: i,
-                            data: snapshot.data!.docs,
-                          );
-                        });
-
-                    // Column(
-                    //   children:
-                    //       snapshot.data!.docs.map((DocumentSnapshot document) {
-                    //     Map<String, dynamic> data =
-                    //         document.data()! as Map<String, dynamic>;
-                    //     return ProjectCard(data: data);
-                    //   }).toList(),
-                    // );
+                      padding: const EdgeInsets.all(8.0),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 5,
+                        mainAxisSpacing: 5,
+                        crossAxisCount: 3,
+                      ),
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, i) {
+                        return StateCard(
+                          index: i,
+                          data: snapshot.data!.docs,
+                          manager: widget.prefManager,
+                        );
+                      }
+                    );
                   },
                 ),
               ),

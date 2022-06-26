@@ -1,5 +1,5 @@
 class CategoriesModel {
-  String? id;
+  int? id;
   String? title;
   String? url;
 
